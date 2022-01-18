@@ -16,6 +16,10 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { IoLogoGithub } from "react-icons/io5";
+import { IoWallet } from "react-icons/io5";
+import { getShortAccountHash, login } from "../pages/api/util";
+import { useContext } from "react";
+import { MetaContext } from "../context/MetaContext";
 
 const LinkItem = ({ href, path, _target, children, ...props }) => {
 	const active = path === href;
@@ -53,12 +57,13 @@ const Navbar = (props) => {
 			{...props}>
 			<Container
 				display="flex"
-				p={2}
-				maxW="container.lg"
+				p={8}
+				maxW="full"
 				wrap="wrap"
 				align="center"
+				alignItems="center"
 				justify="space-between">
-				<Flex align="center" mr={5}>
+				<Flex align="center" mr={12}>
 					<Heading as="h1" size="lg" letterSpacing={"tighter"}>
 						<Logo />
 					</Heading>
@@ -92,8 +97,36 @@ const Navbar = (props) => {
 						Source
 					</LinkItem> */}
 				</Stack>
+				<ConnectWallet />
 			</Container>
 		</Box>
+	);
+};
+
+const ConnectWallet = () => {
+	const [address, metamask] = useContext(MetaContext);
+
+	return (
+		<div className="fixed top-0 right-0 p-8 z-50">
+			<button
+				onClick={login}
+				className="border border-white text-center rounded-full px-2 py-1 md:px-6 md:py-3 items-center"
+				disabled={metamask}>
+				<div
+					className={
+						address
+							? `text-lg md:text-2xl font-bold p-2 text-orange-500 inline-flex items-center gap-2`
+							: `text-lg md:text-2xl font-bold p-2 text-white inline-flex items-center gap-2`
+					}>
+					<IoWallet className="mt-1" />
+					{metamask
+						? "Install MetaMask!"
+						: address
+						? getShortAccountHash(address)
+						: "Connect wallet"}
+				</div>
+			</button>
+		</div>
 	);
 };
 
