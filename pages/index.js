@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { ethers } from "ethers";
+import Section from "../components/Section";
 
 export default function Home() {
 	return (
@@ -10,8 +11,10 @@ export default function Home() {
 				<meta name="description" content="Amuze-Museum at your fingertips" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="h-screen">test</div>
-			<div className="h-screen">test</div>
+			<Section delay={0.2}>
+				<div className="h-screen text-white">test</div>
+				<div className="h-screen">test</div>
+			</Section>
 		</div>
 	);
 }

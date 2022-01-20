@@ -1,25 +1,10 @@
-import Logo from "./Logo";
+import { Box, Container, Flex, Heading, Link, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
-import {
-	Container,
-	Box,
-	Link,
-	Stack,
-	Heading,
-	Flex,
-	Menu,
-	MenuItem,
-	MenuList,
-	MenuButton,
-	IconButton,
-	useColorModeValue,
-} from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { IoLogoGithub } from "react-icons/io5";
-import { IoWallet } from "react-icons/io5";
-import { getShortAccountHash, login } from "../pages/api/util";
 import { useContext } from "react";
+import { IoWallet } from "react-icons/io5";
 import { MetaContext } from "../context/MetaContext";
+import { getShortAccountHash, login } from "../pages/api/util";
+import Logo from "./Logo";
 
 const LinkItem = ({ href, path, _target, children, ...props }) => {
 	const active = path === href;
@@ -85,17 +70,6 @@ const Navbar = (props) => {
 					<LinkItem href="/renting" path={path}>
 						Renting/Listing
 					</LinkItem>
-					{/* <LinkItem
-						_target="_blank"
-						href="https://github.com/ong6/amuze"
-						path={path}
-						display="inline-flex"
-						alignItems="center"
-						style={{ gap: 4 }}
-						pl={2}>
-						<IoLogoGithub />
-						Source
-					</LinkItem> */}
 				</Stack>
 				<ConnectWallet />
 			</Container>
