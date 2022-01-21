@@ -1,14 +1,12 @@
-import { Box, Container } from "@chakra-ui/react";
-import { AnimatePresence } from "framer-motion";
-import Head from "next/head";
-import Navbar from "../Navigation/Navbar";
+import { Box } from "@chakra-ui/react";
 // import Footer from "../Footer";
 import { ethers } from "ethers";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { MetaContext } from "../../context/MetaContext";
 import Footer from "../Footer";
-import { useRouter } from "next/router";
-import MuseumNavbar from "../Navigation/MuseumNavbar";
+import MuseumNavbar from "../navigation/MuseumNavbar";
+import Navbar from "../navigation/Navbar";
 import Section from "../Section";
 
 const Main = ({ children, router }) => {
@@ -47,19 +45,12 @@ const Main = ({ children, router }) => {
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 				</Head>
 
-				<Section delay={0.2}>
-					{router.pathname === "/" ? (
-						<Navbar path={router.asPath} />
-					) : (
-						<MuseumNavbar path={router.asPath} />
-					)}
-				</Section>
-
-				<Box pt={14}>
-					{children}
-
-					<Footer />
-				</Box>
+				{/* <Section delay={0.1}>
+					<Navbar path={router.asPath} />
+				</Section> */}
+				{/* <Box pt={14}></Box> */}
+				{children}
+				<Footer />
 			</Box>
 		</MetaContext.Provider>
 	);

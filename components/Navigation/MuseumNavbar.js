@@ -1,5 +1,6 @@
 import { Box, Container, Flex, Heading, Link, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import { IoWallet } from "react-icons/io5";
 import { MetaContext } from "../../context/MetaContext";
@@ -29,7 +30,8 @@ const LinkItem = ({ href, path, _target, children, ...props }) => {
 };
 
 const MuseumNavbar = (props) => {
-	const { path } = props;
+	// const { path } = props;
+	const path = useRouter();
 
 	return (
 		<Box
@@ -50,7 +52,7 @@ const MuseumNavbar = (props) => {
 				justify="space-between">
 				<Flex align="center" mr={12}>
 					<Heading as="h1" size="lg" letterSpacing={"tighter"}>
-						<Logo />
+						<Logo title="National Museum of Singapore" />
 					</Heading>
 				</Flex>
 
@@ -61,14 +63,14 @@ const MuseumNavbar = (props) => {
 					alignItems="center"
 					flexGrow={1}
 					mt={{ md: 0 }}>
-					<LinkItem href="/museum" path={path}>
-						A
+					<LinkItem href="/" path={path}>
+						Full Collection
 					</LinkItem>
-					<LinkItem href="#works" path={path}>
-						b
+					<LinkItem href={`${path.asPath}/tours`} path={path}>
+						Tours
 					</LinkItem>
-					<LinkItem href="/renting" path={path}>
-						c
+					<LinkItem href={`${path.asPath}/souvenir`} path={path}>
+						Souvenir
 					</LinkItem>
 				</Stack>
 				<ConnectWallet />
