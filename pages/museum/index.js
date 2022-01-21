@@ -1,7 +1,8 @@
 import Head from "next/head";
-import Section from "../components/Section";
+import Image from "next/image";
+import Section from "../../components/Section";
 
-export default function Home() {
+export default function Museum() {
 	return (
 		<div>
 			<Head>

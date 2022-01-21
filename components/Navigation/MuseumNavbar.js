@@ -2,9 +2,9 @@ import { Box, Container, Flex, Heading, Link, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useContext } from "react";
 import { IoWallet } from "react-icons/io5";
-import { MetaContext } from "../context/MetaContext";
-import { getShortAccountHash, login } from "../pages/api/util";
-import Logo from "./Logo";
+import { MetaContext } from "../../context/MetaContext";
+import { getShortAccountHash, login } from "../../pages/api/util";
+import Logo from "../Logo";
 
 const LinkItem = ({ href, path, _target, children, ...props }) => {
 	const active = path === href;
@@ -28,7 +28,7 @@ const LinkItem = ({ href, path, _target, children, ...props }) => {
 	);
 };
 
-const Navbar = (props) => {
+const MuseumNavbar = (props) => {
 	const { path } = props;
 
 	return (
@@ -62,13 +62,13 @@ const Navbar = (props) => {
 					flexGrow={1}
 					mt={{ md: 0 }}>
 					<LinkItem href="/museum" path={path}>
-						Museums
+						A
 					</LinkItem>
 					<LinkItem href="#works" path={path}>
-						How it works
+						b
 					</LinkItem>
 					<LinkItem href="/renting" path={path}>
-						Renting/Listing
+						c
 					</LinkItem>
 				</Stack>
 				<ConnectWallet />
@@ -104,4 +104,4 @@ const ConnectWallet = () => {
 	);
 };
 
-export default Navbar;
+export default MuseumNavbar;
