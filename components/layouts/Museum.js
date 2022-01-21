@@ -1,6 +1,8 @@
-import { Global } from "@emotion/react";
+import { Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Head from "next/head";
+import MuseumNavbar from "../navigation/MuseumNavbar";
+import Section from "../Section";
 
 const variants = {
 	hidden: { opacity: 0, x: 0, y: 20 },
@@ -8,8 +10,8 @@ const variants = {
 	exit: { opacity: 0, x: -0, y: 20 },
 };
 
-const Layout = ({ children, title }) => (
-	<motion.article
+const Layout = ({ children, title, router }) => (
+	<motion.museum
 		initial="hidden"
 		animate="enter"
 		exit="exit"
@@ -22,21 +24,13 @@ const Layout = ({ children, title }) => (
 					<title>{title} - AMUZE</title>
 				</Head>
 			)}
-			{children}
+			<Section delay={0.1}>
+				<MuseumNavbar path={router} />
+			</Section>
 
-			<GridItemStyle />
+			<Box>{children}</Box>
 		</>
-	</motion.article>
-);
-
-const GridItemStyle = () => (
-	<Global
-		styles={`
-      .grid-item-thumbnail {
-        border-radius: 12px;
-      }
-    `}
-	/>
+	</motion.museum>
 );
 
 export default Layout;

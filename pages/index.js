@@ -9,9 +9,11 @@ import {
 } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
 import { Image } from "@chakra-ui/react";
+import Layout from "../components/layouts/Default";
+import { useRouter } from "next/router";
 export default function Home() {
 	return (
-		<div>
+		<Layout>
 			<Head>
 				<title>Amuze</title>
 				<meta name="description" content="Amuze-Museum at your fingertips" />
@@ -180,6 +182,6 @@ export default function Home() {
 					</div>
 				</section>
 			</Section>
-		</div>
+		</Layout>
 	);
 }
