@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { MetaContext } from "../../context/MetaContext";
+import Footer from "../Footer";
 
 const Main = ({ children, router }) => {
 	const [metamask, setMetamask] = useState(false);
@@ -37,7 +38,7 @@ const Main = ({ children, router }) => {
 
 	return (
 		<MetaContext.Provider value={{ network, address, metamask }}>
-			<Box as="main" pb={8}>
+			<Box as="main">
 				<Head>
 					<meta name="apple-mobile-web-app-capable" content="yes" />
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -48,7 +49,7 @@ const Main = ({ children, router }) => {
 				<Box pt={14}>
 					{children}
 
-					{/* <Footer /> */}
+					<Footer />
 				</Box>
 			</Box>
 		</MetaContext.Provider>
