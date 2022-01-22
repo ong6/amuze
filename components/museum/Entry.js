@@ -12,6 +12,7 @@ import { Go } from "../../public/museum_pic/go.svg";
 import { FaEthereum } from "react-icons/fa";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { GiTicket } from "react-icons/gi";
+import Link from "next/link";
 
 export default function Entry() {
 	return (
@@ -25,7 +26,6 @@ export default function Entry() {
 					</span>
 				</div>
 				{/* payment section */}
-
 				<div className="flex flex-col pt-2 space-y-8 p-3 ">
 					<InputEntry />
 					<Icon as={BsArrowDownCircle} w={8} h={8} className="self-center" />
@@ -58,14 +58,16 @@ export default function Entry() {
 							National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
 						</div>
 					</div>
-					<Button
-						className="w-full"
-						colorScheme="purple"
-						size="lg"
-						bg={"purple.500"}
-						rounded={15}>
-						Enter Museum
-					</Button>
+					<Link href="/museum/singapore" passHref>
+						<Button
+							className="w-full"
+							colorScheme="purple"
+							size="lg"
+							bg={"purple.500"}
+							rounded={15}>
+							Enter Museum
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</Container>
