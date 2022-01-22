@@ -1,13 +1,3 @@
-import { ethers } from "ethers";
-
-export const login = async ({ setAddr }) => {
-	const provider = new ethers.providers.Web3Provider(window.ethereum);
-	await provider.send("eth_requestAccounts", []);
-	const signer = provider.getSigner();
-	const walletAddress = await signer.getAddress();
-	setAddr(walletAddress);
-};
-
 export function getShortAccountHash(account) {
 	const accountHash = String(account);
 	if (accountHash) {
