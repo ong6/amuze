@@ -209,6 +209,15 @@ export default function Renting() {
 		const handleDescriptionChange = (e) => setDescription(e.target.value);
 		const handleTourChange = (e) => setTour(e.target.value);
 
+		function getBase64(file) {
+			return new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = (error) => reject(error);
+			});
+		}
+
 		return (
 			<Container className="bg-white rounded-xl">
 				<div className="flex flex-col space-y-4 p-4">
@@ -304,6 +313,10 @@ export default function Renting() {
 								type="file"
 								onChange={(event) => {
 									setSelectedImage(event.target.files[0]);
+									console.log(selectedImage);
+									getBase64(selectedImage).then((data) => {
+										console.log(data);
+									});
 								}}
 							/>
 						</div>
