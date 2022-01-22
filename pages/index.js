@@ -272,7 +272,7 @@ export default function Home() {
 									<div className="flex-grow p-4 bg-white rounded-xl">
 										<Avatar
 											name="David"
-											src="/david.svg"
+											src="/david.png"
 											className="p-2 ml-4 bg-white -top-10"
 											bg="gray.100"
 											size="lg"
