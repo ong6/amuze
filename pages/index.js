@@ -1,4 +1,3 @@
-
 import { Button, Image, AspectRatio, Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import {
@@ -47,10 +46,12 @@ export default function Home() {
 							alt="hero"
 							className="object-cover object-center w-full lg:w-1/2"
 							src="/homePageL.svg"
-							style={{ "maxHeight": "80vh" }}
+							style={{ maxHeight: "80vh" }}
 						/>
 						<div className="relative flex -mb-16 -top-32 left-1/2">
-							<a className="flex items-center justify-center w-16 h-16 p-0 -ml-8 text-black bg-yellow-400 border-8 border-gray-700 rounded-full" href="#museums">
+							<a
+								className="flex items-center justify-center w-16 h-16 p-0 -ml-8 text-black bg-yellow-400 border-8 border-gray-700 rounded-full"
+								href="#museums">
 								<AiOutlineArrowDown size={35} />
 							</a>
 						</div>
@@ -224,7 +225,10 @@ export default function Home() {
 									HOW IT WORKS
 								</h1>
 								<p className="w-1/4 mx-auto ml-4 lg:w-3/4">
-									Start by simplying swapping ETH for MUZE tokens on our liquidity pool and purchase a ticket to start viewing! After completing your museum tour, receive a unique post card as a souvenir!
+									Start by simplying swapping ETH for MUZE tokens on our
+									liquidity pool and purchase a ticket to start viewing! After
+									completing your museum tour, receive a unique post card as a
+									souvenir!
 								</p>
 							</div>
 							<div className="flex items-center justify-center text-indigo-500 w-80">
@@ -234,14 +238,27 @@ export default function Home() {
 						<div className="flex flex-wrap text-center">
 							<div className="px-4 mb-10 sm:w-2/3">
 								<div className="h-auto overflow-hidden rounded-lg">
-									<AspectRatio maxW='760px' ratio={2}>
-										<iframe width="760" height="500" src="https://www.youtube.com/embed/wZQBYstPuQo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
+									<AspectRatio maxW="760px" ratio={2}>
+										<iframe
+											alt="promovid"
+											width="100%"
+											height="500"
+											src="https://www.youtube.com/embed/wZQBYstPuQo"
+											title="YouTube video player"
+											frameBorder="0"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+											allowFullScreen
+										/>
 									</AspectRatio>
 								</div>
 							</div>
 							<div className="mb-10 bg-indigo-400 sm:w-1/3">
 								<div className="overflow-hidden">
-									<Image alt="user flow" className="object-contain object-center w-full h-full" src="/userFlow.svg" />
+									<Image
+										alt="user flow"
+										className="object-contain object-center w-full h-full"
+										src="/userFlow.svg"
+									/>
 								</div>
 							</div>
 						</div>
@@ -253,11 +270,24 @@ export default function Home() {
 							<div className="p-4 lg:w-1/2 md:w-full">
 								<div className="flex p-8 border-2 border-gray-200 border-opacity-50 rounded-lg sm:flex-row">
 									<div className="flex-grow p-4 bg-white rounded-xl">
-										<Avatar name='David' src='/david.svg' className="p-2 ml-4 bg-white -top-10" bg='gray.100' size='lg' />
-										<h2 className="mb-3 text-lg font-bold text-gray-900">David (0x7eF...929)</h2>
+										<Avatar
+											name="David"
+											src="/david.svg"
+											className="p-2 ml-4 bg-white -top-10"
+											bg="gray.100"
+											size="lg"
+										/>
+										<h2 className="mb-3 text-lg font-bold text-gray-900">
+											David (0x7eF...929)
+										</h2>
 										<Image src="/stars.svg" alt="rating" className="my-2" />
-										<p className="mb-4">“If you have a keen interest in understanding facts, evidences, and the history of the Khmer people from pre-Khmer Empire, Chinese extracts of Thai/  ... “</p>
-										<a className="inline-flex items-center mt-3 text-indigo-500">Read More
+										<p className="mb-4">
+											“If you have a keen interest in understanding facts,
+											evidences, and the history of the Khmer people from
+											pre-Khmer Empire, Chinese extracts of Thai/ ... “
+										</p>
+										<a className="inline-flex items-center mt-3 text-indigo-500">
+											Read More
 										</a>
 									</div>
 								</div>
@@ -265,10 +295,15 @@ export default function Home() {
 							<div className="p-4 lg:w-1/2 md:w-full">
 								<div className="flex flex-col p-8 border-2 border-gray-200 border-opacity-50 rounded-lg sm:flex-row">
 									<div className="flex-grow">
-										<h2 className="mb-3 text-3xl font-bold text-gray-900">Reviews from our A-MAZEING viewers</h2>
-										<p className="text-base leading-relaxed">Write a review and earn MUZE tokens! Learn how to do so <a className="inline-flex items-center mt-3 text-indigo-500">here
-										</a></p>
-
+										<h2 className="mb-3 text-3xl font-bold text-gray-900">
+											Reviews from our A-MAZEING viewers
+										</h2>
+										<p className="text-base leading-relaxed">
+											Write a review and earn MUZE tokens! Learn how to do so{" "}
+											<a className="inline-flex items-center mt-3 text-indigo-500">
+												here
+											</a>
+										</p>
 									</div>
 								</div>
 							</div>

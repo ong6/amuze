@@ -43,7 +43,7 @@ const Main = ({ children }) => {
 				</Head>
 				{metamask ? (
 					<>
-						<ConnectWallet />
+						<ConnectWallet address={address} setAddress={setAddress} />
 						{children}
 						<Footer />
 					</>

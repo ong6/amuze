@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "../components/layouts/Default";
 import Section from "../components/Section";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
 	Container,
 	FormControl,
@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { BsDashLg } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
+import { MetaContext } from "../context/MetaContext";
 
 export default function Renting() {
 	const styles = {
@@ -33,6 +34,8 @@ export default function Renting() {
 
 	const [rent, setRent] = useState(null);
 	const [mint, setMint] = useState(null);
+
+	const { address } = useContext(MetaContext);
 
 	function handleRent(nft, museum, tour, owner) {
 		setRent({
@@ -377,16 +380,22 @@ export default function Renting() {
 				<meta name="description" content="Amuze-Museum at your fingertips" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Section delay={0.2}>
-				<div className="flex flex-col pt-6 space-y-6">
-					<div className="text-white text-4xl font-bold text-center w-full">
-						A-MUZE NFT Renting / Listing Platform
+			{address ? (
+				<Section delay={0.2}>
+					<div className="flex flex-col pt-6 space-y-6">
+						<div className="text-white text-4xl font-bold text-center w-full">
+							A-MUZE NFT Renting / Listing Platform
+						</div>
+						<RentNFT />
+						<MintNFT />
+						<CompleteNFT />
 					</div>
-					<RentNFT />
-					<MintNFT />
-					<CompleteNFT />
+				</Section>
+			) : (
+				<div className="[height:50vh] flex text-4xl text-white items-center justify-center">
+					Please Connect Your wallet to view Renting and Listing.
 				</div>
-			</Section>
+			)}
 		</Layout>
 	);
 }
