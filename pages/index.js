@@ -1,4 +1,5 @@
-import { Button, Image } from "@chakra-ui/react";
+
+import { Button, Image, AspectRatio, Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import {
 	AiFillHeart,
@@ -44,11 +45,12 @@ export default function Home() {
 						</div>
 						<Image
 							alt="hero"
-							className="object-cover object-center w-full h-64 lg:w-1/2 lg:h-auto"
+							className="object-cover object-center w-full lg:w-1/2"
 							src="/homePageL.svg"
+							style={{ "maxHeight": "80vh" }}
 						/>
 						<div className="relative flex -mb-16 -top-32 left-1/2">
-							<a className="flex items-center justify-center w-16 h-16 p-0 -ml-8 text-black bg-yellow-400 border-8 border-gray-700 rounded-full">
+							<a className="flex items-center justify-center w-16 h-16 p-0 -ml-8 text-black bg-yellow-400 border-8 border-gray-700 rounded-full" href="#museums">
 								<AiOutlineArrowDown size={35} />
 							</a>
 						</div>
@@ -57,7 +59,7 @@ export default function Home() {
 				<section className="relative flex w-full h-48 px-8 bg-gray-200">
 					<Image src="/brands.svg" layout="fill" alt="brands" />
 				</section>
-				<section className="text-black bg-white">
+				<section className="text-black bg-white" id="museums">
 					<div className="container px-5 py-12 mx-auto">
 						<div className="mb-20 text-center">
 							<h1 className="mb-4 text-2xl font-bold sm:text-3xl">
@@ -68,7 +70,7 @@ export default function Home() {
 								buzzling city of London, experience them all here at AMUZE.
 							</p>
 							<div className="flex justify-center mt-6">
-								<div className="p-2 bg-yellow-500 rounded-full">
+								<div className="p-4 bg-yellow-300 rounded-full">
 									Recommended | Top Rated | New
 								</div>
 							</div>
@@ -209,6 +211,65 @@ export default function Home() {
 										Displayed infront of curious eyes, your Artefact’s story and
 										origins will be learned by many!
 									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section className="bg-white" id="how-it-works">
+					<div className="container px-5 mx-auto">
+						<div className="flex">
+							<div className="flex flex-col mb-4">
+								<h1 className="mb-4 ml-4 text-2xl font-bold sm:text-3xl">
+									HOW IT WORKS
+								</h1>
+								<p className="w-1/4 mx-auto ml-4 lg:w-3/4">
+									Start by simplying swapping ETH for MUZE tokens on our liquidity pool and purchase a ticket to start viewing! After completing your museum tour, receive a unique post card as a souvenir!
+								</p>
+							</div>
+							<div className="flex items-center justify-center text-indigo-500 w-80">
+								Learn More <AiOutlineArrowRight />
+							</div>
+						</div>
+						<div className="flex flex-wrap text-center">
+							<div className="px-4 mb-10 sm:w-2/3">
+								<div className="h-auto overflow-hidden rounded-lg">
+									<AspectRatio maxW='760px' ratio={2}>
+										<iframe width="760" height="500" src="https://www.youtube.com/embed/wZQBYstPuQo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" />
+									</AspectRatio>
+								</div>
+							</div>
+							<div className="mb-10 bg-indigo-400 sm:w-1/3">
+								<div className="overflow-hidden">
+									<Image alt="user flow" className="object-contain object-center w-full h-full" src="/userFlow.svg" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section className="bg-gray-200">
+					<div className="container flex flex-wrap px-5 py-24 mx-auto">
+						<div className="flex flex-wrap -m-4">
+							<div className="p-4 lg:w-1/2 md:w-full">
+								<div className="flex p-8 border-2 border-gray-200 border-opacity-50 rounded-lg sm:flex-row">
+									<div className="flex-grow p-4 bg-white rounded-xl">
+										<Avatar name='David' src='/david.svg' className="p-2 ml-4 bg-white -top-10" bg='gray.100' size='lg' />
+										<h2 className="mb-3 text-lg font-bold text-gray-900">David (0x7eF...929)</h2>
+										<Image src="/stars.svg" alt="rating" className="my-2" />
+										<p className="mb-4">“If you have a keen interest in understanding facts, evidences, and the history of the Khmer people from pre-Khmer Empire, Chinese extracts of Thai/  ... “</p>
+										<a className="inline-flex items-center mt-3 text-indigo-500">Read More
+										</a>
+									</div>
+								</div>
+							</div>
+							<div className="p-4 lg:w-1/2 md:w-full">
+								<div className="flex flex-col p-8 border-2 border-gray-200 border-opacity-50 rounded-lg sm:flex-row">
+									<div className="flex-grow">
+										<h2 className="mb-3 text-3xl font-bold text-gray-900">Reviews from our A-MAZEING viewers</h2>
+										<p className="text-base leading-relaxed">Write a review and earn MUZE tokens! Learn how to do so <a className="inline-flex items-center mt-3 text-indigo-500">here
+										</a></p>
+
+									</div>
 								</div>
 							</div>
 						</div>
