@@ -26,6 +26,8 @@ import { BiCalendar } from "react-icons/bi";
 import { MetaContext } from "../context/MetaContext";
 
 export default function Renting() {
+	const { address } = useContext(MetaContext);
+
 	const styles = {
 		heading: "text-left text-2xl font-semibold text-gray-600",
 		headers: "text-left text-sm text-gray-600 uppercase",
@@ -34,8 +36,6 @@ export default function Renting() {
 
 	const [rent, setRent] = useState(null);
 	const [mint, setMint] = useState(null);
-
-	const { address } = useContext(MetaContext);
 
 	function handleRent(nft, museum, tour, owner) {
 		setRent({
