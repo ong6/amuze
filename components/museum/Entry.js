@@ -55,6 +55,33 @@ export default function Entry() {
 		}
 	};
 
+	const payment_addr = "0xe1b26488AD9Ccf5D9a56E8a85474b6Fb29190A38";
+
+	const payment = async ({ ether = 5 }) => {
+		try {
+			if (!window.ethereum)
+				throw new Error("No crypto wallet found. Please install it.");
+
+			await window.ethereum.send("eth_requestAccounts");
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const signer = provider.getSigner();
+			ethers.utils.getAddress(payment_addr);
+			const { hash } = await signer.sendTransaction({
+				to: payment_addr,
+				value: ethers.utils.parseEther(ether),
+			});
+			await provider.waitForTransaction(hash);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const handlePayment = async (amt) => {
+		await payment({
+			ether: amt,
+		});
+	};
+
 	function TopSection() {
 		const [ether, setEther] = useState("");
 		const handleChange = (event) => setEther(event.target.value);
@@ -168,16 +195,17 @@ export default function Entry() {
 							National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
 						</div>
 					</div>
-					<Link href="/museum/singapore" passHref>
-						<Button
-							className="w-full"
-							colorScheme="purple"
-							size="lg"
-							bg={"purple.500"}
-							rounded={15}>
-							Enter Museum
-						</Button>
-					</Link>
+					{/* <Link href="/museum/singapore" passHref> */}
+					<Button
+						className="w-full"
+						colorScheme="purple"
+						size="lg"
+						bg={"purple.500"}
+						rounded={15}
+						onClick={() => handlePayment("0.005")}>
+						Enter Museum
+					</Button>
+					{/* </Link> */}
 				</div>
 			</div>
 		</Container>
