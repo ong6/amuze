@@ -1,15 +1,11 @@
 import { Box } from "@chakra-ui/react";
-// import Footer from "../Footer";
 import { ethers } from "ethers";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { MetaContext } from "../../context/MetaContext";
 import Footer from "../Footer";
-import MuseumNavbar from "../navigation/MuseumNavbar";
-import Navbar from "../navigation/Navbar";
-import Section from "../Section";
 
-const Main = ({ children, router }) => {
+const Main = ({ children }) => {
 	const [metamask, setMetamask] = useState(false);
 	const [address, setAddress] = useState(null);
 	const [network, setNetwork] = useState(false);
@@ -44,11 +40,6 @@ const Main = ({ children, router }) => {
 					<meta name="apple-mobile-web-app-capable" content="yes" />
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 				</Head>
-
-				{/* <Section delay={0.1}>
-					<Navbar path={router.asPath} />
-				</Section> */}
-				{/* <Box pt={14}></Box> */}
 				{children}
 				<Footer />
 			</Box>
