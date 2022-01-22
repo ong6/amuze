@@ -35,7 +35,7 @@ export default function Card({
 							</p>
 						</div>
 						<Link href="/museum/singapore" passHref>
-							<Button className="flex rounded-md" colorScheme="purple">
+							<Button className="flex" rounded={"3xl"} colorScheme="purple">
 								Buy Ticket
 							</Button>
 						</Link>
