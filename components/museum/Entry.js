@@ -126,7 +126,7 @@ function InputReceive() {
 						alignItems="center"
 						justifyContent="space-between">
 						<span className="flex flex-row items-center space-x-4">
-							<Image src={"/favicon.ico"} w={5} h={5} />
+							<Image src={"/favicon.ico"} w={5} h={5} alt="coin" />
 							<div className="font-semibold text-base">MUZE</div>
 						</span>
 						<Input
