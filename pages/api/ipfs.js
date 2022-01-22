@@ -1,4 +1,4 @@
-const { address, abi } = require("./contract.json");
+// const { address, abi } = require("./contract.json");
 const ipfsClient = require("ipfs-http-client");
 
 const ipfs = ipfsClient.create({
