@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Card from "../../components/Card";
 import Layout from "../../components/layouts/Default";
 import Section from "../../components/Section";
-import { SimpleGrid, GridItem } from "@chakra-ui/react";
+import { SimpleGrid, GridItem, Container } from "@chakra-ui/react";
 
 export default function Museum() {
 	return (
@@ -17,14 +17,18 @@ export default function Museum() {
 				</Head>
 				<Section delay={0.2}>
 					<div className="p-8">
-						<div className="text-gray-100">Choose a museum to visit!</div>
-						<SimpleGrid columns={[1, 1, 3]} gap={6}>
-							<Card />
-							<Card />
-							<Card />
-							<Card />
-							<Card />
-						</SimpleGrid>
+						<div className="text-gray-100 text-center text-4xl font-bold mb-4">
+							Choose a museum to visit!
+						</div>
+						<Container minW={"80%"}>
+							<SimpleGrid columns={[1, 1, 3]} gap={6}>
+								<Card />
+								<Card />
+								<Card />
+								<Card />
+								<Card />
+							</SimpleGrid>
+						</Container>
 					</div>
 				</Section>
 			</div>
