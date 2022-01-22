@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Head from "next/head";
-import MuseumNavbar from "../navigation/MuseumNavbar";
+import MuseumNavbar from "../Navigation/MuseumNavbar";
 import Section from "../Section";
 
 const variants = {

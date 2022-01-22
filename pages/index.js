@@ -1,6 +1,5 @@
+import { Button, Image } from "@chakra-ui/react";
 import Head from "next/head";
-import Section from "../components/Section";
-import Card from "../components/Card";
 import {
 	AiFillHeart,
 	AiFillWallet,
@@ -9,9 +8,9 @@ import {
 	AiOutlineArrowRight,
 } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
-import { Button, Image } from "@chakra-ui/react";
+import Card from "../components/Card";
 import Layout from "../components/layouts/Default";
-import { useRouter } from "next/router";
+import Section from "../components/Section";
 export default function Home() {
 	return (
 		<Layout>
@@ -25,14 +24,29 @@ export default function Home() {
 					<div className="flex flex-wrap mx-auto">
 						<div className="flex flex-col w-full gap-6 p-20 pt-40 lg:w-1/2">
 							<h1 className="mb-4 text-3xl font-bold sm:text-5xl">
-								Museum Tours At Your <span className="text-yellow-300">Fingertips</span>
+								Museum Tours At Your{" "}
+								<span className="text-yellow-300">Fingertips</span>
 							</h1>
-							<p className="mb-4 text-gray-500">A-MUZE is the world’s first museum-tour focused decentralised application aimed to preserve and spread awareness of global heritage through a unique museum experience at the comfort of your own home.</p>
+							<p className="mb-4 text-gray-500">
+								A-MUZE is the world’s first museum-tour focused decentralised
+								application aimed to preserve and spread awareness of global
+								heritage through a unique museum experience at the comfort of
+								your own home.
+							</p>
 							<div className="flex py-2">
-								<Button className="flex px-6 py-2 text-black border-0 rounded focus:outline-none " rounded={"3xl"} colorScheme="yellow">Launch Application</Button>
+								<Button
+									className="flex px-6 py-2 text-black border-0 rounded focus:outline-none "
+									rounded={"3xl"}
+									colorScheme="yellow">
+									Launch Application
+								</Button>
 							</div>
 						</div>
-						<Image alt="hero" className="object-cover object-center w-full h-64 lg:w-1/2 lg:h-auto" src="/homePageL.svg" />
+						<Image
+							alt="hero"
+							className="object-cover object-center w-full h-64 lg:w-1/2 lg:h-auto"
+							src="/homePageL.svg"
+						/>
 						<div className="relative flex -mb-16 -top-32 left-1/2">
 							<a className="flex items-center justify-center w-16 h-16 p-0 -ml-8 text-black bg-yellow-400 border-8 border-gray-700 rounded-full">
 								<AiOutlineArrowDown size={35} />
