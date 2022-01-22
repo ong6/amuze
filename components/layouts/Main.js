@@ -4,15 +4,16 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { MetaContext } from "../../context/MetaContext";
 import Footer from "../Footer";
+import ConnectWallet from "../Navigation/Metamask";
 
 const Main = ({ children }) => {
-	const [metamask, setMetamask] = useState(false);
+	const [metamask, setMetamask] = useState(true);
 	const [address, setAddress] = useState(null);
 	const [network, setNetwork] = useState(false);
 
 	useEffect(() => {
 		if (!window.ethereum) {
-			setMetamask("Please install metamask");
+			setMetamask(false);
 			return;
 		}
 		async function getNetwork() {
@@ -40,8 +41,17 @@ const Main = ({ children }) => {
 					<meta name="apple-mobile-web-app-capable" content="yes" />
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 				</Head>
-				{children}
-				<Footer />
+				{metamask ? (
+					<>
+						<ConnectWallet />
+						{children}
+						<Footer />
+					</>
+				) : (
+					<div className="text-5xl font-bold text-white self-center items-center justify-center flex h-screen">
+						Please install metamask to continue...
+					</div>
+				)}
 			</Box>
 		</MetaContext.Provider>
 	);
