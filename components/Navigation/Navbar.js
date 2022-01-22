@@ -64,7 +64,7 @@ const Navbar = (props) => {
 					<LinkItem href="/museum" path={path}>
 						Museums
 					</LinkItem>
-					<LinkItem href="#works" path={path}>
+					<LinkItem href="#how-it-works" path={path}>
 						How it works
 					</LinkItem>
 					<LinkItem href="/renting" path={path}>
@@ -81,10 +81,10 @@ const ConnectWallet = () => {
 	const [address, metamask] = useContext(MetaContext);
 
 	return (
-		<div className="fixed top-0 right-0 p-8 z-50">
+		<div className="fixed top-0 right-0 z-50 p-8">
 			<button
 				onClick={login}
-				className="border border-white text-center rounded-full px-2 py-1 md:px-6 md:py-3 items-center"
+				className="items-center px-2 py-1 text-center border border-white rounded-full md:px-6 md:py-3"
 				disabled={metamask}>
 				<div
 					className={
@@ -96,8 +96,8 @@ const ConnectWallet = () => {
 					{metamask
 						? "Install MetaMask!"
 						: address
-						? getShortAccountHash(address)
-						: "Connect wallet"}
+							? getShortAccountHash(address)
+							: "Connect wallet"}
 				</div>
 			</button>
 		</div>
