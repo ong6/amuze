@@ -4,11 +4,12 @@ import Card from "../components/Card";
 import {
 	AiFillHeart,
 	AiFillWallet,
+	AiOutlineArrowDown,
 	AiOutlineArrowLeft,
 	AiOutlineArrowRight,
 } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
-import { Image } from "@chakra-ui/react";
+import { Button, Image } from "@chakra-ui/react";
 import Layout from "../components/layouts/Default";
 import { useRouter } from "next/router";
 export default function Home() {
@@ -20,14 +21,32 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Section delay={0.2}>
-				<section className="h-72"></section>
-				<section className="relative w-full h-48 bg-gray-200">
+				<section className="overflow-hidden text-white">
+					<div className="flex flex-wrap mx-auto">
+						<div className="flex flex-col w-full gap-6 p-20 pt-40 lg:w-1/2">
+							<h1 className="mb-4 text-3xl font-bold sm:text-5xl">
+								Museum Tours At Your <span className="text-yellow-300">Fingertips</span>
+							</h1>
+							<p className="mb-4 text-gray-500">A-MUZE is the world’s first museum-tour focused decentralised application aimed to preserve and spread awareness of global heritage through a unique museum experience at the comfort of your own home.</p>
+							<div className="flex py-2">
+								<Button className="flex px-6 py-2 text-black border-0 rounded focus:outline-none " rounded={"3xl"} colorScheme="yellow">Launch Application</Button>
+							</div>
+						</div>
+						<Image alt="hero" className="object-cover object-center w-full h-64 lg:w-1/2 lg:h-auto" src="/homePageL.svg" />
+						<div className="relative flex -mb-16 -top-32 left-1/2">
+							<a className="flex items-center justify-center w-16 h-16 p-0 -ml-8 text-black bg-yellow-400 border-8 border-gray-700 rounded-full">
+								<AiOutlineArrowDown size={35} />
+							</a>
+						</div>
+					</div>
+				</section>
+				<section className="relative flex w-full h-48 px-8 bg-gray-200">
 					<Image src="/brands.svg" layout="fill" alt="brands" />
 				</section>
 				<section className="text-black bg-white">
 					<div className="container px-5 py-12 mx-auto">
 						<div className="mb-20 text-center">
-							<h1 className="mb-4 text-2xl font-medium sm:text-3xl title-font">
+							<h1 className="mb-4 text-2xl font-bold sm:text-3xl">
 								VIEW TOP MUSEUMS AROUND THE WORLD
 							</h1>
 							<p className="mx-auto text-base leading-relaxed xl:w-2/4 lg:w-3/4 text-gray-500s">
@@ -120,16 +139,16 @@ export default function Home() {
 							<h1 className="mb-4 ml-4 text-2xl font-bold text-left sm:text-3xl">
 								RENT AN NFT FOR A MUSEUM TOUR
 							</h1>
-							<p className="ml-4 text-left ">
+							<p className="mb-4 ml-4 text-left">
 								Have an NFT that you don’t mind letting the world see? Why not
 								share it with the world!
 							</p>
 							<Image
 								alt="feature"
-								className="object-contain object-center"
+								className="object-cover object-center"
 								src="/world.svg"
-								width={150}
-								height={120}
+								width={600}
+								height={300}
 								layout="responsive"
 							/>
 						</div>
@@ -139,7 +158,7 @@ export default function Home() {
 									<AiFillWallet size={25} />
 								</div>
 								<div className="flex-grow">
-									<h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
+									<h2 className="mb-3 text-lg font-bold text-gray-900 title-font">
 										SECURE RENTING PROCESS
 									</h2>
 									<p className="">
@@ -154,7 +173,7 @@ export default function Home() {
 									<IoIosPeople size={25} />
 								</div>
 								<div className="flex-grow">
-									<h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
+									<h2 className="mb-3 text-lg font-bold text-gray-900 title-font">
 										EARN REWARDS
 									</h2>
 									<p className="">
@@ -169,7 +188,7 @@ export default function Home() {
 									<AiFillHeart size={25} />
 								</div>
 								<div className="flex-grow">
-									<h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
+									<h2 className="mb-3 text-lg font-bold text-gray-900 title-font">
 										INCREASE AWARENESS
 									</h2>
 									<p className="">
