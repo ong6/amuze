@@ -70,6 +70,9 @@ const Navbar = (props) => {
 					<LinkItem href="/renting" path={path}>
 						Renting/Listing
 					</LinkItem>
+					<LinkItem href="/souvenir" path={path}>
+						Souvenir
+					</LinkItem>
 				</Stack>
 				<ConnectWallet />
 			</Container>
