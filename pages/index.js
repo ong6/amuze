@@ -122,16 +122,16 @@ export default function Home() {
 						<div className="flex flex-wrap -mx-4 -mt-4 -mb-10 space-y-6 sm:-m-4 md:space-y-0">
 							<div className="flex flex-col items-center p-4 md:w-1/3">
 								<Card
-									imgUrl="/vase.png"
-									title="Han Dynasty Rose of ..."
+									imgUrl="/robe.svg"
+									title="Qing Dynasty Emperor Robe"
 									description="Museum: Singapore National Museum Tour: Chinese Influence on Singa..."
 									label="Learn more about it for"
 								/>
 							</div>
 							<div className="flex flex-col items-center p-4 md:w-1/3">
 								<Card
-									imgUrl="/vase.png"
-									title="Han Dynasty Rose of ..."
+									imgUrl="/silver.svg"
+									title="Yuan Dynasty Silver Budd.."
 									description="Museum: Singapore National Museum Tour: Chinese Influence on Singa..."
 									label="Learn more about it for"
 								/>
