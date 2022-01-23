@@ -1,5 +1,6 @@
 import { Button, Image, AspectRatio, Avatar } from "@chakra-ui/react";
 import Head from "next/head";
+import Link from "next/link";
 import {
 	AiFillHeart,
 	AiFillWallet,
@@ -11,6 +12,7 @@ import { IoIosPeople } from "react-icons/io";
 import Card from "../components/Card";
 import Layout from "../components/layouts/Default";
 import Section from "../components/Section";
+import tours from "../public/tours/tours.json";
 export default function Home() {
 	return (
 		<Layout>
@@ -64,7 +66,7 @@ export default function Home() {
 					<div className="container px-5 py-12 mx-auto">
 						<div className="mb-20 text-center">
 							<h1 className="mb-4 text-2xl font-bold sm:text-3xl">
-								VIEW TOP MUSEUMS AROUND THE WORLD
+								VIEW TOP MUSEUM TOURS AROUND THE WORLD
 							</h1>
 							<p className="mx-auto text-base leading-relaxed xl:w-2/4 lg:w-3/4 text-gray-500s">
 								From the museums in a small island in Seychelles, to the
@@ -77,27 +79,25 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="flex flex-wrap -mx-4 -mt-4 -mb-10 space-y-6 sm:-m-4 md:space-y-0">
-							<div className="flex flex-col items-center p-4 md:w-1/3">
-								<Card
-									imgUrl="/london.png"
-									title="Museum of London"
-									description="From prehistoric to modern times, hear the greatest stories from ..."
-								/>
-							</div>
-							<div className="flex flex-col items-center p-4 md:w-1/3">
-								<Card />
-							</div>
-							<div className="flex flex-col items-center p-4 md:w-1/3">
-								<Card
-									title="Cambodia National Museum"
-									description="Cambodia's largest museum of cultural history and..."
-									imgUrl="/cambodia.png"
-								/>
-							</div>
+							{tours.map((tour, index) => {
+								return (
+									<div
+										className="flex flex-col items-center p-4 md:w-1/3"
+										key={index}>
+										<Card
+											imgUrl={tour.image}
+											title={tour.name}
+											description={tour.description}
+										/>
+									</div>
+								);
+							})}
 						</div>
-						<button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:text-indigo-700">
-							View All
-						</button>
+						<Link href="/museum" passHref>
+							<button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:text-indigo-700">
+								View All
+							</button>
+						</Link>
 					</div>
 				</section>
 				<section className="text-black bg-white">
@@ -236,7 +236,7 @@ export default function Home() {
 							</div>
 						</div>
 						<div className="flex flex-wrap text-center">
-							<div className="px-4 mb-10 sm:w-2/3">
+							<div className="px-4 mb-10 sm:w-1/2">
 								<div className="h-auto overflow-hidden rounded-lg">
 									<AspectRatio maxW="760px" ratio={2}>
 										<iframe
@@ -252,12 +252,12 @@ export default function Home() {
 									</AspectRatio>
 								</div>
 							</div>
-							<div className="mb-10 bg-indigo-400 sm:w-1/3">
+							<div className="mb-10 sm:w-2/5">
 								<div className="overflow-hidden">
 									<Image
 										alt="user flow"
 										className="object-contain object-center w-full h-full"
-										src="/userFlow.svg"
+										src="/Smart Contract Interaction.png"
 									/>
 								</div>
 							</div>

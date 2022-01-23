@@ -27,7 +27,9 @@ const Logo = ({ title = null }) => {
 	const titleUrl = title ? title.replace(/\s/g, "-") : "";
 
 	return (
-		<Link href={title ? `/museum/${titleUrl}` : "/"}>
+		// <Link href={title ? `/museum/${titleUrl}` : "/"}>
+		<Link href={"/"}>
+
 			<a>
 				{/* <LogoBox> */}
 				{/* <Image src={img} width={20} height={20} alt="logo" /> */}
