@@ -55,7 +55,7 @@ export default function Card({
 					</div>
 				</div>
 			</div>
-			<Modal isOpen={isOpen} onClose={onClose}>
+			<Modal isOpen={isOpen} onClose={onClose} size="lg" >
 				<ModalOverlay />
 				<ModalContent>
 					<ModalHeader>Buy Ticket</ModalHeader>
