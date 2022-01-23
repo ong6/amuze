@@ -1,13 +1,28 @@
-import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
-
+import {
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalBody,
+	ModalCloseButton,
+	SimpleGrid,
+	GridItem,
+	Container,
+	localStorageManager,
+	Button,
+	useDisclosure
+} from '@chakra-ui/react'
+import Entry from "./museum/Entry";
 export default function Card({
 	title = "Topkapi Palace Museum",
 	description = "In the 15th and 16th centuries it served as the main administrative ...",
 	label = "Entrance Fee",
 	imgUrl = "/topkapi.png",
+
 }) {
+	const { isOpen, onOpen, onClose } = useDisclosure()
 	return (
 		<div className="flex flex-wrap">
 			<div className="p-4">
@@ -34,14 +49,22 @@ export default function Card({
 								30 MUZE
 							</p>
 						</div>
-						<Link href="/museum/singapore" passHref>
-							<Button className="flex" rounded={"3xl"} colorScheme="purple">
-								Buy Ticket
-							</Button>
-						</Link>
+						<Button className="flex" rounded={"3xl"} colorScheme="purple" onClick={onOpen}>
+							Buy Ticket
+						</Button>
 					</div>
 				</div>
 			</div>
+			<Modal isOpen={isOpen} onClose={onClose}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>Buy Ticket</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody borderRadius='xl'>
+						<Entry />
+					</ModalBody>
+				</ModalContent>
+			</Modal>
 		</div>
 	);
 }
