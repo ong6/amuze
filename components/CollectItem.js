@@ -1,26 +1,13 @@
-import Image from "next/image";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalCloseButton,
-    SimpleGrid,
-    GridItem,
-    Container,
-    localStorageManager,
     Button,
     useDisclosure,
     Drawer,
     DrawerBody,
-    DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
-    DrawerCloseButton,
+    Image,
 } from '@chakra-ui/react'
-import Entry from "./museum/Entry";
 import CollectItemDetail from "./CollectItemDetail";
 export default function CollectItem({
     title = "Qing Dynasty Stone Statue",
