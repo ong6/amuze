@@ -1,11 +1,11 @@
 import {
-	Box,
-	Button,
-	Container,
-	Divider,
-	Icon,
-	Image,
-	Input,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Icon,
+  Image,
+  Input,
 } from "@chakra-ui/react";
 import React, { useState, useContext } from "react";
 import { Go } from "../../public/museum_pic/go.svg";
@@ -16,203 +16,214 @@ import Link from "next/link";
 import Coin from "../../public/logo.svg";
 import { ethers } from "ethers";
 import { MetaContext } from "../../context/MetaContext";
+import { useRouter } from "next/router";
 
 export default function Entry() {
-	const { address } = useContext(MetaContext);
+  const { address } = useContext(MetaContext);
+  const router = useRouter();
 
-	const addMuze = async () => {
-		const contractAddr = "0x82F375021f99B41D5aFc736305De7FefDcD48c44";
-		const tokenSymbol = "MUZE";
-		const tokenDecimals = 18;
-		const tokenImage = window.location.href + Coin.src;
+  const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
+  const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
+  const muzeAddress = "0xDABAb1D8E95A491374CEe8280Be480A901a7C807";
 
-		try {
-			const wasAdded = await ethereum.request({
-				method: "wallet_watchAsset",
-				params: {
-					type: "ERC20", // Initially only supports ERC20, but eventually more!
-					options: {
-						address: contractAddr, // The address that the token is at.
-						symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
-						decimals: tokenDecimals, // The number of decimals in the token
-						image: tokenImage, // A string url of the token logo
-					},
-				},
-			});
+  const addMuze = async () => {
+    const tokenSymbol = "MUZE";
+    const tokenDecimals = 18;
+    const tokenImage = window.location.href + Coin.src;
 
-			if (wasAdded) {
-				console.log("Thanks for adding!");
-			} else {
-				console.log("Your loss!");
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+    try {
+      const wasAdded = await ethereum.request({
+        method: "wallet_watchAsset",
+        params: {
+          type: "ERC20", // Initially only supports ERC20, but eventually more!
+          options: {
+            address: muzeAddress, // The address that the token is at.
+            symbol: tokenSymbol, // A ticker symbol or shorthand, up to 5 chars.
+            decimals: tokenDecimals, // The number of decimals in the token
+            image: tokenImage, // A string url of the token logo
+          },
+        },
+      });
 
-	const handlePayment = async () => {
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		const abi = [
-			"function enterTour(address _tour) external",
-			"function hasEnteredTour(address _tour) external view returns (bool)",
-		];
-		const signer = provider.getSigner();
-		const tourAddress = "0xBA6FF536370Cc75f0D7643d21E2cF546f1da7C0E";
-		const custodyAddress = "0x3B83b5762FC63956F923FC244E6bd1d0C4731b06";
-		const muzeCustody = new ethers.Contract(custodyAddress, abi, signer);
+      if (wasAdded) {
+        console.log("Thanks for adding!");
+      } else {
+        console.log("Your loss!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-		// await muzeCustody.hasEnteredTour(tourAddress);
-		// await muzeCustody.enterTour(tourAddress);
-	};
+  const handlePayment = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const abi = [
+      "function enterTour(address _tour) external",
+      "function hasEnteredTour(address _tour) external view returns (bool)",
+    ];
+    const signer = provider.getSigner();
+    const muzeCustody = new ethers.Contract(custodyAddress, abi, signer);
 
-	function TopSection() {
-		const onSubmit = async () => {
-			const provider = new ethers.providers.Web3Provider(window.ethereum);
-			const abi = ["function fakeSwap() external payable"];
-			const signer = provider.getSigner();
-			const address = "0x82F375021f99B41D5aFc736305De7FefDcD48c44";
-			const muzeErc20 = new ethers.Contract(address, abi, signer);
+    if (!(await muzeCustody.hasEnteredTour(tourAddress))) {
+      try {
+        await muzeCustody.enterTour(tourAddress);
+      } catch (error) {
+        return console.log(error);
+      }
+    }
+    router.push("/museum/singapore");
+  };
 
-			await muzeErc20.fakeSwap({
-				value: ethers.utils.parseUnits(ether, "ether").toString(),
-			});
-		};
+  function TopSection() {
+    const onSubmit = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const abi = ["function fakeSwap() external payable"];
+      const signer = provider.getSigner();
+      const muzeErc20 = new ethers.Contract(muzeAddress, abi, signer);
 
-		const [ether, setEther] = useState("0");
-		const handleChange = (event) => setEther(event.target.value);
+      await muzeErc20.fakeSwap({
+        value: ethers.utils.parseUnits(ether, "ether").toString(),
+      });
+    };
 
-		return (
-			<div className="flex flex-col p-3 pt-2 space-y-8 ">
-				<div className="flex flex-col space-y-2">
-					<div className="flex flex-row justify-between text-gary-900">
-						<div className="div">Pay</div>
-						<div className="underline ">Available:0.05</div>
-					</div>
-					<div className="px-4 py-3 border-4 border-orange-400 rounded-xl">
-						<Box
-							display="flex"
-							alignItems="center"
-							justifyContent="space-between">
-							<span className="flex flex-row items-center space-x-4">
-								<Icon as={FaEthereum} w={5} h={5} />
-								<div className="text-base font-semibold">ETH</div>
-							</span>
-							<Input
-								variant="unstyled"
-								placeholder="0.01"
-								w="30%"
-								className="font-bold text-right"
-								onChange={handleChange}
-								value={ether}
-								type="number"
-								size="lg"
-							/>
-						</Box>
-					</div>
-				</div>
-				<Icon as={BsArrowDownCircle} w={8} h={8} className="self-center" />
-				<div className="flex flex-col space-y-2">
-					<div className="flex flex-row justify-between text-gary-900">
-						<div className="div">Receive (Estimated)</div>
-						<div className="underline ">Available:0.00</div>
-					</div>
-					<div className="px-4 py-3 border-4 border-orange-400 rounded-xl">
-						<Box
-							display="flex"
-							alignItems="center"
-							justifyContent="space-between">
-							<span className="flex flex-row items-center space-x-4">
-								<Image src={"/favicon.ico"} w={5} h={5} alt="coin" />
-								<div className="text-base font-semibold">MUZE</div>
-							</span>
-							<Input
-								variant="unstyled"
-								placeholder="0.00"
-								w="30%"
-								className="font-bold text-right"
-								value={ether * 3300}
-								size="lg"
-								isReadOnly
-							/>
-						</Box>
-					</div>
-				</div>
-				<div className="self-center text-sm text-gray-700 font-base">
-					1 ETH = 3300 MUZE
-				</div>
-				<div className="flex flex-col space-y-2">
-					<Button
-						className="w-full"
-						colorScheme="orange"
-						size="lg"
-						bg={"orange.400"}
-						rounded={15}
-						onClick={addMuze}>
-						Add $MUZE
-					</Button>
-					<Button
-						className="w-full"
-						colorScheme="orange"
-						size="lg"
-						bg={"orange.400"}
-						rounded={15}
-						onClick={onSubmit}>
-						Confirm Order
-					</Button>
-					<div className="self-center text-sm text-gray-700 font-base">
-						Enter an amount to see more trading details
-					</div>
-				</div>
-			</div>
-		);
-	}
+    const [ether, setEther] = useState("0");
+    const handleChange = (event) => setEther(event.target.value);
 
-	return (
-		<Container className="self-center p-8 bg-white rounded-xl" maxW="lg">
-			{address ? (
-				<div className="flex flex-col space-y-4">
-					{/* 1 */}
-					<div className="flex flex-row justify-between">
-						<span className="flex flex-row items-center space-x-3">
-							<Image src="/museum_pic/go.svg" alt="go" layout="fill" />
-							<div className="text-2xl font-bold text-orange-400">
-								SWAP $MUZE
-							</div>
-						</span>
-						<span>Entrance Fee: {30} MUZE</span>
-					</div>
-					{/* payment section */}
-					<TopSection />
+    return (
+      <div className="flex flex-col p-3 pt-2 space-y-8 ">
+        <div className="flex flex-col space-y-2">
+          <div className="flex flex-row justify-between text-gary-900">
+            <div className="div">Pay</div>
+            <div className="underline ">Available:0.05</div>
+          </div>
+          <div className="px-4 py-3 border-4 border-orange-400 rounded-xl">
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <span className="flex flex-row items-center space-x-4">
+                <Icon as={FaEthereum} w={5} h={5} />
+                <div className="text-base font-semibold">ETH</div>
+              </span>
+              <Input
+                variant="unstyled"
+                placeholder="0.01"
+                w="30%"
+                className="font-bold text-right"
+                onChange={handleChange}
+                value={ether}
+                type="number"
+                size="lg"
+              />
+            </Box>
+          </div>
+        </div>
+        <Icon as={BsArrowDownCircle} w={8} h={8} className="self-center" />
+        <div className="flex flex-col space-y-2">
+          <div className="flex flex-row justify-between text-gary-900">
+            <div className="div">Receive (Estimated)</div>
+            <div className="underline ">Available:0.00</div>
+          </div>
+          <div className="px-4 py-3 border-4 border-orange-400 rounded-xl">
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <span className="flex flex-row items-center space-x-4">
+                <Image src={"/favicon.ico"} w={5} h={5} alt="coin" />
+                <div className="text-base font-semibold">MUZE</div>
+              </span>
+              <Input
+                variant="unstyled"
+                placeholder="0.00"
+                w="30%"
+                className="font-bold text-right"
+                value={ether * 3300}
+                size="lg"
+                isReadOnly
+              />
+            </Box>
+          </div>
+        </div>
+        <div className="self-center text-sm text-gray-700 font-base">
+          1 ETH = 3300 MUZE
+        </div>
+        <div className="flex flex-col space-y-2">
+          <Button
+            className="w-full"
+            colorScheme="orange"
+            size="lg"
+            bg={"orange.400"}
+            rounded={15}
+            onClick={addMuze}
+          >
+            Add $MUZE
+          </Button>
+          <Button
+            className="w-full"
+            colorScheme="orange"
+            size="lg"
+            bg={"orange.400"}
+            rounded={15}
+            onClick={onSubmit}
+          >
+            Confirm Order
+          </Button>
+          <div className="self-center text-sm text-gray-700 font-base">
+            Enter an amount to see more trading details
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-					<Divider borderColor={"purple.500"} />
-					{/* enter section */}
-					<div className="flex flex-col px-4 pt-4 space-y-6">
-						<div className="flex flex-row items-center justify-center">
-							You have selected:
-							<div className="items-center pl-2 text-purple-500">
-								National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
-							</div>
-						</div>
-						<Link href="/museum/singapore" passHref>
-							<Button
-								className="w-full"
-								colorScheme="purple"
-								size="lg"
-								bg={"purple.500"}
-								rounded={15}
-								onClick={() => handlePayment()}>
-								Enter Museum
-							</Button>
-						</Link>
-					</div>
-				</div>
-			) : (
-				<div className="[height:50vh] flex text-4xl text-black items-center justify-center">
-					Please connect your wallet before entering the museum
-				</div>
-			)}
-		</Container>
-	);
+  return (
+    <Container className="self-center p-8 bg-white rounded-xl" maxW="lg">
+      {address ? (
+        <div className="flex flex-col space-y-4">
+          {/* 1 */}
+          <div className="flex flex-row justify-between">
+            <span className="flex flex-row items-center space-x-3">
+              <Image src="/museum_pic/go.svg" alt="go" layout="fill" />
+              <div className="text-2xl font-bold text-orange-400">
+                SWAP $MUZE
+              </div>
+            </span>
+            <span>Entrance Fee: {30} MUZE</span>
+          </div>
+          {/* payment section */}
+          <TopSection />
+
+          <Divider borderColor={"purple.500"} />
+          {/* enter section */}
+          <div className="flex flex-col px-4 pt-4 space-y-6">
+            <div className="flex flex-row items-center justify-center">
+              You have selected:
+              <div className="items-center pl-2 text-purple-500">
+                National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
+              </div>
+            </div>
+            <Button
+              className="w-full"
+              colorScheme="purple"
+              size="lg"
+              bg={"purple.500"}
+              rounded={15}
+              onClick={handlePayment}
+            >
+              Enter Museum
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="[height:50vh] flex text-4xl text-black items-center justify-center">
+          Please connect your wallet before entering the museum
+        </div>
+      )}
+    </Container>
+  );
 }
 
 // const payment = async ({ ether = 5 }) => {
