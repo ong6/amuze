@@ -1,0 +1,40 @@
+{
+    "description": "Though traces of prehistoric settlement exist, Babylon’s development as a major city was late by Mesopotamian standards; no mention of it existed before the 23rd century BCE.",
+    "image": "https://amuze.vercel.app/hackathon/1.png",
+    "name": "Stone Tablet Winged Buddha",
+    "audio": "https://amuze.vercel.app/hackathon/1.mp3",
+    "attributes": [
+      {
+        "trait_type": "artist",
+        "value": "Unknown"
+      },
+      {
+        "trait_type": "countryOfOrigin",
+        "value": "Iraq"
+      },
+      {
+        "trait_type": "region",
+        "value": "Asia and the Pacific"
+      },
+      {
+        "trait_type": "route",
+        "value": "Land"
+      },
+      {
+        "trait_type": "specifications",
+        "value": "218x125x331cm"
+      },
+      {
+        "trait_type": "date",
+        "value": "Hammurabi (1792–50 BCE)"
+      },
+      {
+        "trait_type": "hostMuseum",
+        "value": "Mesopotamia Museum"
+      },
+      {
+        "trait_type": "objectType",
+        "value": "Monument"
+      }
+    ]
+}

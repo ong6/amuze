@@ -48,11 +48,15 @@ export default function Renting() {
 
 	function handleMint(nft, description, tour, image) {
 		setMint({
-			nftName: nft,
+			name: nft,
 			description: description,
 			tour: tour,
 			image: image,
 		});
+
+		// upload png and mp3
+		// call uploadProposal -> hash
+		// mint(msg.sender, 10, hash)
 	}
 
 	function RentNFT() {
