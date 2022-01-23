@@ -1,11 +1,10 @@
-[
-  {
+[{
     "description": "Though traces of prehistoric settlement exist, Babylon’s development as a major city was late by Mesopotamian standards; no mention of it existed before the 23rd century BCE.",
     "image": "https://amuze.vercel.app/hackathon/1.png",
     "name": "Stone Tablet Winged Buddha",
     "audio": "https://amuze.vercel.app/hackathon/1.mp3",
-    "attributes": [
-      {
+    "proof": "https://amuze.vercel.app/hackathon/proof.png",
+    "attributes": [{
         "trait_type": "artist",
         "value": "Unknown"
       },
@@ -44,8 +43,7 @@
     "image": "https://amuze.vercel.app/hackathon/1.png",
     "name": "Stone Tablet Winged Buddha",
     "audio": "https://amuze.vercel.app/hackathon/1.mp3",
-    "attributes": [
-      {
+    "attributes": [{
         "trait_type": "artist",
         "value": "Unknown"
       },
