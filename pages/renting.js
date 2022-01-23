@@ -26,6 +26,7 @@ import { BiCalendar } from "react-icons/bi";
 import { MetaContext } from "../context/MetaContext";
 import { uploadProposal } from "./api/ipfs";
 import testData from "../public/sample_nft/nft1.json";
+import { ethers } from "ethers";
 
 export default function Renting() {
   const { address } = useContext(MetaContext);
@@ -60,7 +61,7 @@ export default function Renting() {
     for (let i = 0; i < numOfNfts; i++) {
       promises.push(
         muzeTour
-          .tokenOfOwnerByIndex(i)
+          .tokenOfOwnerByIndex(address, i)
           .then((tokenId) => tokenIds.push(tokenId))
       );
     }
@@ -86,7 +87,9 @@ export default function Renting() {
     let hashes = {};
     let promises = [];
 
-    for (let i = 0; i < tokenIds.length(); i++) {
+    console.log(tokenIds);
+
+    for (let i = 0; i < tokenIds.length; i++) {
       promises.push(
         getHashFromTokenId(tokenIds[i]).then(
           (hash) => (hashes[tokenIds[i]] = hash)
@@ -114,6 +117,17 @@ export default function Renting() {
     await muzeTour.mint(address, newTokenId, ipfsUrl);
   };
 
+  const submitRent = async (tokenId) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const abi = [
+      "function safeTransferFrom(address from, address to, uint256 tokenId) external",
+    ];
+    const signer = provider.getSigner();
+    const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+
+    await muzeTour.safeTransferFrom(address, custodyAddress, tokenId);
+  };
+
   function RentNFT() {
     const [nft, setNft] = useState("Qin Hua Porcelain Flower Vase");
     const [museum, setMuseum] = useState("National Museum of singapore");
@@ -134,22 +148,23 @@ export default function Renting() {
         tour: tour,
         owner: owner,
       });
-      console.log("submit");
-      console.log(rent);
 
       // path = uploadProposal(JSON.stringify(testData));
       // console.log(path);
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const abi = [
-        "function safeTransferFrom(address from, address to, uint256 tokenId) external",
-      ];
-      const signer = provider.getSigner();
-      const tourAddress = "0xBA6FF536370Cc75f0D7643d21E2cF546f1da7C0E";
-      const custodyAddress = "0x3B83b5762FC63956F923FC244E6bd1d0C4731b06";
-      const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+      console.log("test");
+      // console.log(await getTokenIds());
 
-      await muzeTour.safeTransferFrom(address, custodyAddress, tokenId);
+      // console.log(await getHashesFromTokenIds(await getTokenIds()));
+      // console.log(
+      //   await mintNFT(
+      //     "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn"
+      //   )
+      // );
+
+      // await getTokenIds();
+
+      console.log(submitRent(1));
 
       return false;
     };

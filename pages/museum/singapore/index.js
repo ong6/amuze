@@ -13,14 +13,14 @@ import Section from "../../../components/Section";
 import { MetaContext } from "../../../context/MetaContext";
 import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
-import SingaporeColelction from "../../../public/sample_nft/singapore.json";
+import SingaporeCollection from "../../../public/sample_nft/singapore.json";
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
 }
 
 export default function Museum() {
   const { address } = useContext(MetaContext);
-  const [collectItems, setCollectItems] = useState(SingaporeColelction);
+  const [collectItems, setCollectItems] = useState(SingaporeCollection);
 
   const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
   const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
@@ -35,9 +35,9 @@ export default function Museum() {
     const signer = provider.getSigner();
     const muzeTour = new ethers.Contract(tourAddress, abi, signer);
 
-	const rents = await muzeTour.getRents();
+    const rents = await muzeTour.getRents();
 
-	return rents.map((rent) => rent.tokenId);
+    return rents.map((rent) => rent.tokenId);
   };
 
   return (
