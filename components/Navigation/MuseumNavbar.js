@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Logo from "../Logo";
 
 const LinkItem = ({ href, path, _target, children, ...props }) => {
-	const active = path === href;
+	const active = path.asPath === href;
 	const inactiveColor = "#FFFFFF";
 
 	return (
@@ -47,7 +47,7 @@ const MuseumNavbar = (props) => {
 				justify="space-between">
 				<Flex align="center" mr={12}>
 					<Heading as="h1" size="lg" letterSpacing={"tighter"}>
-						<Logo title="National Museum of Singapore" />
+						<Logo title="Chinese Artefacts of the Qing Dynasty Tour" />
 					</Heading>
 				</Flex>
 
@@ -58,13 +58,13 @@ const MuseumNavbar = (props) => {
 					alignItems="center"
 					flexGrow={1}
 					mt={{ md: 0 }}>
-					<LinkItem href="#" path={path}>
+					<LinkItem href="/museum/singapore" path={path}>
 						Full Collection
 					</LinkItem>
-					<LinkItem href={`${path.asPath}/tours`} path={path}>
-						Tours
+					<LinkItem href="/museum/singapore/experience" path={path}>
+						Experience
 					</LinkItem>
-					<LinkItem href={`${path.asPath}/souvenir`} path={path}>
+					<LinkItem href="/museum/singapore/souvenir" path={path}>
 						Souvenir
 					</LinkItem>
 				</Stack>

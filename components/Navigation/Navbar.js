@@ -49,7 +49,6 @@ const Navbar = (props) => {
 						<Logo />
 					</Heading>
 				</Flex>
-
 				<Stack
 					direction={{ md: "row" }}
 					display={{ md: "flex" }}
@@ -58,7 +57,7 @@ const Navbar = (props) => {
 					flexGrow={1}
 					mt={{ md: 0 }}>
 					<LinkItem href="/museum" path={path}>
-						Museums
+						Museum Tours
 					</LinkItem>
 					<LinkItem href="#how-it-works" path={path}>
 						How it works

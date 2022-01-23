@@ -1,13 +1,13 @@
 import { Container, Input, InputGroup, InputLeftElement, SimpleGrid } from "@chakra-ui/react";
 import Head from "next/head";
-import Card from "../../components/Card";
+import Card from "../../../components/Card";
 import { useContext, useState } from "react";
-import Layout from "../../components/layouts/Museum";
-import Section from "../../components/Section";
-import { MetaContext } from "../../context/MetaContext";
+import Layout from "../../../components/layouts/Museum";
+import Section from "../../../components/Section";
+import { MetaContext } from "../../../context/MetaContext";
 import { AiOutlineSearch } from "react-icons/ai";
-import CollectItem from "../../components/CollectItem";
-import SingaporeColelction from '../../public/sample_nft/singapore.json'
+import CollectItem from "../../../components/CollectItem";
+import SingaporeColelction from '../../../public/sample_nft/singapore.json'
 function getAttributeValue(arr, key) {
 	return arr.filter((item) => item.trait_type === key)[0].value;
 }
