@@ -1,5 +1,6 @@
 import { Button, Image, AspectRatio, Avatar } from "@chakra-ui/react";
 import Head from "next/head";
+import Link from "next/link";
 import {
 	AiFillHeart,
 	AiFillWallet,
@@ -95,9 +96,9 @@ export default function Home() {
 								/>
 							</div>
 						</div>
-						<button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:text-indigo-700">
-							View All
-						</button>
+						<Link href="/museum" passHref>
+							<button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:text-indigo-700">View All</button>
+						</Link>
 					</div>
 				</section>
 				<section className="text-black bg-white">
