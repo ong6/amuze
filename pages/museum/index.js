@@ -10,10 +10,10 @@ import {
 	Container,
 	localStorageManager,
 	Button,
-	useDisclosure
-} from '@chakra-ui/react'
+	useDisclosure,
+} from "@chakra-ui/react";
 import Entry from "../../components/museum/Entry";
-import tours from '../../public/tours/tours.json'
+import tours from "../../public/tours/tours.json";
 
 export default function Museum() {
 	return (
@@ -40,7 +40,7 @@ export default function Museum() {
 												description={tour.description}
 											/>
 										</div>
-									)
+									);
 								})}
 							</SimpleGrid>
 						</Container>

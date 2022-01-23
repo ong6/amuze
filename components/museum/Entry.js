@@ -17,12 +17,18 @@ import Coin from "../../public/logo.svg";
 import { ethers } from "ethers";
 
 export default function Entry() {
-	const [muze, setMuze] = useState(null);
+	const [ether, setEther] = useState("0");
 
 	const onSubmit = async () => {
 		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		await provider.send("eth_requestAccoun ts", []);
+		const abi = ["function fakeSwap() external payable"];
 		const signer = provider.getSigner();
+		const address = "0x82F375021f99B41D5aFc736305De7FefDcD48c44";
+		const muzeErc20 = new ethers.Contract(address, abi, signer);
+
+		await muzeErc20.fakeSwap({
+			value: ethers.utils.parseUnits(ether, "ether").toString(),
+		});
 	};
 
 	const addMuze = async () => {
@@ -55,31 +61,19 @@ export default function Entry() {
 		}
 	};
 
-	const payment_addr = "0xe1b26488AD9Ccf5D9a56E8a85474b6Fb29190A38";
+	const handlePayment = async () => {
+		const provider = new ethers.providers.Web3Provider(window.ethereum);
+		const abi = [
+			"function enterTour(address _tour) external",
+			"function hasEnteredTour(address _tour) external view returns (bool)",
+		];
+		const signer = provider.getSigner();
+		const tourAddress = "0xBA6FF536370Cc75f0D7643d21E2cF546f1da7C0E";
+		const custodyAddress = "0x3B83b5762FC63956F923FC244E6bd1d0C4731b06";
+		const muzeCustody = new ethers.Contract(custodyAddress, abi, signer);
 
-	const payment = async ({ ether = 5 }) => {
-		try {
-			if (!window.ethereum)
-				throw new Error("No crypto wallet found. Please install it.");
-
-			await window.ethereum.send("eth_requestAccounts");
-			const provider = new ethers.providers.Web3Provider(window.ethereum);
-			const signer = provider.getSigner();
-			ethers.utils.getAddress(payment_addr);
-			const { hash } = await signer.sendTransaction({
-				to: payment_addr,
-				value: ethers.utils.parseEther(ether),
-			});
-			await provider.waitForTransaction(hash);
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	const handlePayment = async (amt) => {
-		await payment({
-			ether: amt,
-		});
+		// await muzeCustody.hasEnteredTour(tourAddress);
+		// await muzeCustody.enterTour(tourAddress);
 	};
 
 	function TopSection() {
@@ -202,8 +196,7 @@ export default function Entry() {
 							size="lg"
 							bg={"purple.500"}
 							rounded={15}
-						// onClick={() => handlePayment("0.005")}
-						>
+							onClick={() => handlePayment()}>
 							Enter Museum
 						</Button>
 					</Link>
@@ -212,3 +205,28 @@ export default function Entry() {
 		</Container>
 	);
 }
+
+// const payment = async ({ ether = 5 }) => {
+// 	try {
+// 		if (!window.ethereum)
+// 			throw new Error("No crypto wallet found. Please install it.");
+
+// 		await window.ethereum.send("eth_requestAccounts");
+// 		const provider = new ethers.providers.Web3Provider(window.ethereum);
+// 		const signer = provider.getSigner();
+// 		ethers.utils.getAddress(payment_addr);
+// 		const { hash } = await signer.sendTransaction({
+// 			to: payment_addr,
+// 			value: ethers.utils.parseEther(ether),
+// 		});
+// 		await provider.waitForTransaction(hash);
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// };
+
+// const handlePayment = async (amt) => {
+// 	await payment({
+// 		ether: amt,
+// 	});
+// };
