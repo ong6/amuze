@@ -25,8 +25,8 @@ export default function Museum() {
 				</Head>
 				<Section delay={0.2}>
 					<div className="p-8">
-						<div className="text-gray-100 text-center text-4xl font-bold mb-4">
-							Choose a museum to visit!
+						<div className="mb-4 text-4xl font-bold text-center text-gray-100">
+							Choose a museum tour to visit!
 						</div>
 						<Container minW={"80%"}>
 							<SimpleGrid columns={[1, 1, 3]} gap={6}>
