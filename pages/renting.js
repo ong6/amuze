@@ -22,7 +22,13 @@ import { BsDashLg } from "react-icons/bs";
 import Layout from "../components/layouts/Default";
 import Section from "../components/Section";
 import { MetaContext } from "../context/MetaContext";
-import { getTokenIdsUser, mintUserNft, rentToMuseum } from "./api/contract";
+import {
+  getTokenIdsUser,
+  mintUserNft,
+  rentToMuseum,
+  getRewards,
+  getEstimatedRewards,
+} from "./api/contract";
 
 export default function Renting() {
   const { address } = useContext(MetaContext);
@@ -67,6 +73,13 @@ export default function Renting() {
       return false;
     };
 
+    // not in use - to be done on the homepage
+    const redeemRewards = async () => {
+      console.log("hi");
+      // console.log(await getEstimatedRewards());
+      // await getRewards();
+    };
+
     return (
       <Container className="bg-white rounded-xl">
         <div className="flex flex-col space-y-4 p-4">
@@ -91,6 +104,9 @@ export default function Renting() {
               >
                 <option value="Qin Hua Porcelain Flower Vase">
                   Qin Hua Porcelain Flower Vase
+                </option>
+                <option value="Stone Tablet Winged Buddha">
+                  Stone Tablet Winged Buddha
                 </option>
               </Select>
             </div>
@@ -207,7 +223,7 @@ export default function Renting() {
             </CheckboxGroup>
           </FormControl>
           <Button colorScheme="blue" onClick={handleRent}>
-            Next
+            Rent
           </Button>
         </div>
       </Container>
@@ -416,7 +432,7 @@ export default function Renting() {
             </CheckboxGroup>
           </FormControl>
           <Button colorScheme="blue" onClick={() => handleMint()}>
-            Next
+            Mint
           </Button>
         </div>
       </Container>

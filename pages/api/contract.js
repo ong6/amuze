@@ -92,3 +92,25 @@ export const getHashesFromTokenIds = async (tokenIds) => {
 
   return hashes;
 };
+
+// Get the rewards from contract
+export const getRewards = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const abi = ["function redeemRewards(address _tour) external"];
+  const signer = provider.getSigner();
+  const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
+
+  return await custodyReward.redeemRewards(tourAddress);
+};
+
+// Get the estimated rewards from the contract
+export const getEstimatedRewards = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const abi = [
+    "function getEstimatedRewards() external view returns (uint256)",
+  ];
+  const signer = provider.getSigner();
+  const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
+
+  return await custodyReward.getEstimatedRewards();
+};
