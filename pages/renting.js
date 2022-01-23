@@ -37,10 +37,10 @@ export default function Renting() {
   const [mint, setMint] = useState(null);
 
   function RentNFT() {
-    const [nft, setNft] = useState("Qin Hua Porcelain Flower Vase");
-    const [museum, setMuseum] = useState("National Museum of singapore");
-    const [tour, setTour] = useState("JOURNEY TO THE WEST - TRADITIONAL VASES");
-    const [owner, setOwner] = useState("");
+    const [nft, setNft] = useState(null);
+    const [museum, setMuseum] = useState(null);
+    const [tour, setTour] = useState(null);
+    const [owner, setOwner] = useState(null);
 
     const handleNftChange = (e) => setNft(e.target.value);
     const handleMuseumChange = (e) => setMuseum(e.target.value);
@@ -123,13 +123,7 @@ export default function Renting() {
                 value={tour}
                 onChange={handleTourChange}
               >
-                <option
-                  value="JOURNEY TO THE WEST - TRADITIONAL VASES"
-                  className="capitalize"
-                >
-                  JOURNEY TO THE WEST - TRADITIONAL VASES
-                </option>
-                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                <option value="Chinese Artefacts of the Qing Dynasty Tour">
                   Chinese Artefacts of the Qing Dynasty Tour
                 </option>
                 <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
@@ -142,8 +136,8 @@ export default function Renting() {
             </div>
             <div className="div">
               <div className="text-xs text-gray-400 mb-2">
-                *you have selected “JOURNEY TO THE WEST - TRADITIONAL VASES”.
-                Dates for tour below.
+                {`*you have selected ${tour}.
+                Dates for tour below.`}
               </div>
               <div className="flex flex-row justify-between items-center">
                 <InputGroup>
@@ -151,7 +145,7 @@ export default function Renting() {
                     variant="filled"
                     size="sm"
                     placeholder={
-                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                      tour === "Chinese Artefacts of the Qing Dynasty Tour"
                         ? "21/1/22"
                         : "date"
                     }
@@ -169,7 +163,7 @@ export default function Renting() {
                     variant="filled"
                     size="sm"
                     placeholder={
-                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                      tour === "Chinese Artefacts of the Qing Dynasty Tour"
                         ? "21/8/22"
                         : "date"
                     }
@@ -298,10 +292,7 @@ export default function Renting() {
                 size={"sm"}
                 onChange={handleTourChange}
               >
-                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
-                  JOURNEY TO THE WEST - TRADITIONAL VASES
-                </option>
-                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                <option value="Chinese Artefacts of the Qing Dynasty Tour">
                   Chinese Artefacts of the Qing Dynasty Tour
                 </option>
                 <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
@@ -314,8 +305,8 @@ export default function Renting() {
             </div>
             <div className="div">
               <div className="text-xs text-gray-400 mb-2">
-                *you have selected “JOURNEY TO THE WEST - TRADITIONAL VASES”.
-                Dates for tour below.
+                {`*you have selected ${tour}.
+                Dates for tour below.`}
               </div>
               <div className="flex flex-row justify-between items-center">
                 <InputGroup>
@@ -323,7 +314,7 @@ export default function Renting() {
                     variant="filled"
                     size="sm"
                     placeholder={
-                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                      tour === "Chinese Artefacts of the Qing Dynasty Tour"
                         ? "21/1/22"
                         : "date"
                     }
@@ -341,11 +332,12 @@ export default function Renting() {
                     variant="filled"
                     size="sm"
                     placeholder={
-                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                      tour === "Chinese Artefacts of the Qing Dynasty Tour"
                         ? "21/8/22"
                         : "date"
                     }
                     isReadOnly={true}
+                    className="text-red-800"
                   />
                   <InputRightElement>
                     <Icon as={BiCalendar} color="gray.500" w={5} h={5} mb={2} />
@@ -373,12 +365,29 @@ export default function Renting() {
               />
             </div>
             <div className="div">
-              <FormLabel htmlFor="Name" className={styles.headers}>
+              <FormLabel htmlFor="certification" className={styles.headers}>
                 {"Certificate"}
               </FormLabel>
               <Input
-                id="Name"
-                placeholder="Enter Name"
+                id="certification"
+                variant="filled"
+                size={"sm"}
+                type="file"
+                onChange={(event) => {
+                  setSelectedImage(event.target.files[0]);
+                  console.log(selectedImage);
+                  // getBase64(selectedImage).then((data) => {
+                  //   console.log(data);
+                  // });
+                }}
+              />
+            </div>
+            <div className="div">
+              <FormLabel htmlFor="audio" className={styles.headers}>
+                {"Audio (mp3)"}
+              </FormLabel>
+              <Input
+                id="audio"
                 variant="filled"
                 size={"sm"}
                 type="file"
