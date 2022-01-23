@@ -8,6 +8,7 @@ import {
 	DrawerContent,
 	Image,
 } from "@chakra-ui/react";
+import { AiFillCaretRight } from "react-icons/ai";
 import CollectItemDetail from "./CollectItemDetail";
 export default function CollectItem({
 	title = "Qing Dynasty Stone Statue",
@@ -15,6 +16,7 @@ export default function CollectItem({
 	country = "China",
 	owner = "Qing Shi Huang",
 	imgUrl = "/robe.svg",
+	audio = "https://amuze.vercel.app/hackathon/1.mp3"
 }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
@@ -60,7 +62,7 @@ export default function CollectItem({
 				<DrawerContent>
 					<DrawerHeader borderBottomWidth="1px">NFT Details</DrawerHeader>
 					<DrawerBody className="bg-gray-100">
-						<CollectItemDetail imgUrl={imgUrl} title={title} />
+						<CollectItemDetail imgUrl={imgUrl} title={title} audio={audio} />
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
