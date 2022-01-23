@@ -30,6 +30,10 @@ import testData from "../public/sample_nft/nft1.json";
 export default function Renting() {
   const { address } = useContext(MetaContext);
 
+  const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
+  const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
+  const muzeAddress = "0xDABAb1D8E95A491374CEe8280Be480A901a7C807";
+
   const styles = {
     heading: "text-left text-2xl font-semibold text-gray-600",
     headers: "text-left text-sm text-gray-600 uppercase",
@@ -38,6 +42,77 @@ export default function Renting() {
 
   const [rent, setRent] = useState(null);
   const [mint, setMint] = useState(null);
+
+  const getTokenIds = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const abi = [
+      "function balanceOf(address owner) external view returns (uint256 balance)",
+      "function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId)",
+    ];
+
+    const signer = provider.getSigner();
+    const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+    const numOfNfts = await muzeTour.balanceOf(address);
+
+    let tokenIds = [];
+    let promises = [];
+
+    for (let i = 0; i < numOfNfts; i++) {
+      promises.push(
+        muzeTour
+          .tokenOfOwnerByIndex(i)
+          .then((tokenId) => tokenIds.push(tokenId))
+      );
+    }
+
+    await Promise.all(promises);
+
+    return tokenIds;
+  };
+
+  const getHashFromTokenId = async (tokenId) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const abi = [
+      "function tokenURI(uint256 tokenId) public view virtual override returns (string memory)",
+    ];
+
+    const signer = provider.getSigner();
+    const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+
+    return await muzeTour.tokenURI(tokenId);
+  };
+
+  const getHashesFromTokenIds = async (tokenIds) => {
+    let hashes = {};
+    let promises = [];
+
+    for (let i = 0; i < tokenIds.length(); i++) {
+      promises.push(
+        getHashFromTokenId(tokenIds[i]).then(
+          (hash) => (hashes[tokenIds[i]] = hash)
+        )
+      );
+    }
+
+    await Promise.all(promises);
+
+    return hashes;
+  };
+
+  const mintNFT = async (ipfsUrl) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const abi = [
+      "function totalSupply() external view returns (uint256)",
+      "function mint(address _to, uint256 _tokenId, string memory _tokenURI) external",
+    ];
+    const signer = provider.getSigner();
+    const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+
+    const newTokenId = (await muzeTour.totalSupply()) + 1;
+
+    // eg: https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn
+    await muzeTour.mint(address, newTokenId, ipfsUrl);
+  };
 
   function RentNFT() {
     const [nft, setNft] = useState("Qin Hua Porcelain Flower Vase");
