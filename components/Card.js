@@ -37,8 +37,8 @@ export default function Card({
 					/>
 					<div className="p-6 bg-white">
 						<h1 className="text-lg font-bold text-gray-900 ">{title}</h1>
-						<span className="text-sm">{description}</span>
-						<span className="text-indigo-500">Read More</span>
+						<span className="text-sm text-ellipsis">{description}</span>
+						<span className="text-indigo-500">{' '}Read More</span>
 					</div>
 					<div className="flex items-center justify-between p-4 bg-gray-100">
 						<div>

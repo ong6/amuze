@@ -13,6 +13,7 @@ import {
 	useDisclosure
 } from '@chakra-ui/react'
 import Entry from "../../components/museum/Entry";
+import tours from '../../public/tours/tours.json'
 
 export default function Museum() {
 	return (
@@ -30,11 +31,17 @@ export default function Museum() {
 						</div>
 						<Container minW={"80%"}>
 							<SimpleGrid columns={[1, 1, 3]} gap={6}>
-								<Card />
-								<Card />
-								<Card />
-								<Card />
-								<Card />
+								{tours.map((tour, index) => {
+									return (
+										<div key={index}>
+											<Card
+												imgUrl={tour.image}
+												title={tour.name}
+												description={tour.description}
+											/>
+										</div>
+									)
+								})}
 							</SimpleGrid>
 						</Container>
 					</div>
