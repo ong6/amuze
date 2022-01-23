@@ -24,6 +24,8 @@ import {
 import { BsDashLg } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
 import { MetaContext } from "../context/MetaContext";
+import { uploadProposal } from "./api/ipfs";
+import testData from "../public/sample_nft/1.json";
 
 export default function Renting() {
 	const { address } = useContext(MetaContext);
@@ -38,6 +40,8 @@ export default function Renting() {
 	const [mint, setMint] = useState(null);
 
 	function handleMint(nft, description, tour, image) {
+		// ADI PUT UR SMART CONTRACT HERE
+
 		setMint({
 			nftName: nft,
 			description: description,
@@ -47,7 +51,7 @@ export default function Renting() {
 	}
 
 	function RentNFT() {
-		const [nft, setNft] = useState("");
+		const [nft, setNft] = useState("Qin Hua Porcelain Flower Vase");
 		const [museum, setMuseum] = useState("National Museum of singapore");
 		const [tour, setTour] = useState("JOURNEY TO THE WEST - TRADITIONAL VASES");
 		const [owner, setOwner] = useState("");
@@ -57,7 +61,9 @@ export default function Renting() {
 		const handleTourChange = (e) => setTour(e.target.value);
 		const handleOwnerChange = (e) => setOwner(e.target.value);
 
-		const handleRent = (event) => {
+		let path;
+
+		const handleRent = () => {
 			setRent({
 				nft: nft,
 				museum: museum,
@@ -66,6 +72,9 @@ export default function Renting() {
 			});
 			console.log("submit");
 			console.log(rent);
+
+			path = uploadProposal(JSON.stringify(testData));
+			console.log(path);
 			return false;
 		};
 
@@ -407,7 +416,7 @@ export default function Renting() {
 				</Section>
 			) : (
 				<div className="[height:50vh] flex text-4xl text-white items-center justify-center">
-					Please Connect Your wallet to view Renting and Listing.
+					Please connect your wallet to view Renting and Listing.
 				</div>
 			)}
 		</Layout>

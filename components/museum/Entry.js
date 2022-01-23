@@ -7,7 +7,7 @@ import {
 	Image,
 	Input,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Go } from "../../public/museum_pic/go.svg";
 import { FaEthereum } from "react-icons/fa";
 import { BsArrowDownCircle } from "react-icons/bs";
@@ -15,24 +15,13 @@ import { GiTicket } from "react-icons/gi";
 import Link from "next/link";
 import Coin from "../../public/logo.svg";
 import { ethers } from "ethers";
+import { MetaContext } from "../../context/MetaContext";
 
 export default function Entry() {
-	const [ether, setEther] = useState("0");
-
-	const onSubmit = async () => {
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		const abi = ["function fakeSwap() external payable"];
-		const signer = provider.getSigner();
-		const address = "0x82F375021f99B41D5aFc736305De7FefDcD48c44";
-		const muzeErc20 = new ethers.Contract(address, abi, signer);
-
-		await muzeErc20.fakeSwap({
-			value: ethers.utils.parseUnits(ether, "ether").toString(),
-		});
-	};
+	const { address } = useContext(MetaContext);
 
 	const addMuze = async () => {
-		const contractAddr = "0xec91c38f021149f72e4d7788c39cf3d941afa3a6";
+		const contractAddr = "0x82F375021f99B41D5aFc736305De7FefDcD48c44";
 		const tokenSymbol = "MUZE";
 		const tokenDecimals = 18;
 		const tokenImage = window.location.href + Coin.src;
@@ -77,7 +66,19 @@ export default function Entry() {
 	};
 
 	function TopSection() {
-		const [ether, setEther] = useState("");
+		const onSubmit = async () => {
+			const provider = new ethers.providers.Web3Provider(window.ethereum);
+			const abi = ["function fakeSwap() external payable"];
+			const signer = provider.getSigner();
+			const address = "0x82F375021f99B41D5aFc736305De7FefDcD48c44";
+			const muzeErc20 = new ethers.Contract(address, abi, signer);
+
+			await muzeErc20.fakeSwap({
+				value: ethers.utils.parseUnits(ether, "ether").toString(),
+			});
+		};
+
+		const [ether, setEther] = useState("0");
 		const handleChange = (event) => setEther(event.target.value);
 
 		return (
@@ -168,40 +169,48 @@ export default function Entry() {
 
 	return (
 		<Container className="self-center p-8 bg-white rounded-xl" maxW="lg">
-			<div className="flex flex-col space-y-4">
-				{/* 1 */}
-				<div className="flex flex-row justify-between">
-					<span className="flex flex-row items-center space-x-3">
-						<Image src="/museum_pic/go.svg" alt="go" layout="fill" />
-						<div className="text-2xl font-bold text-orange-400">SWAP $MUZE</div>
-					</span>
-					<span>Entrance Fee: {30} MUZE</span>
-				</div>
-				{/* payment section */}
-				<TopSection />
-
-				<Divider borderColor={"purple.500"} />
-				{/* enter section */}
-				<div className="flex flex-col px-4 pt-4 space-y-6">
-					<div className="flex flex-row items-center justify-center">
-						You have selected:
-						<div className="items-center pl-2 text-purple-500">
-							National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
-						</div>
+			{address ? (
+				<div className="flex flex-col space-y-4">
+					{/* 1 */}
+					<div className="flex flex-row justify-between">
+						<span className="flex flex-row items-center space-x-3">
+							<Image src="/museum_pic/go.svg" alt="go" layout="fill" />
+							<div className="text-2xl font-bold text-orange-400">
+								SWAP $MUZE
+							</div>
+						</span>
+						<span>Entrance Fee: {30} MUZE</span>
 					</div>
-					<Link href="/museum/singapore" passHref>
-						<Button
-							className="w-full"
-							colorScheme="purple"
-							size="lg"
-							bg={"purple.500"}
-							rounded={15}
-							onClick={() => handlePayment()}>
-							Enter Museum
-						</Button>
-					</Link>
+					{/* payment section */}
+					<TopSection />
+
+					<Divider borderColor={"purple.500"} />
+					{/* enter section */}
+					<div className="flex flex-col px-4 pt-4 space-y-6">
+						<div className="flex flex-row items-center justify-center">
+							You have selected:
+							<div className="items-center pl-2 text-purple-500">
+								National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
+							</div>
+						</div>
+						<Link href="/museum/singapore" passHref>
+							<Button
+								className="w-full"
+								colorScheme="purple"
+								size="lg"
+								bg={"purple.500"}
+								rounded={15}
+								onClick={() => handlePayment()}>
+								Enter Museum
+							</Button>
+						</Link>
+					</div>
 				</div>
-			</div>
+			) : (
+				<div className="[height:50vh] flex text-4xl text-black items-center justify-center">
+					Please connect your wallet before entering the museum
+				</div>
+			)}
 		</Container>
 	);
 }
