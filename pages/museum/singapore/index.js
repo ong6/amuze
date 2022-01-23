@@ -16,16 +16,16 @@ export default function Museum() {
 	const { address } = useContext(MetaContext);
 	const [collectItems, setCollectItems] = useState(SingaporeColelction)
 	return (
-		<Layout>
+		<Layout >
 			<Head>
 				<title>Amuze</title>
 				<meta name="description" content="Amuze-Museum at your fingertips" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			{address ? (
-				<Section delay={0.2}>
-					<div className="p-8">
-						<div className="flex items-center justify-center gap-4 mb-4 text-4xl font-bold text-gray-100">
+				<Section delay={0.2} >
+					<div className="h-screen" style={{ backgroundImage: 'url(/bg.png) ', backgroundSize: 'cover' }}>
+						<div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
 							<h1 className="w-1/3 py-10">VIEW PIECES FROM AROUND THE WORLD</h1>
 							<div className="py-10 w-96">
 								<InputGroup>
@@ -42,7 +42,7 @@ export default function Museum() {
 							<SimpleGrid columns={[1, 1, 4]} gap={10}>
 								{collectItems.map((item, index) => (
 									<CollectItem key={index} origins={getAttributeValue(item.attributes, "countryOfOrigin")}
-										imgUrl={item.image} title={item.name} audio={item.audio}
+										imgUrl={item.image} title={item.name} audio={item.audio} description={item.description}
 									/>
 								))}
 							</SimpleGrid>
