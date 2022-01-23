@@ -13,28 +13,16 @@ import { FaEthereum } from "react-icons/fa";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { GiTicket } from "react-icons/gi";
 import Link from "next/link";
-import Coin from "../../public/logo.svg";
 import { ethers } from "ethers";
 import { MetaContext } from "../../context/MetaContext";
 import { useRouter } from "next/router";
-import { addMuze, handlePayment } from "../../pages/api/contract";
+import { addMuze, HandlePayment, swapEthToMuze } from "../../pages/api/wallet";
 
 export default function Entry() {
   const { address } = useContext(MetaContext);
   const router = useRouter();
 
   function TopSection() {
-    const onSubmit = async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const abi = ["function fakeSwap() external payable"];
-      const signer = provider.getSigner();
-      const muzeErc20 = new ethers.Contract(muzeAddress, abi, signer);
-
-      await muzeErc20.fakeSwap({
-        value: ethers.utils.parseUnits(ether, "ether").toString(),
-      });
-    };
-
     const [ether, setEther] = useState("0");
     const handleChange = (event) => setEther(event.target.value);
 
@@ -116,7 +104,7 @@ export default function Entry() {
             size="lg"
             bg={"orange.400"}
             rounded={15}
-            onClick={onSubmit}
+            onClick={() => swapEthToMuze(ether)}
           >
             Confirm Order
           </Button>
@@ -160,7 +148,7 @@ export default function Entry() {
               size="lg"
               bg={"purple.500"}
               rounded={15}
-              onClick={handlePayment}
+              onClick={() => HandlePayment(router)}
             >
               Enter Museum
             </Button>

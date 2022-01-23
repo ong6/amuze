@@ -1,4 +1,6 @@
-const ethers = require("ethers");
+import Coin from "../../public/logo.svg";
+import { ethers } from "ethers";
+import { useRouter } from "next/router";
 
 const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
 const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
@@ -35,7 +37,9 @@ export const addMuze = async () => {
 };
 
 // Pays the museum 30 muze
-export const handlePayment = async (router) => {
+export const HandlePayment = async () => {
+  const router = useRouter();
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function enterTour(address _tour) external",
@@ -48,8 +52,21 @@ export const handlePayment = async (router) => {
     try {
       await muzeCustody.enterTour(tourAddress);
     } catch (error) {
-      return console.log(error);
+      console.log(error);
+      return;
     }
   }
+  console.log("you already bought the tour");
   router.push("/museum/singapore");
+};
+
+export const swapEthToMuze = async (ether) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const abi = ["function fakeSwap() external payable"];
+  const signer = provider.getSigner();
+  const muzeErc20 = new ethers.Contract(muzeAddress, abi, signer);
+
+  await muzeErc20.fakeSwap({
+    value: ethers.utils.parseUnits(ether, "ether").toString(),
+  });
 };
