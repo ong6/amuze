@@ -15,6 +15,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
 import SingaporeCollection from "../../../public/sample_nft/singapore.json";
 import { ethers } from "ethers";
+import abi from "./abi.json";
+const Web3 = require("web3");
 
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
@@ -27,15 +29,12 @@ export default function Museum() {
   const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
 
   const getTokenIdsForMuseum = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const abi = [
-      "function getRents() external view returns (RentedNFT[] memory)",
-    ];
+    const web3 = new Web3(`https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`);
+    console.log(abi);
+    const contract = new web3.eth.Contract(abi, custodyAddress);
 
-    const signer = provider.getSigner();
-    const muzeCustody = new ethers.Contract(custodyAddress, abi, signer);
-    const rents = await muzeCustody.getRents();
-
+    const rents = await contract.methods.getRents().call();
+    console.log(rents);
     return rents.map((rent) => rent.tokenId);
   };
 
