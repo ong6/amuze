@@ -12,7 +12,7 @@ import { IoIosPeople } from "react-icons/io";
 import Card from "../components/Card";
 import Layout from "../components/layouts/Default";
 import Section from "../components/Section";
-import tours from '../public/tours/tours.json'
+import tours from "../public/tours/tours.json";
 export default function Home() {
 	return (
 		<Layout>
@@ -81,18 +81,22 @@ export default function Home() {
 						<div className="flex flex-wrap -mx-4 -mt-4 -mb-10 space-y-6 sm:-m-4 md:space-y-0">
 							{tours.map((tour, index) => {
 								return (
-									<div className="flex flex-col items-center p-4 md:w-1/3" key={index}>
+									<div
+										className="flex flex-col items-center p-4 md:w-1/3"
+										key={index}>
 										<Card
 											imgUrl={tour.image}
 											title={tour.name}
 											description={tour.description}
 										/>
 									</div>
-								)
+								);
 							})}
 						</div>
 						<Link href="/museum" passHref>
-							<button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:text-indigo-700">View All</button>
+							<button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:text-indigo-700">
+								View All
+							</button>
 						</Link>
 					</div>
 				</section>
