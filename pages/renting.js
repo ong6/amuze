@@ -37,15 +37,6 @@ export default function Renting() {
 	const [rent, setRent] = useState(null);
 	const [mint, setMint] = useState(null);
 
-	function handleRent(nft, museum, tour, owner) {
-		setRent({
-			nft: nft,
-			museum: museum,
-			tour: tour,
-			owner: owner,
-		});
-	}
-
 	function handleMint(nft, description, tour, image) {
 		setMint({
 			nftName: nft,
@@ -56,15 +47,27 @@ export default function Renting() {
 	}
 
 	function RentNFT() {
-		const [nft, setNft] = useState(null);
-		const [museum, setMuseum] = useState(null);
-		const [tour, setTour] = useState(null);
-		const [owner, setOwner] = useState(null);
+		const [nft, setNft] = useState("");
+		const [museum, setMuseum] = useState("National Museum of singapore");
+		const [tour, setTour] = useState("JOURNEY TO THE WEST - TRADITIONAL VASES");
+		const [owner, setOwner] = useState("");
 
 		const handleNftChange = (e) => setNft(e.target.value);
 		const handleMuseumChange = (e) => setMuseum(e.target.value);
 		const handleTourChange = (e) => setTour(e.target.value);
 		const handleOwnerChange = (e) => setOwner(e.target.value);
+
+		const handleRent = (event) => {
+			setRent({
+				nft: nft,
+				museum: museum,
+				tour: tour,
+				owner: owner,
+			});
+			console.log("submit");
+			console.log(rent);
+			return false;
+		};
 
 		return (
 			<Container className="bg-white rounded-xl">
@@ -75,7 +78,7 @@ export default function Renting() {
 							Please fill in the following to rent your NFT.
 						</div>
 					</div>
-					<FormControl className="space-y-6" isRequired>
+					<FormControl className="space-y-6">
 						<div className="div">
 							<FormLabel htmlFor="NFT" className={styles.headers}>
 								Select NFT
@@ -85,7 +88,8 @@ export default function Renting() {
 								placeholder="Select NFT"
 								variant="filled"
 								size={"sm"}
-								onChange={handleNftChange}>
+								onChange={handleNftChange}
+								value={nft}>
 								<option value="Qin Hua Porcelain Flower Vase">
 									Qin Hua Porcelain Flower Vase
 								</option>
@@ -102,12 +106,11 @@ export default function Renting() {
 								placeholder="Select Museum"
 								variant="filled"
 								size={"sm"}
+								value={museum}
 								onChange={handleMuseumChange}>
 								<option value="National Museum of singapore">
 									National Museum of singapore
 								</option>
-								<option value="test1">test</option>
-								<option value="test2">test</option>
 							</Select>
 						</div>
 						<div className="div">
@@ -119,12 +122,11 @@ export default function Renting() {
 								placeholder="Select Tour"
 								variant="filled"
 								size={"sm"}
+								value={tour}
 								onChange={handleTourChange}>
 								<option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
 									JOURNEY TO THE WEST - TRADITIONAL VASES
 								</option>
-								<option value="test1">test</option>
-								<option value="test2">test</option>
 							</Select>
 						</div>
 						<div className="div">
@@ -138,7 +140,7 @@ export default function Renting() {
 										variant="filled"
 										size="sm"
 										placeholder="date"
-										isReadOnly={true}
+										isReadOnly
 									/>
 									<InputRightElement>
 										<Icon as={BiCalendar} color="gray.500" w={5} h={5} mb={2} />
@@ -152,7 +154,7 @@ export default function Renting() {
 										variant="filled"
 										size="sm"
 										placeholder="date"
-										isReadOnly={true}
+										isReadOnly
 									/>
 									<InputRightElement>
 										<Icon as={BiCalendar} color="gray.500" w={5} h={5} mb={2} />
@@ -172,6 +174,7 @@ export default function Renting() {
 								variant="filled"
 								size={"sm"}
 								onChange={handleOwnerChange}
+								value={owner}
 							/>
 						</div>
 						<CheckboxGroup>
@@ -189,9 +192,7 @@ export default function Renting() {
 							</Stack>
 						</CheckboxGroup>
 					</FormControl>
-					<Button
-						colorScheme="blue"
-						onClick={() => handleRent(nft, museum, tour, owner)}>
+					<Button colorScheme="blue" onClick={handleRent}>
 						Next
 					</Button>
 				</div>
