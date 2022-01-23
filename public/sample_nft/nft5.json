@@ -1,41 +1,41 @@
 {
-    "description": "According to the Chronicles of Huayang compiled in the Jin Dynasty (266–420), the Shu kingdom was founded by Cancong. Cancong was described as having protruding eyes, a feature that is found in the figures of Sanxingdui.",
-    "image": "https://amuze.vercel.app/hackathon/5.png",
-    "name": "Jade Dragon Eye Totem",
-    "audio": "https://amuze.vercel.app/hackathon/5.mp3",
-	"proof": "https://amuze.vercel.app/hackathon/proof.png",
-    "attributes": [
-      {
-        "trait_type": "artist",
-        "value": "Unknown"
-      },
-      {
-        "trait_type": "countryOfOrigin",
-        "value": "China",
-      },
-      {
-        "trait_type": "region",
-        "value": "Asia and the Pacific"
-      },
-      {
-        "trait_type": "route",
-        "value": "Sea"
-      },
-      {
-        "trait_type": "specifications",
-        "value": "27x22x36cm"
-      },
-      {
-        "trait_type": "date",
-        "value": "Tang Dynasty (618-907 A.D.)"
-      },
-      {
-        "trait_type": "hostMuseum",
-        "value": "Sanxingdui Museum"
-      },
-      {
-        "trait_type": "objectType",
-        "value": "Monument"
-      }
-	]
+  "description": "According to the Chronicles of Huayang compiled in the Jin Dynasty (266–420), the Shu kingdom was founded by Cancong. Cancong was described as having protruding eyes, a feature that is found in the figures of Sanxingdui.",
+  "image": "https://amuze.vercel.app/hackathon/5.png",
+  "name": "Jade Dragon Eye Totem",
+  "audio": "https://amuze.vercel.app/hackathon/5.mp3",
+  "proof": "https://amuze.vercel.app/hackathon/proof.png",
+  "attributes": [
+    {
+      "trait_type": "artist",
+      "value": "Unknown"
+    },
+    {
+      "trait_type": "countryOfOrigin",
+      "value": "China"
+    },
+    {
+      "trait_type": "region",
+      "value": "Asia and the Pacific"
+    },
+    {
+      "trait_type": "route",
+      "value": "Sea"
+    },
+    {
+      "trait_type": "specifications",
+      "value": "27x22x36cm"
+    },
+    {
+      "trait_type": "date",
+      "value": "Tang Dynasty (618-907 A.D.)"
+    },
+    {
+      "trait_type": "hostMuseum",
+      "value": "Sanxingdui Museum"
+    },
+    {
+      "trait_type": "objectType",
+      "value": "Monument"
+    }
+  ]
 }

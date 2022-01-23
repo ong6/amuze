@@ -8,10 +8,10 @@ import {
 	DrawerContent,
 	Image,
 } from "@chakra-ui/react";
-import { AiFillCaretRight } from "react-icons/ai";
 import CollectItemDetail from "./CollectItemDetail";
 export default function CollectItem({
 	title = "Qing Dynasty Stone Statue",
+	description = "item description",
 	origins = "1644 to 1912",
 	country = "China",
 	owner = "Qing Shi Huang",
@@ -62,7 +62,7 @@ export default function CollectItem({
 				<DrawerContent>
 					<DrawerHeader borderBottomWidth="1px">NFT Details</DrawerHeader>
 					<DrawerBody className="bg-gray-100">
-						<CollectItemDetail imgUrl={imgUrl} title={title} audio={audio} />
+						<CollectItemDetail imgUrl={imgUrl} title={title} audio={audio} description={description} />
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
