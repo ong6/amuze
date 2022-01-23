@@ -41,7 +41,7 @@ export default function Museum() {
 						<Container minW={"80%"}>
 							<SimpleGrid columns={[1, 1, 4]} gap={10}>
 								{collectItems.map((item, index) => (
-									<CollectItem key={index} origins={getAttributeValue(item.attributes, "Origins")}
+									<CollectItem key={index} origins={getAttributeValue(item.attributes, "countryOfOrigin")}
 										imgUrl={item.image} title={item.name}
 									/>
 								))}
