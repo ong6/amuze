@@ -58,7 +58,7 @@ const MuseumNavbar = (props) => {
 					alignItems="center"
 					flexGrow={1}
 					mt={{ md: 0 }}>
-					<LinkItem href="/" path={path}>
+					<LinkItem href="#" path={path}>
 						Full Collection
 					</LinkItem>
 					<LinkItem href={`${path.asPath}/tours`} path={path}>
