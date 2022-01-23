@@ -16,11 +16,19 @@ import Link from "next/link";
 import { ethers } from "ethers";
 import { MetaContext } from "../../context/MetaContext";
 import { useRouter } from "next/router";
-import { addMuze, HandlePayment, swapEthToMuze } from "../../pages/api/wallet";
+import { addMuze, handlePayment, swapEthToMuze } from "../../pages/api/wallet";
 
 export default function Entry() {
   const { address } = useContext(MetaContext);
   const router = useRouter();
+
+  const enterMuseum = async () => {
+    if (await handlePayment()) {
+      router.push("museum/singapore");
+    } else {
+      console.log("You didn't pay");
+    }
+  };
 
   function TopSection() {
     const [ether, setEther] = useState("0");
@@ -148,7 +156,7 @@ export default function Entry() {
               size="lg"
               bg={"purple.500"}
               rounded={15}
-              onClick={() => HandlePayment(router)}
+              onClick={enterMuseum}
             >
               Enter Museum
             </Button>

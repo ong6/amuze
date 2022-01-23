@@ -24,9 +24,7 @@ export default function Museum() {
   const { address } = useContext(MetaContext);
   const [collectItems, setCollectItems] = useState(SingaporeCollection);
 
-  const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
   const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
-  const muzeAddress = "0xDABAb1D8E95A491374CEe8280Be480A901a7C807";
 
   const getTokenIdsForMuseum = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);

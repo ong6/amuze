@@ -1,32 +1,28 @@
-import Head from "next/head";
-import Layout from "../components/layouts/Default";
-import Section from "../components/Section";
-import React, { useContext, useState } from "react";
 import {
+  Button,
+  Checkbox,
+  CheckboxGroup,
   Container,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
+  Icon,
+  Image,
   Input,
-  Select,
   InputGroup,
   InputRightElement,
-  Icon,
-  Stack,
-  Checkbox,
-  CheckboxGroup,
   Link,
-  Button,
+  Select,
+  Stack,
   Textarea,
-  Image,
 } from "@chakra-ui/react";
-import { BsDashLg } from "react-icons/bs";
+import Head from "next/head";
+import React, { useContext, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
+import { BsDashLg } from "react-icons/bs";
+import Layout from "../components/layouts/Default";
+import Section from "../components/Section";
 import { MetaContext } from "../context/MetaContext";
-import { uploadProposal } from "./api/ipfs";
-import testData from "../public/sample_nft/nft1.json";
-import { ethers } from "ethers";
+import { getTokenIdsUser, mintUserNft, rentToMuseum } from "./api/contract";
 
 export default function Renting() {
   const { address } = useContext(MetaContext);
@@ -53,7 +49,7 @@ export default function Renting() {
 
     let path;
 
-    const handleRent = async ({ tokenId }) => {
+    const handleRent = async () => {
       setRent({
         nft: nft,
         museum: museum,
@@ -64,19 +60,9 @@ export default function Renting() {
       // path = uploadProposal(JSON.stringify(testData));
       // console.log(path);
 
-      console.log("test");
-      // console.log(await getTokenIds());
-
-      // console.log(await getHashesFromTokenIds(await getTokenIds()));
-      // console.log(
-      //   await mintNFT(
-      //     "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn"
-      //   )
-      // );
-
-      // await getTokenIds();
-
-      // console.log(submitRent(1));
+      const tempData = await getTokenIdsUser(address);
+      console.log(tempData);
+      await rentToMuseum(tempData[0], address);
 
       return false;
     };
@@ -106,8 +92,6 @@ export default function Renting() {
                 <option value="Qin Hua Porcelain Flower Vase">
                   Qin Hua Porcelain Flower Vase
                 </option>
-                <option value="test1">test</option>
-                <option value="test2">test</option>
               </Select>
             </div>
             <div className="div">
@@ -139,8 +123,20 @@ export default function Renting() {
                 value={tour}
                 onChange={handleTourChange}
               >
-                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                <option
+                  value="JOURNEY TO THE WEST - TRADITIONAL VASES"
+                  className="capitalize"
+                >
                   JOURNEY TO THE WEST - TRADITIONAL VASES
+                </option>
+                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                  Chinese Artefacts of the Qing Dynasty Tour
+                </option>
+                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                  Hawaiian Ancient Ruins, the story of King Kamehameha Tour
+                </option>
+                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                  Babylonian Kings and their luxurious lives Tour
                 </option>
               </Select>
             </div>
@@ -154,7 +150,11 @@ export default function Renting() {
                   <Input
                     variant="filled"
                     size="sm"
-                    placeholder="date"
+                    placeholder={
+                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                        ? "21/1/22"
+                        : "date"
+                    }
                     isReadOnly
                   />
                   <InputRightElement>
@@ -168,7 +168,11 @@ export default function Renting() {
                   <Input
                     variant="filled"
                     size="sm"
-                    placeholder="date"
+                    placeholder={
+                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                        ? "21/8/22"
+                        : "date"
+                    }
                     isReadOnly
                   />
                   <InputRightElement>
@@ -226,13 +230,18 @@ export default function Renting() {
     const handleDescriptionChange = (e) => setDescription(e.target.value);
     const handleTourChange = (e) => setTour(e.target.value);
 
-    function handleMint(nft, description, tour, image) {
+    function handleMint() {
       setMint({
-        nftName: nft,
+        nftName: nftName,
         description: description,
         tour: tour,
-        image: image,
+        image: selectedImage,
       });
+
+      mintUserNft(
+        "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",
+        address
+      );
     }
 
     function getBase64(file) {
@@ -292,8 +301,15 @@ export default function Renting() {
                 <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
                   JOURNEY TO THE WEST - TRADITIONAL VASES
                 </option>
-                <option value="test1">test</option>
-                <option value="test2">test</option>
+                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                  Chinese Artefacts of the Qing Dynasty Tour
+                </option>
+                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                  Hawaiian Ancient Ruins, the story of King Kamehameha Tour
+                </option>
+                <option value="JOURNEY TO THE WEST - TRADITIONAL VASES">
+                  Babylonian Kings and their luxurious lives Tour
+                </option>
               </Select>
             </div>
             <div className="div">
@@ -306,7 +322,11 @@ export default function Renting() {
                   <Input
                     variant="filled"
                     size="sm"
-                    placeholder="date"
+                    placeholder={
+                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                        ? "21/1/22"
+                        : "date"
+                    }
                     isReadOnly={true}
                   />
                   <InputRightElement>
@@ -320,7 +340,11 @@ export default function Renting() {
                   <Input
                     variant="filled"
                     size="sm"
-                    placeholder="date"
+                    placeholder={
+                      tour === "JOURNEY TO THE WEST - TRADITIONAL VASES"
+                        ? "21/8/22"
+                        : "date"
+                    }
                     isReadOnly={true}
                   />
                   <InputRightElement>
@@ -331,7 +355,7 @@ export default function Renting() {
             </div>
             <div className="div">
               <FormLabel htmlFor="Name" className={styles.headers}>
-                {"UPLOAD 2D & 3D IMAGES, CERTIFICATE & AUDIO"}
+                {"Image"}
               </FormLabel>
               <Input
                 id="Name"
@@ -342,9 +366,28 @@ export default function Renting() {
                 onChange={(event) => {
                   setSelectedImage(event.target.files[0]);
                   console.log(selectedImage);
-                  getBase64(selectedImage).then((data) => {
-                    console.log(data);
-                  });
+                  // getBase64(selectedImage).then((data) => {
+                  //   console.log(data);
+                  // });
+                }}
+              />
+            </div>
+            <div className="div">
+              <FormLabel htmlFor="Name" className={styles.headers}>
+                {"Certificate"}
+              </FormLabel>
+              <Input
+                id="Name"
+                placeholder="Enter Name"
+                variant="filled"
+                size={"sm"}
+                type="file"
+                onChange={(event) => {
+                  setSelectedImage(event.target.files[0]);
+                  console.log(selectedImage);
+                  // getBase64(selectedImage).then((data) => {
+                  //   console.log(data);
+                  // });
                 }}
               />
             </div>
@@ -363,12 +406,7 @@ export default function Renting() {
               </Stack>
             </CheckboxGroup>
           </FormControl>
-          <Button
-            colorScheme="blue"
-            onClick={() =>
-              handleMint(nftName, description, tour, selectedImage)
-            }
-          >
+          <Button colorScheme="blue" onClick={() => handleMint()}>
             Next
           </Button>
         </div>
@@ -428,9 +466,9 @@ export default function Renting() {
             <div className="text-white text-4xl font-bold text-center w-full">
               A-MUZE NFT Renting / Listing Platform
             </div>
-            <RentNFT />
             <MintNFT />
-            <CompleteNFT />
+            <RentNFT />
+            {/* <CompleteNFT /> */}
           </div>
         </Section>
       ) : (

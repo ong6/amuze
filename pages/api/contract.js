@@ -33,7 +33,7 @@ export const getTokenIdsUser = async (address) => {
 };
 
 // Mints the NFT that the user uploaded to the contract
-export const mintUserNft = async (ipfsUrl) => {
+export const mintUserNft = async (ipfsUrl, address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function totalSupply() external view returns (uint256)",
@@ -49,7 +49,7 @@ export const mintUserNft = async (ipfsUrl) => {
 };
 
 // Rents the current selected NFT to the museum
-export const rentToMuseum = async (tokenId) => {
+export const rentToMuseum = async (tokenId, address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function safeTransferFrom(address from, address to, uint256 tokenId) external",
