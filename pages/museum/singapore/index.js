@@ -14,6 +14,8 @@ import { MetaContext } from "../../../context/MetaContext";
 import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
 import SingaporeCollection from "../../../public/sample_nft/singapore.json";
+import { ethers } from "ethers";
+
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
 }
@@ -33,11 +35,14 @@ export default function Museum() {
     ];
 
     const signer = provider.getSigner();
-    const muzeTour = new ethers.Contract(tourAddress, abi, signer);
-
-    const rents = await muzeTour.getRents();
+    const muzeCustody = new ethers.Contract(custodyAddress, abi, signer);
+    const rents = await muzeCustody.getRents();
 
     return rents.map((rent) => rent.tokenId);
+  };
+
+  const test = async () => {
+    getTokenIdsForMuseum().then(console.log);
   };
 
   return (
@@ -57,7 +62,9 @@ export default function Museum() {
             }}
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
-              <h1 className="w-1/3 py-10">VIEW PIECES FROM AROUND THE WORLD</h1>
+              <h1 className="w-1/3 py-10" onClick={test}>
+                VIEW PIECES FROM AROUND THE WORLD
+              </h1>
               <div className="py-10 w-96">
                 <InputGroup>
                   <InputLeftElement
