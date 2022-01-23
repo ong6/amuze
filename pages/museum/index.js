@@ -4,7 +4,15 @@ import { useRouter } from "next/router";
 import Card from "../../components/Card";
 import Layout from "../../components/layouts/Default";
 import Section from "../../components/Section";
-import { SimpleGrid, GridItem, Container } from "@chakra-ui/react";
+import {
+	SimpleGrid,
+	GridItem,
+	Container,
+	localStorageManager,
+	Button,
+	useDisclosure
+} from '@chakra-ui/react'
+import Entry from "../../components/museum/Entry";
 
 export default function Museum() {
 	return (
