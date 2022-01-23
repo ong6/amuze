@@ -1,0 +1,41 @@
+{
+    "description": "The word 'mesopotamia' comes from the ancient words 'meso', which means 'middle', and 'potamos', which means 'river or stream'. Mesopotamia is the land between the Tigris and Euphrates rivers (now Iraq, north-east Syria and part of south-east Turkey).",
+    "image": "https://amuze.vercel.app/hackathon/2.png",
+    "name": "Stone Female Ancient Figure",
+    "audio": "https://amuze.vercel.app/hackathon/2.mp3",
+	"proof": "https://amuze.vercel.app/hackathon/proof.png",
+    "attributes": [
+      {
+        "trait_type": "artist",
+        "value": "Unknown"
+      },
+      {
+        "trait_type": "countryOfOrigin",
+        "value": "Iraq"
+      },
+      {
+        "trait_type": "region",
+        "value": "Asia and the Pacific"
+      },
+      {
+        "trait_type": "route",
+        "value": "Land"
+      },
+      {
+        "trait_type": "specifications",
+        "value": "45x75x31cm"
+      },
+      {
+        "trait_type": "date",
+        "value": "Hammurabi (1792–50 BCE)"
+      },
+      {
+        "trait_type": "hostMuseum",
+        "value": "Mesopotamia Museum"
+      },
+      {
+        "trait_type": "objectType",
+        "value": "Monument"
+      }
+	]
+}
