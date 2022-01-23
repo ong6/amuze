@@ -25,7 +25,7 @@ import { BsDashLg } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
 import { MetaContext } from "../context/MetaContext";
 import { uploadProposal } from "./api/ipfs";
-import testData from "../public/sample_nft/1.json";
+import testData from "../public/sample_nft/nft1.json";
 
 export default function Renting() {
   const { address } = useContext(MetaContext);
@@ -38,15 +38,6 @@ export default function Renting() {
 
   const [rent, setRent] = useState(null);
   const [mint, setMint] = useState(null);
-
-  function handleMint(nft, description, tour, image) {
-    setMint({
-      nftName: nft,
-      description: description,
-      tour: tour,
-      image: image,
-    });
-  }
 
   function RentNFT() {
     const [nft, setNft] = useState("Qin Hua Porcelain Flower Vase");
@@ -61,7 +52,7 @@ export default function Renting() {
 
     let path;
 
-    const handleRent = () => {
+    const handleRent = async ({ tokenId }) => {
       setRent({
         nft: nft,
         museum: museum,
@@ -71,8 +62,19 @@ export default function Renting() {
       console.log("submit");
       console.log(rent);
 
-      path = uploadProposal(JSON.stringify(testData));
-      console.log(path);
+      // path = uploadProposal(JSON.stringify(testData));
+      // console.log(path);
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const abi = [
+        "function safeTransferFrom(address from, address to, uint256 tokenId) external",
+      ];
+      const signer = provider.getSigner();
+      const tourAddress = "0xBA6FF536370Cc75f0D7643d21E2cF546f1da7C0E";
+      const custodyAddress = "0x3B83b5762FC63956F923FC244E6bd1d0C4731b06";
+      const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+
+      await muzeTour.safeTransferFrom(address, custodyAddress, tokenId);
 
       return false;
     };
@@ -221,6 +223,15 @@ export default function Renting() {
     const handleNftChange = (e) => setNftName(e.target.value);
     const handleDescriptionChange = (e) => setDescription(e.target.value);
     const handleTourChange = (e) => setTour(e.target.value);
+
+    function handleMint(nft, description, tour, image) {
+      setMint({
+        nftName: nft,
+        description: description,
+        tour: tour,
+        image: image,
+      });
+    }
 
     function getBase64(file) {
       return new Promise((resolve, reject) => {
