@@ -42,7 +42,7 @@ export default function Museum() {
 							<SimpleGrid columns={[1, 1, 4]} gap={10}>
 								{collectItems.map((item, index) => (
 									<CollectItem key={index} origins={getAttributeValue(item.attributes, "countryOfOrigin")}
-										imgUrl={item.image} title={item.name}
+										imgUrl={item.image} title={item.name} audio={item.audio}
 									/>
 								))}
 							</SimpleGrid>
