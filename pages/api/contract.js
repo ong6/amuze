@@ -125,6 +125,7 @@ export const getEstimatedRewards = async (address) => {
   ];
   const signer = provider.getSigner();
   const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
-
-  return await custodyReward.getEstimatedRewards();
+  return custodyReward.getEstimatedRewards({
+    from: address.toString(),
+  });
 };

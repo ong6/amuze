@@ -95,7 +95,10 @@ export default function RentNFT() {
                   </option>
                 ))
               ) : (
-                <option value="temp">Select Option</option>
+                <>
+                  <option value="temp">Select Option</option>
+                  <option value="temp">Select Option</option>
+                </>
               )}
             </Select>
           </div>

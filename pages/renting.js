@@ -43,12 +43,10 @@ export default function Renting() {
       getEstimatedRewards(address).then((r) => {
         setRewards(Number(r));
       });
-    }, []);
+    }, [rewards]);
 
     const receiveRewards = async () => {
-      console.log("claimed");
       await getRewards();
-      console.log("claim success");
       return false;
     };
 
