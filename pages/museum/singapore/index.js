@@ -6,8 +6,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import Card from "../../../components/Card";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../../../components/layouts/Museum";
 import Section from "../../../components/Section";
 import { MetaContext } from "../../../context/MetaContext";
@@ -15,10 +14,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
 import SingaporeCollection from "../../../public/sample_nft/singapore.json";
 import { ethers } from "ethers";
-import abi from "./abi.json";
-import { getTokenIdsForMuseum } from "../../api/contract";
+import { getHashesFromTokenIds, getTokenIdsForMuseum } from "../../api/contract";
 
-const Web3 = require("web3");
 
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
@@ -30,8 +27,21 @@ export default function Museum() {
 
   const test = async () => {
     // gets the tokenid : hash of the items
-    const result = await getHashFromTokenId(await getTokenIdsForMuseum());
+    const result = await getHashesFromTokenIds(await getTokenIdsForMuseum());
   };
+
+  // useEffect(() => {
+  //   async function getCollectItems() {
+  //     const result = await getHashesFromTokenIds(await getTokenIdsForMuseum());
+  //     // fetch json data from api
+  //     const response = await fetch(
+  //       "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn"
+  //     );
+  //     console.log(response);
+  //     setCollectItems([response]);
+  //   }
+  //   getCollectItems()
+  // }, [setCollectItems]);
 
   return (
     <Layout>
