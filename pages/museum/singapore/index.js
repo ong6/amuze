@@ -22,7 +22,7 @@ function getAttributeValue(arr, key) {
 
 export default function Museum() {
   const { address } = useContext(MetaContext);
-  const [collectItems, setCollectItems] = useState(SingaporeCollection);
+  const [collectItems, setCollectItems] = useState([]);
 
   useEffect(() => {
     async function getCollectItems() {
