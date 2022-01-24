@@ -13,7 +13,6 @@ import { MetaContext } from "../../../context/MetaContext";
 import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
 import SingaporeCollection from "../../../public/sample_nft/singapore.json";
-import { ethers } from "ethers";
 import { getHashesFromTokenIds, getTokenIdsForMuseum } from "../../api/contract";
 
 
@@ -25,23 +24,22 @@ export default function Museum() {
   const { address } = useContext(MetaContext);
   const [collectItems, setCollectItems] = useState(SingaporeCollection);
 
-  const test = async () => {
-    // gets the tokenid : hash of the items
-    const result = await getHashesFromTokenIds(await getTokenIdsForMuseum());
-  };
-
-  // useEffect(() => {
-  //   async function getCollectItems() {
-  //     const result = await getHashesFromTokenIds(await getTokenIdsForMuseum());
-  //     // fetch json data from api
-  //     const response = await fetch(
-  //       "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn"
-  //     );
-  //     console.log(response);
-  //     setCollectItems([response]);
-  //   }
-  //   getCollectItems()
-  // }, [setCollectItems]);
+  useEffect(() => {
+    async function getCollectItems() {
+      const hashs = await getHashesFromTokenIds(await getTokenIdsForMuseum());
+      // fetch json data from api
+      let items = [];
+      for (const tokenId in hashs) {
+        let response = fetch(
+          hashs[tokenId]
+        )
+        let item = await response.then((res) => res.json())
+        items.push(item)
+      }
+      setCollectItems(items);
+    }
+    getCollectItems()
+  }, [setCollectItems]);
 
   return (
     <Layout>
@@ -59,7 +57,7 @@ export default function Museum() {
             }}
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
-              <h1 className="w-1/3 py-10" onClick={test}>
+              <h1 className="w-1/3 py-10">
                 VIEW PIECES FROM AROUND THE WORLD
               </h1>
               <div className="py-10 w-96">
