@@ -1,4 +1,6 @@
 const ethers = require("ethers");
+const Web3 = require("web3");
+import abi from "../museum/singapore/abi.json";
 
 const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
 const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
@@ -37,11 +39,11 @@ export const getTokenIdsForMuseum = async () => {
   const web3 = new Web3(
     `https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
   );
-  console.log(abi);
+  // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
 
   const rents = await contract.methods.getRents().call();
-  console.log(rents);
+  // console.log(rents);
   return rents.map((rent) => rent.tokenId);
 };
 
@@ -82,25 +84,26 @@ export const getHashFromTokenId = async (tokenId) => {
 
   const signer = provider.getSigner();
   const muzeTour = new ethers.Contract(tourAddress, abi, signer);
-
-  return await muzeTour.tokenURI(tokenId);
+  const hash = await muzeTour.tokenURI(tokenId);
+  return hash;
 };
 
 // Get a mapping of token ID to the IPFS hash
 export const getHashesFromTokenIds = async (tokenIds) => {
   let hashes = {};
   let promises = [];
-
-  for (let i = 0; i < tokenIds.length; i++) {
-    promises.push(
-      getHashFromTokenId(tokenIds[i]).then(
-        (hash) => (hashes[tokenIds[i]] = hash)
-      )
-    );
+  try {
+    for (let i = 0; i < tokenIds.length; i++) {
+      promises.push(
+        getHashFromTokenId(tokenIds[i]).then(
+          (hash) => (hashes[tokenIds[i]] = hash)
+        )
+      );
+    }
+    await Promise.all(promises);
+  } catch (err) {
+    console.log(err);
   }
-
-  await Promise.all(promises);
-
   return hashes;
 };
 
