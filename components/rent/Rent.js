@@ -6,31 +6,22 @@ import {
   FormControl,
   FormLabel,
   Icon,
-  Image,
   Input,
   InputGroup,
   InputRightElement,
   Link,
   Select,
   Stack,
-  Textarea,
 } from "@chakra-ui/react";
-import Head from "next/head";
 import React, { useContext, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { BsDashLg } from "react-icons/bs";
-import Layout from "../layouts/Default";
-import Section from "../Section";
 import { MetaContext } from "../../context/MetaContext";
-import {
-  getTokenIdsUser,
-  mintUserNft,
-  rentToMuseum,
-  getRewards,
-  getEstimatedRewards,
-} from "../../pages/api/contract";
+import { getTokenIdsUser, rentToMuseum } from "../../pages/api/contract";
 
 export default function RentNFT() {
+  const { address } = useContext(MetaContext);
+
   const styles = {
     heading: "text-left text-2xl font-semibold text-gray-600",
     headers: "text-left text-sm text-gray-600 uppercase",
@@ -50,21 +41,11 @@ export default function RentNFT() {
   let path;
 
   const handleRent = async () => {
-    // path = uploadProposal(JSON.stringify(testData));
-    // console.log(path);
-
     const tempData = await getTokenIdsUser(address);
     console.log(tempData);
     await rentToMuseum(tempData[0], address);
 
     return false;
-  };
-
-  // not in use - to be done on the homepage
-  const redeemRewards = async () => {
-    console.log("hi");
-    // console.log(await getEstimatedRewards());
-    // await getRewards();
   };
 
   return (

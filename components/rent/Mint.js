@@ -18,8 +18,12 @@ import React, { useContext, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { BsDashLg } from "react-icons/bs";
 import { MetaContext } from "../../context/MetaContext";
+import { mintUserNft } from "../../pages/api/contract";
+import { uploadProposal } from "../../pages/api/ipfs";
 
 export default function MintNFT() {
+  const { address } = useContext(MetaContext);
+
   const styles = {
     heading: "text-left text-2xl font-semibold text-gray-600",
     headers: "text-left text-sm text-gray-600 uppercase",
@@ -30,17 +34,37 @@ export default function MintNFT() {
   const [description, setDescription] = useState(null);
   const [tour, setTour] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedAudio, setSelectedAudio] = useState(null);
+  const [selectedProof, setSelectedProof] = useState(null);
 
   const handleNftChange = (e) => setNftName(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
   const handleTourChange = (e) => setTour(e.target.value);
 
-  function handleMint() {
+  const handleMint = async () => {
+    // const hash = await uploadIpfs();
+    // const hashUri = "https://ipfs.infura.io/ipfs/" + hash;
+
+    // mintUserNft(hashUri, address);
+
     mintUserNft(
       "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",
       address
     );
-  }
+  };
+
+  const uploadIpfs = async () => {
+    const data = {
+      name: nftName,
+      description: description,
+      image: selectedImage,
+      audio: selectedAudio,
+      proof: selectedProof,
+    };
+
+    const address = await uploadProposal(data);
+    return address;
+  };
 
   function getBase64(file) {
     return new Promise((resolve, reject) => {
@@ -178,7 +202,7 @@ export default function MintNFT() {
               size={"sm"}
               type="file"
               onChange={(event) => {
-                setSelectedImage(event.target.files[0]);
+                setSelectedProof(event.target.files[0]);
                 console.log(selectedImage);
                 // getBase64(selectedImage).then((data) => {
                 //   console.log(data);
@@ -196,7 +220,7 @@ export default function MintNFT() {
               size={"sm"}
               type="file"
               onChange={(event) => {
-                setSelectedImage(event.target.files[0]);
+                setSelectedAudio(event.target.files[0]);
                 console.log(selectedImage);
                 // getBase64(selectedImage).then((data) => {
                 //   console.log(data);
@@ -204,12 +228,12 @@ export default function MintNFT() {
               }}
             />
           </div>
-          <CheckboxGroup>
+          <CheckboxGroup isRequired>
             <Stack spacing={2} direction="column">
-              <Checkbox size="md" value="audio">
+              <Checkbox size="md" value="audio_confirmation">
                 <div className="text-xs">This NFT has an audio narration.</div>
               </Checkbox>
-              <Checkbox size="md" value="termsAndConditions">
+              <Checkbox size="md" value="t_and_c">
                 <div className="text-xs">
                   I agree to the <Link>terms and conditions.</Link>
                 </div>
