@@ -44,7 +44,6 @@ export default function MintNFT() {
   const handleMint = async () => {
     // const hash = await uploadIpfs();
     // const hashUri = "https://ipfs.infura.io/ipfs/" + hash;
-
     // mintUserNft(hashUri, address);
 
     mintUserNft(
@@ -60,10 +59,44 @@ export default function MintNFT() {
       image: selectedImage,
       audio: selectedAudio,
       proof: selectedProof,
+      attributes: [
+        {
+          trait_type: "artist",
+          value: "Unknown",
+        },
+        {
+          trait_type: "countryOfOrigin",
+          value: "Iraq",
+        },
+        {
+          trait_type: "region",
+          value: "Asia and the Pacific",
+        },
+        {
+          trait_type: "route",
+          value: "Land",
+        },
+        {
+          trait_type: "specifications",
+          value: "218x125x331cm",
+        },
+        {
+          trait_type: "date",
+          value: "Hammurabi (1792–50 BCE)",
+        },
+        {
+          trait_type: "hostMuseum",
+          value: "Mesopotamia Museum",
+        },
+        {
+          trait_type: "objectType",
+          value: "Monument",
+        },
+      ],
     };
 
-    const address = await uploadProposal(data);
-    return address;
+    const uri = await uploadProposal(data);
+    return uri;
   };
 
   function getBase64(file) {

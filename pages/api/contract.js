@@ -79,7 +79,7 @@ export const rentToMuseum = async (tokenId, address) => {
 export const getHashFromTokenId = async (tokenId) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
-    "function tokenURI(uint256 tokenId) public view virtual override returns (string memory)",
+    "function tokenURI(uint256 tokenId) public view returns (string memory)",
   ];
 
   const signer = provider.getSigner();
@@ -118,7 +118,7 @@ export const getRewards = async () => {
 };
 
 // Get the estimated rewards from the contract
-export const getEstimatedRewards = async () => {
+export const getEstimatedRewards = async (address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function getEstimatedRewards() external view returns (uint256)",

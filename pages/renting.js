@@ -40,13 +40,15 @@ export default function Renting() {
     const [rewards, setRewards] = useState("0");
 
     useEffect(() => {
-      getEstimatedRewards().then((r) => {
+      getEstimatedRewards(address).then((r) => {
         setRewards(Number(r));
       });
     }, []);
 
     const receiveRewards = async () => {
+      console.log("claimed");
       await getRewards();
+      console.log("claim success");
       return false;
     };
 

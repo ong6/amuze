@@ -13,11 +13,15 @@ import {
   Select,
   Stack,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { BsDashLg } from "react-icons/bs";
 import { MetaContext } from "../../context/MetaContext";
-import { getTokenIdsUser, rentToMuseum } from "../../pages/api/contract";
+import {
+  getTokenIdsUser,
+  rentToMuseum,
+  getHashesFromTokenIds,
+} from "../../pages/api/contract";
 
 export default function RentNFT() {
   const { address } = useContext(MetaContext);
@@ -38,13 +42,28 @@ export default function RentNFT() {
   const handleTourChange = (e) => setTour(e.target.value);
   const handleOwnerChange = (e) => setOwner(e.target.value);
 
-  let path;
+  const [mintedNft, setMintedNft] = useState(null);
+
+  useEffect(() => {
+    async function getCollectItems() {
+      const hashes = await getHashesFromTokenIds(
+        await getTokenIdsUser(address)
+      );
+      let items = [];
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push({ tokenId: tokenId, ...item });
+      }
+      setMintedNft(items);
+    }
+    getCollectItems();
+  }, [address]);
 
   const handleRent = async () => {
-    const tempData = await getTokenIdsUser(address);
-    console.log(tempData);
-    await rentToMuseum(tempData[0], address);
-
+    // const tempData = await getTokenIdsUser(address);
+    // console.log(tempData[0]);
+    await rentToMuseum(nft, address);
     return false;
   };
 
@@ -68,14 +87,16 @@ export default function RentNFT() {
               variant="filled"
               size={"sm"}
               onChange={handleNftChange}
-              value={nft}
             >
-              <option value="Qin Hua Porcelain Flower Vase">
-                Qin Hua Porcelain Flower Vase
-              </option>
-              <option value="Stone Tablet Winged Buddha">
-                Stone Tablet Winged Buddha
-              </option>
+              {mintedNft ? (
+                mintedNft.map((item) => (
+                  <option value={item.tokenId} key={item.tokenId}>
+                    {item.name}
+                  </option>
+                ))
+              ) : (
+                <option value="temp">Select Option</option>
+              )}
             </Select>
           </div>
           <div className="div">
@@ -87,7 +108,6 @@ export default function RentNFT() {
               placeholder="Select Museum"
               variant="filled"
               size={"sm"}
-              value={museum}
               onChange={handleMuseumChange}
             >
               <option value="National Museum of singapore">
@@ -104,7 +124,6 @@ export default function RentNFT() {
               placeholder="Select Tour"
               variant="filled"
               size={"sm"}
-              value={tour}
               onChange={handleTourChange}
             >
               <option value="Chinese Artefacts of the Qing Dynasty Tour">
@@ -172,7 +191,6 @@ export default function RentNFT() {
               variant="filled"
               size={"sm"}
               onChange={handleOwnerChange}
-              value={owner}
             />
           </div>
           <CheckboxGroup>
