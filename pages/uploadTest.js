@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useS3Upload } from 'next-s3-upload';
 
 export default function UploadTest() {
