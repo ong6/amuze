@@ -52,7 +52,6 @@ export default function Museum() {
       {address ? (
         <Section delay={0.2}>
           <div
-            className="h-screen"
             style={{
               backgroundImage: "url(/bg.png) ",
               backgroundSize: "cover",
