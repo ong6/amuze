@@ -16,7 +16,7 @@ export default function CollectItem({
 	country = "China",
 	owner = "Qing Shi Huang",
 	imgUrl = "/robe.svg",
-	audio = "https://amuze.vercel.app/hackathon/1.mp3"
+	audio = "https://amuze.vercel.app/hackathon/1.mp3",
 }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (

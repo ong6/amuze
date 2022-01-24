@@ -32,6 +32,19 @@ export const getTokenIdsUser = async (address) => {
   return tokenIds;
 };
 
+//Get a list of token id belonging to the tour address
+export const getTokenIdsForMuseum = async () => {
+  const web3 = new Web3(
+    `https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+  );
+  console.log(abi);
+  const contract = new web3.eth.Contract(abi, custodyAddress);
+
+  const rents = await contract.methods.getRents().call();
+  console.log(rents);
+  return rents.map((rent) => rent.tokenId);
+};
+
 // Mints the NFT that the user uploaded to the contract
 export const mintUserNft = async (ipfsUrl, address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -77,8 +90,6 @@ export const getHashFromTokenId = async (tokenId) => {
 export const getHashesFromTokenIds = async (tokenIds) => {
   let hashes = {};
   let promises = [];
-
-  console.log(tokenIds);
 
   for (let i = 0; i < tokenIds.length; i++) {
     promises.push(

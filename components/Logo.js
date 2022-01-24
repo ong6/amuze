@@ -22,24 +22,23 @@ import styled from "@emotion/styled";
 // `;
 
 const Logo = ({ title = null }) => {
-	// const img = `/images/Brackets${useColorModeValue("", "-dark")}.png`;
+  // const img = `/images/Brackets${useColorModeValue("", "-dark")}.png`;
 
-	const titleUrl = title ? title.replace(/\s/g, "-") : "";
+  const titleUrl = title ? title.replace(/\s/g, "-") : "";
 
-	return (
-		// <Link href={title ? `/museum/${titleUrl}` : "/"}>
-		<Link href={"/"}>
-
-			<a>
-				{/* <LogoBox> */}
-				{/* <Image src={img} width={20} height={20} alt="logo" /> */}
-				<Text color={"#FFFFFF"} fontWeight="bold" ml={3}>
-					{title ? title : "A - MUZE"}
-				</Text>
-				{/* </LogoBox> */}
-			</a>
-		</Link>
-	);
+  return (
+    // <Link href={title ? `/museum/${titleUrl}` : "/"}>
+    <Link href={"/"}>
+      <a>
+        {/* <LogoBox> */}
+        {/* <Image src={img} width={20} height={20} alt="logo" /> */}
+        <Text color={"#FFFFFF"} fontWeight="bold" ml={3}>
+          {title ? title : "A - MUZE"}
+        </Text>
+        {/* </LogoBox> */}
+      </a>
+    </Link>
+  );
 };
 
 export default Logo;
