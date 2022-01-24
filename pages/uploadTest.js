@@ -12,6 +12,7 @@ export default function UploadTest() {
 
     useEffect(() => {
         console.log(fileUrl)
+        //here is the file
     }, [fileUrl])
     return (
         <div className="bg-white">
