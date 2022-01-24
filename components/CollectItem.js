@@ -12,11 +12,18 @@ import CollectItemDetail from "./CollectItemDetail";
 export default function CollectItem({
 	title = "Qing Dynasty Stone Statue",
 	description = "item description",
-	origins = "1644 to 1912",
+	origins = "Iraq",
+	date = "1644 to 1912",
 	country = "China",
 	owner = "Qing Shi Huang",
 	imgUrl = "/robe.svg",
 	audio = "https://amuze.vercel.app/hackathon/1.mp3",
+	region="",
+	artist="",
+	route="",
+	hostMuseum="",
+	objectType="",
+	specifications=""
 }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
@@ -35,7 +42,7 @@ export default function CollectItem({
 					<div className="flex items-end justify-between gap-3 ">
 						<div className="flex flex-col">
 							<p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
-								Origin: {origins}
+								Date: {date}
 							</p>
 							<p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
 								Country: {country}
@@ -60,7 +67,10 @@ export default function CollectItem({
 				<DrawerContent>
 					<DrawerHeader borderBottomWidth="1px">NFT Details</DrawerHeader>
 					<DrawerBody className="bg-gray-100">
-						<CollectItemDetail imgUrl={imgUrl} title={title} audio={audio} description={description} />
+						<CollectItemDetail imgUrl={imgUrl} title={title} audio={audio} 
+						description={description} date={date} origins={origins} region={region} 
+						artist={artist} hostMuseum={hostMuseum} objectType={objectType} specifications={specifications}
+						route={route}/>,
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
