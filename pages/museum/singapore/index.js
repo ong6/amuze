@@ -84,6 +84,19 @@ export default function Museum() {
                     title={item.name}
                     audio={item.audio}
                     description={item.description}
+                    date={getAttributeValue(
+                      item.attributes,
+                      "date"
+                    )}
+                    region={getAttributeValue(item.attributes, "region")}
+                    artist={getAttributeValue(item.attributes, "artist")}
+                    route={getAttributeValue(item.attributes, "route")}
+                    hostMuseum={getAttributeValue(item.attributes, "hostMuseum")}
+                    objectType={getAttributeValue(item.attributes, "objectType")}
+                    specifications={getAttributeValue(
+                      item.attributes,
+                      "specifications"
+                    )}
                   />
                 ))}
               </SimpleGrid>
