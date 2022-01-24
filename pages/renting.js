@@ -40,12 +40,12 @@ export default function Renting() {
     const [rewards, setRewards] = useState("0");
 
     useEffect(() => {
-      getEstimatedRewards().then((rewards) => {
-        setRewards(Number(rewards));
+      getEstimatedRewards().then((r) => {
+        setRewards(Number(r));
       });
-    }, [getEstimatedRewards]);
+    }, []);
 
-    const getRewards = async () => {
+    const receiveRewards = async () => {
       await getRewards();
       return false;
     };
@@ -71,7 +71,12 @@ export default function Renting() {
               <div className="text-xl font-semibold">{rewards}</div>
               <div className="div">~{rewards / 3300} eth </div>
             </div>
-            <Button variant="solid" colorScheme="green" rounded="full">
+            <Button
+              variant="solid"
+              colorScheme="green"
+              rounded="full"
+              onClick={receiveRewards}
+            >
               Claim
             </Button>
           </div>
