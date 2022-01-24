@@ -16,6 +16,8 @@ import CollectItem from "../../../components/CollectItem";
 import SingaporeCollection from "../../../public/sample_nft/singapore.json";
 import { ethers } from "ethers";
 import abi from "./abi.json";
+import { getTokenIdsForMuseum } from "../../api/contract";
+
 const Web3 = require("web3");
 
 function getAttributeValue(arr, key) {
@@ -26,20 +28,9 @@ export default function Museum() {
   const { address } = useContext(MetaContext);
   const [collectItems, setCollectItems] = useState(SingaporeCollection);
 
-  const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
-
-  const getTokenIdsForMuseum = async () => {
-    const web3 = new Web3(`https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`);
-    console.log(abi);
-    const contract = new web3.eth.Contract(abi, custodyAddress);
-
-    const rents = await contract.methods.getRents().call();
-    console.log(rents);
-    return rents.map((rent) => rent.tokenId);
-  };
-
   const test = async () => {
-    getTokenIdsForMuseum().then(console.log);
+    // gets the tokenid : hash of the items
+    const result = await getHashFromTokenId(await getTokenIdsForMuseum());
   };
 
   return (

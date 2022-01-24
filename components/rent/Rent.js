@@ -6,6 +6,7 @@ import {
   FormControl,
   FormLabel,
   Icon,
+  Image,
   Input,
   InputGroup,
   InputRightElement,
@@ -14,76 +15,104 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
+import Head from "next/head";
 import React, { useContext, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { BsDashLg } from "react-icons/bs";
+import Layout from "../layouts/Default";
+import Section from "../Section";
 import { MetaContext } from "../../context/MetaContext";
+import {
+  getTokenIdsUser,
+  mintUserNft,
+  rentToMuseum,
+  getRewards,
+  getEstimatedRewards,
+} from "../../pages/api/contract";
 
-export default function MintNFT() {
+export default function RentNFT() {
   const styles = {
     heading: "text-left text-2xl font-semibold text-gray-600",
     headers: "text-left text-sm text-gray-600 uppercase",
     select: "bg-gray-100",
   };
 
-  const [nftName, setNftName] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [nft, setNft] = useState(null);
+  const [museum, setMuseum] = useState(null);
   const [tour, setTour] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [owner, setOwner] = useState(null);
 
-  const handleNftChange = (e) => setNftName(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
+  const handleNftChange = (e) => setNft(e.target.value);
+  const handleMuseumChange = (e) => setMuseum(e.target.value);
   const handleTourChange = (e) => setTour(e.target.value);
+  const handleOwnerChange = (e) => setOwner(e.target.value);
 
-  function handleMint() {
-    mintUserNft(
-      "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",
-      address
-    );
-  }
+  let path;
 
-  function getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
+  const handleRent = async () => {
+    // path = uploadProposal(JSON.stringify(testData));
+    // console.log(path);
+
+    const tempData = await getTokenIdsUser(address);
+    console.log(tempData);
+    await rentToMuseum(tempData[0], address);
+
+    return false;
+  };
+
+  // not in use - to be done on the homepage
+  const redeemRewards = async () => {
+    console.log("hi");
+    // console.log(await getEstimatedRewards());
+    // await getRewards();
+  };
 
   return (
     <Container className="bg-white rounded-xl">
       <div className="flex flex-col space-y-4 p-4">
         <div className="div">
-          <div className={styles.heading}>Mint Your NFT</div>
+          <div className={styles.heading}>Rent NFT</div>
           <div className="text-left font-base text-gray-500 text-sm">
             Please fill in the following to rent your NFT.
           </div>
         </div>
-        <FormControl className="space-y-6" isRequired>
+        <FormControl className="space-y-6">
           <div className="div">
-            <FormLabel htmlFor="NFT Name" className={styles.headers}>
-              Name of NFT
+            <FormLabel htmlFor="NFT" className={styles.headers}>
+              Select NFT
             </FormLabel>
-            <Input
-              id="NFT Name"
-              placeholder="Input NFT"
+            <Select
+              id="NFT"
+              placeholder="Select NFT"
               variant="filled"
               size={"sm"}
               onChange={handleNftChange}
-            ></Input>
+              value={nft}
+            >
+              <option value="Qin Hua Porcelain Flower Vase">
+                Qin Hua Porcelain Flower Vase
+              </option>
+              <option value="Stone Tablet Winged Buddha">
+                Stone Tablet Winged Buddha
+              </option>
+            </Select>
           </div>
           <div className="div">
-            <FormLabel htmlFor="NFT Description" className={styles.headers}>
-              Description
+            <FormLabel htmlFor="Museum" className={styles.headers}>
+              Museum
             </FormLabel>
-            <Textarea
-              id="NFT Description"
-              placeholder="Enter Description"
+            <Select
+              id="Museum"
+              placeholder="Select Museum"
               variant="filled"
               size={"sm"}
-              onChange={handleDescriptionChange}
-            />
+              value={museum}
+              onChange={handleMuseumChange}
+            >
+              <option value="National Museum of singapore">
+                National Museum of singapore
+              </option>
+            </Select>
           </div>
           <div className="div">
             <FormLabel htmlFor="Tour" className={styles.headers}>
@@ -94,6 +123,7 @@ export default function MintNFT() {
               placeholder="Select Tour"
               variant="filled"
               size={"sm"}
+              value={tour}
               onChange={handleTourChange}
             >
               <option value="Chinese Artefacts of the Qing Dynasty Tour">
@@ -122,7 +152,7 @@ export default function MintNFT() {
                       ? "21/1/22"
                       : "date"
                   }
-                  isReadOnly={true}
+                  isReadOnly
                 />
                 <InputRightElement>
                   <Icon as={BiCalendar} color="gray.500" w={5} h={5} mb={2} />
@@ -140,8 +170,7 @@ export default function MintNFT() {
                       ? "21/8/22"
                       : "date"
                   }
-                  isReadOnly={true}
-                  className="text-red-800"
+                  isReadOnly
                 />
                 <InputRightElement>
                   <Icon as={BiCalendar} color="gray.500" w={5} h={5} mb={2} />
@@ -150,58 +179,19 @@ export default function MintNFT() {
             </div>
           </div>
           <div className="div">
-            <FormLabel htmlFor="Name" className={styles.headers}>
-              {"Image"}
+            <FormLabel
+              htmlFor="Name"
+              className={styles.headers + " normal-case"}
+            >
+              OWNER NAME
             </FormLabel>
             <Input
               id="Name"
               placeholder="Enter Name"
               variant="filled"
               size={"sm"}
-              type="file"
-              onChange={(event) => {
-                setSelectedImage(event.target.files[0]);
-                console.log(selectedImage);
-                // getBase64(selectedImage).then((data) => {
-                //   console.log(data);
-                // });
-              }}
-            />
-          </div>
-          <div className="div">
-            <FormLabel htmlFor="certification" className={styles.headers}>
-              {"Certificate"}
-            </FormLabel>
-            <Input
-              id="certification"
-              variant="filled"
-              size={"sm"}
-              type="file"
-              onChange={(event) => {
-                setSelectedImage(event.target.files[0]);
-                console.log(selectedImage);
-                // getBase64(selectedImage).then((data) => {
-                //   console.log(data);
-                // });
-              }}
-            />
-          </div>
-          <div className="div">
-            <FormLabel htmlFor="audio" className={styles.headers}>
-              {"Audio (mp3)"}
-            </FormLabel>
-            <Input
-              id="audio"
-              variant="filled"
-              size={"sm"}
-              type="file"
-              onChange={(event) => {
-                setSelectedImage(event.target.files[0]);
-                console.log(selectedImage);
-                // getBase64(selectedImage).then((data) => {
-                //   console.log(data);
-                // });
-              }}
+              onChange={handleOwnerChange}
+              value={owner}
             />
           </div>
           <CheckboxGroup>
@@ -217,8 +207,8 @@ export default function MintNFT() {
             </Stack>
           </CheckboxGroup>
         </FormControl>
-        <Button colorScheme="blue" onClick={() => handleMint()}>
-          Mint
+        <Button colorScheme="blue" onClick={handleRent}>
+          Rent
         </Button>
       </div>
     </Container>
