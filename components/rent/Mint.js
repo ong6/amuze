@@ -14,12 +14,13 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { BsDashLg } from "react-icons/bs";
 import { MetaContext } from "../../context/MetaContext";
 import { mintUserNft } from "../../pages/api/contract";
 import { uploadProposal } from "../../pages/api/ipfs";
+import { useS3Upload } from "next-s3-upload";
 
 export default function MintNFT() {
   const { address } = useContext(MetaContext);
@@ -33,64 +34,99 @@ export default function MintNFT() {
   const [nftName, setNftName] = useState(null);
   const [description, setDescription] = useState(null);
   const [tour, setTour] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedAudio, setSelectedAudio] = useState(null);
-  const [selectedProof, setSelectedProof] = useState(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState(
+    "https://amuze.vercel.app/hackathon/1.png"
+  );
+  const [selectedAudioUrl, setSelectedAudioUrl] = useState(
+    "https://amuze.vercel.app/hackathon/1.mp3"
+  );
+  const [selectedProofUrl, setSelectedProofUrl] = useState(
+    "https://amuze.vercel.app/hackathon/proof.png"
+  );
 
   const handleNftChange = (e) => setNftName(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
   const handleTourChange = (e) => setTour(e.target.value);
 
-  const handleMint = async () => {
-    // const hash = await uploadIpfs();
-    // const hashUri = "https://ipfs.infura.io/ipfs/" + hash;
-    // mintUserNft(hashUri, address);
+  //S3 upload
+  let { uploadToS3 } = useS3Upload();
 
-    mintUserNft(
-      "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",
-      address
-    );
+  let handleImageChange = async (file) => {
+    let { url } = await uploadToS3(file);
+    setSelectedImageUrl(url);
   };
+
+  let handleAudioChange = async (file) => {
+    let { url } = await uploadToS3(file);
+    setSelectedAudioUrl(url);
+  };
+
+  let handleProofChange = async (file) => {
+    let { url } = await uploadToS3(file);
+    setSelectedProofUrl(url);
+  };
+
+  const handleMint = async () => {
+    const hash = await uploadIpfs();
+    const hashUri = "https://ipfs.infura.io/ipfs/" + hash;
+    await mintUserNft(hashUri, address);
+
+    // mintUserNft(
+    //   "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",
+    //   address
+    // );
+  };
+
+  const [attributes, setAttributes] = useState({
+    artist: "Unknown",
+    countryOfOrigin: "Unknown",
+    region: "Unknown",
+    route: "Unknown",
+    specifications: "Unknown",
+    date: "Unknown",
+    hostMuseum: "Unknown",
+    objectType: "Unknown",
+  });
 
   const uploadIpfs = async () => {
     const data = {
       name: nftName,
       description: description,
-      image: selectedImage,
-      audio: selectedAudio,
-      proof: selectedProof,
+      image: selectedImageUrl,
+      audio: selectedAudioUrl,
+      proof: selectedProofUrl,
       attributes: [
         {
           trait_type: "artist",
-          value: "Unknown",
+          value: attributes.artist,
         },
         {
           trait_type: "countryOfOrigin",
-          value: "Iraq",
+          value: attributes.countryOfOrigin,
         },
         {
           trait_type: "region",
-          value: "Asia and the Pacific",
+          value: attributes.region,
         },
         {
           trait_type: "route",
-          value: "Land",
+          value: attributes.route,
         },
         {
           trait_type: "specifications",
-          value: "218x125x331cm",
+          value: attributes.specifications,
         },
         {
           trait_type: "date",
-          value: "Hammurabi (1792–50 BCE)",
+          value: attributes.date,
         },
         {
           trait_type: "hostMuseum",
-          value: "Mesopotamia Museum",
+          value: attributes.hostMuseum,
         },
         {
           trait_type: "objectType",
-          value: "Monument",
+          value: attributes.objectType,
         },
       ],
     };
@@ -98,15 +134,6 @@ export default function MintNFT() {
     const uri = await uploadProposal(data);
     return uri;
   };
-
-  function getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
 
   return (
     <Container className="bg-white rounded-xl">
@@ -165,6 +192,147 @@ export default function MintNFT() {
             </Select>
           </div>
           <div className="div">
+            <FormLabel htmlFor="Artist" className={styles.headers}>
+              Artist of NFT
+            </FormLabel>
+            <Input
+              id="Artist"
+              placeholder="Artist"
+              variant="filled"
+              size={"sm"}
+              value={attributes.artist}
+              onChange={(e) =>
+                setAttributes({ ...attributes, artist: e.target.value })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="countryOfOrigin" className={styles.headers}>
+              country Of Origin of NFT
+            </FormLabel>
+            <Input
+              id="countryOfOrigin"
+              placeholder="country Of Origin"
+              variant="filled"
+              size={"sm"}
+              value={attributes.countryOfOrigin}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  countryOfOrigin: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="region" className={styles.headers}>
+              region of NFT
+            </FormLabel>
+            <Input
+              id="region"
+              placeholder="region"
+              variant="filled"
+              size={"sm"}
+              value={attributes.region}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  region: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="route" className={styles.headers}>
+              route of NFT
+            </FormLabel>
+            <Input
+              id="route"
+              placeholder="route"
+              variant="filled"
+              size={"sm"}
+              value={attributes.route}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  route: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="specifications" className={styles.headers}>
+              specifications of NFT
+            </FormLabel>
+            <Input
+              id="specifications"
+              placeholder="specifications"
+              variant="filled"
+              size={"sm"}
+              value={attributes.specifications}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  specifications: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="date" className={styles.headers}>
+              date of NFT
+            </FormLabel>
+            <Input
+              id="date"
+              placeholder="date"
+              variant="filled"
+              size={"sm"}
+              value={attributes.date}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  date: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="hostMuseum" className={styles.headers}>
+              host Museum of NFT
+            </FormLabel>
+            <Input
+              id="hostMuseum"
+              placeholder="Host Museum"
+              variant="filled"
+              size={"sm"}
+              value={attributes.hostMuseum}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  hostMuseum: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          <div className="div">
+            <FormLabel htmlFor="objectType" className={styles.headers}>
+              object Type of NFT
+            </FormLabel>
+            <Input
+              id="objectType"
+              placeholder="Object Type"
+              variant="filled"
+              size={"sm"}
+              value={attributes.objectType}
+              onChange={(e) =>
+                setAttributes({
+                  ...attributes,
+                  objectType: e.target.value,
+                })
+              }
+            ></Input>
+          </div>
+          {/* <div className="div">
             <div className="text-xs text-gray-400 mb-2">
               {`*you have selected ${tour}.
                 Dates for tour below.`}
@@ -205,23 +373,18 @@ export default function MintNFT() {
                 </InputRightElement>
               </InputGroup>
             </div>
-          </div>
+          </div> */}
           <div className="div">
-            <FormLabel htmlFor="Name" className={styles.headers}>
+            <FormLabel htmlFor="image" className={styles.headers}>
               {"Image"}
             </FormLabel>
             <Input
-              id="Name"
-              placeholder="Enter Name"
+              id="image"
               variant="filled"
               size={"sm"}
               type="file"
               onChange={(event) => {
-                setSelectedImage(event.target.files[0]);
-                console.log(selectedImage);
-                // getBase64(selectedImage).then((data) => {
-                //   console.log(data);
-                // });
+                handleImageChange(event.target.files[0]);
               }}
             />
           </div>
@@ -235,11 +398,7 @@ export default function MintNFT() {
               size={"sm"}
               type="file"
               onChange={(event) => {
-                setSelectedProof(event.target.files[0]);
-                console.log(selectedImage);
-                // getBase64(selectedImage).then((data) => {
-                //   console.log(data);
-                // });
+                handleProofChange(event.target.files[0]);
               }}
             />
           </div>
@@ -253,11 +412,7 @@ export default function MintNFT() {
               size={"sm"}
               type="file"
               onChange={(event) => {
-                setSelectedAudio(event.target.files[0]);
-                console.log(selectedImage);
-                // getBase64(selectedImage).then((data) => {
-                //   console.log(data);
-                // });
+                handleAudioChange(event.target.files[0]);
               }}
             />
           </div>

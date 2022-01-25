@@ -3,29 +3,31 @@ import {
   Checkbox,
   CheckboxGroup,
   Container,
-  FormControl,
-  FormLabel,
   Icon,
   Image,
-  Input,
-  InputGroup,
-  InputRightElement,
   Link,
-  Select,
+  Modal,
+  ModalContent,
+  ModalOverlay,
+  SimpleGrid,
   Stack,
-  Textarea,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
-import Head from "next/head";
 import React, { useContext, useEffect, useState } from "react";
-import { BiCalendar } from "react-icons/bi";
-import { BsDashLg, BsQuestionCircle } from "react-icons/bs";
+import { BsQuestionCircle } from "react-icons/bs";
 import Layout from "../components/layouts/Default";
+import ListItem from "../components/rent/ListItem";
+import MintNFT from "../components/rent/Mint";
+import RentNFT from "../components/rent/Rent";
 import Section from "../components/Section";
 import { MetaContext } from "../context/MetaContext";
-import RentNFT from "../components/rent/Rent";
-import MintNFT from "../components/rent/Mint";
-import { getRewards, getEstimatedRewards } from "./api/contract";
+import {
+  getEstimatedRewards,
+  getHashesFromTokenIds,
+  getRewards,
+  getTokenIdsUser,
+} from "./api/contract";
 
 export default function Renting() {
   const { address } = useContext(MetaContext);
@@ -85,11 +87,25 @@ export default function Renting() {
     );
   }
 
-  // const redeemRewards = async () => {
-  //   console.log("hi");
-  //   // console.log(await getEstimatedRewards());
-  //   // await getRewards();
-  // };
+  const [collectItems, setCollectItems] = useState([]);
+
+  useEffect(() => {
+    async function getCollectItems() {
+      const hashes = await getHashesFromTokenIds(
+        await getTokenIdsUser(address)
+      );
+      let items = [];
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push({ tokenId: tokenId, ...item });
+      }
+      setCollectItems(items);
+    }
+    if (address) {
+      getCollectItems();
+    }
+  }, [address, setCollectItems]);
 
   function CompleteNFT() {
     return (
@@ -130,30 +146,75 @@ export default function Renting() {
     );
   }
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isRentOpen,
+    onOpen: onRentOpen,
+    onClose: onRentClose,
+  } = useDisclosure();
+
   return (
-    <Layout>
-      <Head>
-        <title>Amuze</title>
-        <meta name="description" content="Amuze-Museum at your fingertips" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      {address ? (
-        <Section delay={0.2}>
-          <div className="flex flex-col pt-6 space-y-6">
-            <div className="text-white text-4xl font-bold text-center w-full">
-              A-MUZE NFT Renting / Listing Platform
+    <>
+      <Layout>
+        {address ? (
+          <Section delay={0.2}>
+            <div className="flex flex-col pt-6 space-y-6 pb-60">
+              <div className="text-white text-4xl font-bold text-center w-full pb-4">
+                A-MUZE NFT Renting / Listing Platform
+              </div>
+              <Container>
+                <SimpleGrid columns={2} gap={5}>
+                  <Rewards />
+                  <Button
+                    h={"full"}
+                    rounded={12}
+                    colorScheme="telegram"
+                    onClick={onRentOpen}
+                  >
+                    Rent your NFTs
+                  </Button>
+                </SimpleGrid>
+              </Container>
+              <Container bg={"white"} rounded="10" p={6}>
+                <div className="text-black text-lg font-semibold mb-4">
+                  Your NFT Collection
+                </div>
+                <SimpleGrid columns={[1, 1, 1]} gap={10}>
+                  {collectItems.map((item, index) => (
+                    <ListItem
+                      key={index}
+                      imgUrl={item.image}
+                      title={item.name}
+                      description={item.description}
+                    />
+                  ))}
+                  <Button onClick={onOpen} colorScheme="red">
+                    Mint A NFT
+                  </Button>
+                </SimpleGrid>
+              </Container>
+
+              {/* <CompleteNFT /> */}
             </div>
-            <Rewards />
-            <MintNFT />
-            <RentNFT />
-            {/* <CompleteNFT /> */}
+          </Section>
+        ) : (
+          <div className="[height:50vh] flex text-4xl text-white items-center justify-center">
+            Please connect your wallet to view Renting and Listing.
           </div>
-        </Section>
-      ) : (
-        <div className="[height:50vh] flex text-4xl text-white items-center justify-center">
-          Please connect your wallet to view Renting and Listing.
-        </div>
-      )}
-    </Layout>
+        )}
+      </Layout>
+      <Modal isOpen={isRentOpen} onClose={onRentClose}>
+        <ModalOverlay />
+        <ModalContent minW="2xl" p={6}>
+          <RentNFT />
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent minW="2xl" py={6}>
+          <MintNFT />
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
