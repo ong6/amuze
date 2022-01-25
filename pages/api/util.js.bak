@@ -1,5 +1,3 @@
-import { ethers } from "ethers";
-
 export function getShortAccountHash(account) {
 	const accountHash = String(account);
 	if (accountHash) {
