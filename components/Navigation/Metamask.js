@@ -14,16 +14,16 @@ const ConnectWallet = ({ address, setAddress }) => {
   };
 
   return (
-    <div className="fixed top-0 right-0 p-8 z-50">
+    <div className="fixed top-0 right-0 z-50 p-8">
       <button
         onClick={login}
-        className="border border-white text-center rounded-full px-2 py-1 md:px-6 md:py-3 items-center bg-gray-200 transition-all duration-200 hover:bg-purple-600"
+        className="items-center px-2 py-1 text-center transition-all duration-200 bg-gray-200 border border-white rounded-full md:px-6 md:py-3 hover:bg-purple-500 hover:text-white"
       >
         <div
           className={
             address
               ? `text-lg xl:text-2xl font-bold xl:p-2 text-orange-500 inline-flex items-center gap-2`
-              : `text-lg xl:text-2xl font-bold xl:p-2 text-gray-600 inline-flex items-center gap-2`
+              : `text-lg xl:text-2xl font-bold xl:p-2 inline-flex items-center gap-2`
           }
         >
           <IoWallet className="" />

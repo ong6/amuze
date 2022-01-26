@@ -24,7 +24,7 @@ export default function Card({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box className="flex flex-col flex-1 bg-white rounded-3xl h-full overflow-hidden border-2 border-opacity-60 justify-between">
+    <Box className="flex flex-col justify-between flex-1 h-full overflow-hidden bg-white border-2 rounded-3xl border-opacity-60">
       <div className="">
         <Image
           className="object-cover object-center w-full"
@@ -34,13 +34,14 @@ export default function Card({
           src={imgUrl}
           alt="video"
         />
-        <div className="p-4 bg-white justify-between w-full">
+        <div className="justify-between w-full p-4 bg-white">
           <Heading className="text-lg font-bold text-gray-900" size={"base"}>
             {title}
           </Heading>
           <div className="">
             <Text className="text-sm text-ellipsis">
-              {description} <Link> Read More</Link>
+              {description}
+              {/* <Link> Read More</Link> */}
             </Text>
           </div>
         </div>
@@ -61,7 +62,7 @@ export default function Card({
           Buy Ticket
         </Button>
       </div>
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Buy Ticket</ModalHeader>
