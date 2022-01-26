@@ -26,7 +26,7 @@ function Layout({ children, title }) {
       <>
         {title && (
           <Head>
-            <title>{title} - AMUZE</title>
+            <title>{title} | AMUZE</title>
             <meta
               name="description"
               content="Amuze-Museum at your fingertips"
@@ -37,7 +37,6 @@ function Layout({ children, title }) {
         <Section delay={0.1}>
           <Navbar path={router.asPath} />
         </Section>
-
         <Box>{children}</Box>
       </>
     </motion.div>

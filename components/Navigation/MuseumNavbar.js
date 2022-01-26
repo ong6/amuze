@@ -49,16 +49,13 @@ const MuseumNavbar = (props) => {
         justify="space-between"
       >
         <Flex align="center" mr={12}>
-          <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-            <Link href={"/"}>
-              <a className="text-white">
-                Chinese Artefacts of the Qing Dynasty Tour
-              </a>
-            </Link>
-            {/* <Logo title="Chinese Artefacts of the Qing Dynasty Tour" /> */}
-          </Heading>
+          <LinkItem href={"/"} path={path}>
+            <Heading as="h1" size="lg" letterSpacing={"tighter"}>
+              Chinese Artefacts of the Qing Dynasty Tour
+              {/* <Logo title="Chinese Artefacts of the Qing Dynasty Tour" /> */}
+            </Heading>
+          </LinkItem>
         </Flex>
-
         <Stack
           direction={{ md: "row" }}
           display={{ md: "flex" }}

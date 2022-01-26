@@ -12,7 +12,7 @@ import CollectItemDetail from "./CollectItemDetail";
 export default function CollectItem({
   title = "Qing Dynasty Stone Statue",
   description = "item description",
-  origins = "Unknown",
+  origin = "Unknown",
   date = "1644 to 1912",
   country = "Unknown",
   owner = "Unknown",
@@ -56,7 +56,7 @@ export default function CollectItem({
                 Date: {date}
               </p>
               <p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
-                Country: {country}
+                Origin: {origin}
               </p>
               <p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
                 Owner: {owner}
@@ -85,13 +85,14 @@ export default function CollectItem({
               audio={audio}
               description={description}
               date={date}
-              origins={origins}
+              origin={origin}
               region={region}
               artist={artist}
               hostMuseum={hostMuseum}
               objectType={objectType}
               specifications={specifications}
               route={route}
+              onClick={onClose}
             />
             ,
           </DrawerBody>

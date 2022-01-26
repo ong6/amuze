@@ -15,6 +15,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import Head from "next/head";
 import React, { useContext, useEffect, useState } from "react";
 import { BsQuestionCircle } from "react-icons/bs";
 import Layout from "../components/layouts/Default";
@@ -56,8 +57,8 @@ export default function Renting() {
 
     return (
       <Container className="bg-white rounded-xl">
-        <div className="flex flex-col space-y-4 p-4 justify-center">
-          <div className="flex space-x-2 items-center text-gray-600">
+        <div className="flex flex-col justify-center p-4 space-y-4">
+          <div className="flex items-center space-x-2 text-gray-600">
             <div className="font-semibold ">Muze Reward Bounty</div>
             <Tooltip
               hasArrow
@@ -70,7 +71,7 @@ export default function Renting() {
             </Tooltip>
           </div>
 
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col">
               <div className="text-xl font-semibold">{rewards}</div>
               <div className="div">~{rewards / 3300} eth </div>
@@ -126,11 +127,11 @@ export default function Renting() {
   // function CompleteNFT() {
   //   return (
   //     <Container className="bg-white rounded-xl">
-  //       <div className="flex flex-col space-y-4 p-4 justify-center">
+  //       <div className="flex flex-col justify-center p-4 space-y-4">
   //         <div className="div">
   //           <div className={styles.heading}>Mint Your NFT</div>
   //         </div>
-  //         <div className="self-center bg-gray-200 justify-center">
+  //         <div className="self-center justify-center bg-gray-200">
   //           {mint &&
   //             rent(
   //               <>
@@ -172,18 +173,23 @@ export default function Renting() {
   return (
     <>
       <Layout>
+        <Head>
+          <title>Rent/Listing | Amuze</title>
+          <meta name="description" content="Amuze-Museum at your fingertips" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         {address && network ? (
           <Section delay={0.2}>
             <div className="flex flex-col pt-6 space-y-6 pb-60">
-              <div className="text-white text-4xl font-bold text-center w-full pb-4">
+              <div className="w-full pb-4 text-4xl font-bold text-center text-white">
                 A-MUZE NFT Renting / Listing Platform
               </div>
 
               <Rewards />
 
               <Container bg={"white"} rounded="10" p={6}>
-                <div className="flex space-x-2 items-center text-gray-600 mb-4">
-                  <div className="text-black text-lg font-semibold">
+                <div className="flex items-center mb-4 space-x-2 text-gray-600">
+                  <div className="text-lg font-semibold text-black">
                     Your NFT Collection
                   </div>
                   <Tooltip
@@ -229,8 +235,8 @@ export default function Renting() {
               </Container>
 
               <Container bg={"white"} rounded="10" p={6}>
-                <div className="flex space-x-2 items-center text-gray-600 mb-4">
-                  <div className="text-black text-lg font-semibold">
+                <div className="flex items-center mb-4 space-x-2 text-gray-600">
+                  <div className="text-lg font-semibold text-black">
                     Your Rented NFTs
                   </div>
                   <Tooltip
