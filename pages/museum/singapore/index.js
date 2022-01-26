@@ -102,7 +102,7 @@ export default function Museum() {
         </Section>
       ) : (
         <div className="[height:50vh] flex text-4xl text-white items-center justify-center">
-          Please Connect Your wallet to view Renting and Listing.
+          Please Connect Your wallet to view the museum.
         </div>
       )}
     </Layout>
