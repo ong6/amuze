@@ -103,9 +103,9 @@ export default function RentNFT() {
             </Select>
           </div>
           <div className="div">
-            <FormLabel htmlFor="Museum" className={styles.headers}>
+            {/* <FormLabel htmlFor="Museum" className={styles.headers}>
               Museum
-            </FormLabel>
+            </FormLabel> */}
             {/* <Select
               id="Museum"
               placeholder="Select Museum"
