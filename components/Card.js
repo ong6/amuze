@@ -25,7 +25,7 @@ export default function Card({
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box className="flex flex-col flex-1 bg-white rounded-3xl h-full overflow-hidden border-2 border-opacity-60 justify-between">
-      <div className="flex flex-col">
+      <div className="">
         <Image
           className="object-cover object-center w-full"
           width={373}
