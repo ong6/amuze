@@ -43,18 +43,14 @@ export default function Museum() {
 
   return (
     <Layout>
-      <Head>
-        <title>Amuze</title>
-        <meta name="description" content="Amuze-Museum at your fingertips" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {address ? (
-        <Section delay={0.2}>
+        <Section delay={0.2} mb={0}>
           <div
             style={{
               backgroundImage: "url(/bg.png) ",
               backgroundSize: "cover",
             }}
+            className="bg-cover bg-center  bg-clip-border bg-fixed"
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
               <h1 className="w-1/3 py-10">VIEW PIECES FROM AROUND THE WORLD</h1>
@@ -69,8 +65,8 @@ export default function Museum() {
                 </InputGroup>
               </div>
             </div>
-            <Container minW={"80%"}>
-              <SimpleGrid columns={[1, 1, 4]} gap={10}>
+            <Container minW={"80%"} pb={12}>
+              <SimpleGrid columns={[1, 1, 3]} gap={10}>
                 {collectItems.map((item, index) => (
                   <CollectItem
                     key={index}

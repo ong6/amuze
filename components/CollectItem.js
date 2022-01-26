@@ -26,6 +26,15 @@ export default function CollectItem({
   specifications = "Unknown",
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const color_list = [
+    "red.500",
+    "blue.500",
+    "green.500",
+    "yellow.500",
+    "purple.500",
+  ];
+
   return (
     <div className="flex flex-wrap">
       <div className="rounded-3xl">
@@ -36,10 +45,12 @@ export default function CollectItem({
           layout="responsive"
           src={imgUrl}
           alt="video"
+          roundedTop={15}
+          bg={color_list[Math.floor(Math.random() * color_list.length)]}
         />
         <div className="flex flex-col gap-3 p-4 bg-gray-100 rounded-b-3xl">
           <h1 className="h-10 font-bold text-gray-900 text-md">{title}</h1>
-          <div className="flex items-end justify-between gap-3 ">
+          <div className="flex flex-col justify-between gap-3 ">
             <div className="flex flex-col">
               <p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
                 Date: {date}
