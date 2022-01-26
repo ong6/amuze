@@ -27,16 +27,10 @@ export default function CollectItem({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const color_list = [
-    "red.500",
-    "blue.500",
-    "green.500",
-    "yellow.500",
-    "purple.500",
-  ];
+  const color_list = ["gray.300"];
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap shadow-lg">
       <div className="rounded-3xl">
         <Image
           className="object-cover object-center w-full lg:h-48 md:h-36"

@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Input,
   InputGroup,
@@ -52,7 +53,9 @@ export default function Museum() {
             className="bg-fixed bg-center bg-cover bg-clip-border"
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
-              <h1 className="w-1/3 py-10">VIEW PIECES FROM AROUND THE WORLD</h1>
+              <h1 className="w-1/3 py-10 text-3xl">
+                VIEW PIECES FROM AROUND THE WORLD
+              </h1>
               <div className="py-10 w-96">
                 <InputGroup>
                   <InputLeftElement
@@ -64,8 +67,8 @@ export default function Museum() {
                 </InputGroup>
               </div>
             </div>
-            <Container minW={"80%"} pb={12}>
-              <SimpleGrid columns={[1, 1, 3]} gap={10}>
+            <Container minW={"70%"} pb={12}>
+              <SimpleGrid columns={[2, 2, 4]} gap={10}>
                 {collectItems ? (
                   collectItems.map((item, index) => (
                     <CollectItem
@@ -97,14 +100,18 @@ export default function Museum() {
                     />
                   ))
                 ) : (
-                  <SimpleGrid columns={[1, 1, 3]} gap={10}>
-                    <Skeleton height="400px" width="350px" />
-                    <Skeleton height="400px" width="350px" />
-                    <Skeleton height="400px" width="350px" />
-                  </SimpleGrid>
+                  <>
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                  </>
                 )}
               </SimpleGrid>
             </Container>
+            <Button colorScheme="telegram" className="w-full">
+              Force end tour (demo only)
+            </Button>
           </div>
         </Section>
       ) : (

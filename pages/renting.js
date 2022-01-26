@@ -170,6 +170,10 @@ export default function Renting() {
     onClose: onRentClose,
   } = useDisclosure();
 
+  const redeemNft = async () => {
+    console.log("a");
+  };
+
   return (
     <>
       <Layout>
@@ -241,7 +245,7 @@ export default function Renting() {
                   </div>
                   <Tooltip
                     hasArrow
-                    label="Rented items will not show up here"
+                    label="Rented items will show up here, redeem them to get them back after the tour has ended"
                     placement="top"
                   >
                     <div className="items-center mb-1.5">
@@ -267,6 +271,13 @@ export default function Renting() {
                       <Skeleton height={40} />
                     </>
                   )}
+                  <Button
+                    colorScheme="telegram"
+                    className="w-full"
+                    onClick={redeemNft}
+                  >
+                    Redeem NFTs
+                  </Button>
                 </SimpleGrid>
               </Container>
 
