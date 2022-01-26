@@ -252,6 +252,7 @@ export default function Renting() {
                         imgUrl={item.image}
                         title={item.name}
                         description={item.description}
+                        tour="Chinese Artefacts of the Qing Dynasty Tour"
                       />
                     ))
                   ) : (

@@ -4,6 +4,7 @@ export default function ListItem({
   title = "Qing Dynasty Stone Statue",
   description = "item description",
   imgUrl = "/robe.svg",
+  tour = null,
 }) {
   return (
     <div className="flex flex-wrap bg-white">
@@ -18,6 +19,9 @@ export default function ListItem({
           bg="white"
         />
         <div className="flex flex-col space-y-2">
+          <div className="text-gray-600 font-bold text-xs">
+            {tour ? `Rented to: ${tour}` : ""}
+          </div>
           <div className="text-gray-600 font-bold text-xl">{title}</div>
           <div className="font-base text-sm overflow-ellipsis">
             {description}
