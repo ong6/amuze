@@ -8,17 +8,17 @@ import {
 } from "./util.js";
 
 const fillMixedText = (context, args, x, y) => {
-	let defaultFillStyle = context.fillStyle;
-	let defaultFont = context.font;
+  let defaultFillStyle = context.fillStyle;
+  let defaultFont = context.font;
 
-	context.save();
-	args.forEach(({ text, fillStyle, font }) => {
-		context.fillStyle = fillStyle || defaultFillStyle;
-		context.font = font || defaultFont;
-		context.fillText(text, x, y);
-		x += context.measureText(text).width;
-	});
-	context.restore();
+  context.save();
+  args.forEach(({ text, fillStyle, font }) => {
+    context.fillStyle = fillStyle || defaultFillStyle;
+    context.font = font || defaultFont;
+    context.fillText(text, x, y);
+    x += context.measureText(text).width;
+  });
+  context.restore();
 };
 
 export const drawText = function (ctx, imgData) {

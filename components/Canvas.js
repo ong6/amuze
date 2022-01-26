@@ -7,6 +7,12 @@ const Canvas = (props) => {
   const canvasRef = useRef(null);
   const imgData = props.imgdata;
 
+  // img data contains .name and .description.
+  // {
+  //   name: "temp",
+  //   description: "temp",
+  // }
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
