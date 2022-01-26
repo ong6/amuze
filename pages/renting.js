@@ -10,6 +10,7 @@ import {
   ModalContent,
   ModalOverlay,
   SimpleGrid,
+  Skeleton,
   Stack,
   Tooltip,
   useDisclosure,
@@ -87,7 +88,7 @@ export default function Renting() {
     );
   }
 
-  const [collectItems, setCollectItems] = useState([]);
+  const [collectItems, setCollectItems] = useState(null);
 
   useEffect(() => {
     async function getCollectItems() {
@@ -176,18 +177,37 @@ export default function Renting() {
                 </SimpleGrid>
               </Container>
               <Container bg={"white"} rounded="10" p={6}>
-                <div className="text-black text-lg font-semibold mb-4">
-                  Your NFT Collection
+                <div className="flex space-x-2 items-center text-gray-600 mb-4">
+                  <div className="text-black text-lg font-semibold">
+                    Your NFT Collection
+                  </div>
+                  <Tooltip
+                    hasArrow
+                    label="Rented items will not show up here"
+                    placement="top"
+                  >
+                    <div className="items-center mb-1.5">
+                      <Icon as={BsQuestionCircle} />
+                    </div>
+                  </Tooltip>
                 </div>
+
                 <SimpleGrid columns={[1, 1, 1]} gap={10}>
-                  {collectItems.map((item, index) => (
-                    <ListItem
-                      key={index}
-                      imgUrl={item.image}
-                      title={item.name}
-                      description={item.description}
-                    />
-                  ))}
+                  {collectItems ? (
+                    collectItems.map((item, index) => (
+                      <ListItem
+                        key={index}
+                        imgUrl={item.image}
+                        title={item.name}
+                        description={item.description}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      <Skeleton height={40} />
+                      <Skeleton height={40} />
+                    </>
+                  )}
                   <Button onClick={onOpen} colorScheme="red">
                     Mint A NFT
                   </Button>

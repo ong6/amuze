@@ -13,8 +13,10 @@ import { MetaContext } from "../../../context/MetaContext";
 import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
 import SingaporeCollection from "../../../public/sample_nft/singapore.json";
-import { getHashesFromTokenIds, getTokenIdsForMuseum } from "../../api/contract";
-
+import {
+  getHashesFromTokenIds,
+  getTokenIdsForMuseum,
+} from "../../api/contract";
 
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
@@ -26,19 +28,17 @@ export default function Museum() {
 
   useEffect(() => {
     async function getCollectItems() {
-      const hashs = await getHashesFromTokenIds(await getTokenIdsForMuseum());
+      const hashes = await getHashesFromTokenIds(await getTokenIdsForMuseum());
       // fetch json data from api
       let items = [];
-      for (const tokenId in hashs) {
-        let response = fetch(
-          hashs[tokenId]
-        )
-        let item = await response.then((res) => res.json())
-        items.push(item)
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push(item);
       }
       setCollectItems(items);
     }
-    getCollectItems()
+    getCollectItems();
   }, [setCollectItems]);
 
   return (
@@ -57,9 +57,7 @@ export default function Museum() {
             }}
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
-              <h1 className="w-1/3 py-10">
-                VIEW PIECES FROM AROUND THE WORLD
-              </h1>
+              <h1 className="w-1/3 py-10">VIEW PIECES FROM AROUND THE WORLD</h1>
               <div className="py-10 w-96">
                 <InputGroup>
                   <InputLeftElement
@@ -84,15 +82,18 @@ export default function Museum() {
                     title={item.name}
                     audio={item.audio}
                     description={item.description}
-                    date={getAttributeValue(
-                      item.attributes,
-                      "date"
-                    )}
+                    date={getAttributeValue(item.attributes, "date")}
                     region={getAttributeValue(item.attributes, "region")}
                     artist={getAttributeValue(item.attributes, "artist")}
                     route={getAttributeValue(item.attributes, "route")}
-                    hostMuseum={getAttributeValue(item.attributes, "hostMuseum")}
-                    objectType={getAttributeValue(item.attributes, "objectType")}
+                    hostMuseum={getAttributeValue(
+                      item.attributes,
+                      "hostMuseum"
+                    )}
+                    objectType={getAttributeValue(
+                      item.attributes,
+                      "objectType"
+                    )}
                     specifications={getAttributeValue(
                       item.attributes,
                       "specifications"
