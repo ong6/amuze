@@ -30,7 +30,7 @@ import {
 } from "./api/contract";
 
 export default function Renting() {
-  const { address } = useContext(MetaContext);
+  const { address, network } = useContext(MetaContext);
 
   const styles = {
     heading: "text-left text-2xl font-semibold text-gray-600",
@@ -156,7 +156,7 @@ export default function Renting() {
   return (
     <>
       <Layout>
-        {address ? (
+        {address && network ? (
           <Section delay={0.2}>
             <div className="flex flex-col pt-6 space-y-6 pb-60">
               <div className="text-white text-4xl font-bold text-center w-full pb-4">
@@ -199,7 +199,9 @@ export default function Renting() {
           </Section>
         ) : (
           <div className="[height:50vh] flex text-4xl text-white items-center justify-center">
-            Please connect your wallet to view Renting and Listing.
+            {network
+              ? "Please connect your wallet to view Renting and Listing."
+              : "Please connect to the Ropsten Test Network before proceeding."}
           </div>
         )}
       </Layout>

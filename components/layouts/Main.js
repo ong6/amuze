@@ -23,7 +23,7 @@ const Main = ({ children }) => {
           "any"
         );
         const curr_network = await provider.getNetwork();
-        setNetwork(curr_network.chainId);
+        setNetwork(curr_network.chainId === 3);
         provider.on("network", (newNetwork, oldNetwork) => {
           if (oldNetwork) {
             window.location.reload();
