@@ -7,6 +7,8 @@ const Canvas = (props) => {
   const canvasRef = useRef(null);
   const imgData = props.imgdata;
 
+  // img data contains .name and .description.
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -28,7 +30,7 @@ const Canvas = (props) => {
           canvas.height = h;
           context.drawImage(imgObj, 0, 0, w, h);
 
-          drawText(context);
+          drawText(context, imgData);
           // document.getElementById('msg').addEventListener('input', drawText(context));
         };
         imgObj.src = src;
