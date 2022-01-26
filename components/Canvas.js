@@ -28,8 +28,7 @@ const Canvas = (props) => {
           canvas.height = h;
           context.drawImage(imgObj, 0, 0, w, h);
 
-          drawText(context);
-          // document.getElementById('msg').addEventListener('input', drawText(context));
+          drawText(context, imgData);
         };
         imgObj.src = src;
       });

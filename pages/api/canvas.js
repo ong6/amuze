@@ -3,6 +3,8 @@ import {
 	changeratio,
 	timeConverter,
 	toPercent,
+	wrapText,
+	getShortAccountHash,
 } from "./util.js";
 
 const fillMixedText = (context, args, x, y) => {
@@ -19,143 +21,71 @@ const fillMixedText = (context, args, x, y) => {
 	context.restore();
 };
 
-export const drawText = function (ctx, txt, oldTxt) {
+export const drawText = function (ctx, imgData) {
 	
-	// // normal, italic, bold
-	// // px pt cm in rem em
-	// // any installed or imported font
-	// let fontFamily = 'Inter';
-	// ctx.font = `normal 100px xyz, ${fontFamily}, monospace`;
-	// ctx.fillStyle = 'cornflowerblue';
-	// ctx.strokeStyle = '#bada55';
-	// //textAlign center, left, right, end, start
-	// ctx.textAlign = 'start';
-	// //textBaseline top, hanging, middle, bottom,ideographic, alphabetic
-	// ctx.textBaseline = 'alphabetic';
-	// //direction ltr, rtl, inherit
-	// ctx.direction = 'ltr';
-	
-	// // let txt = document.getElementById('msg').value;
-	
-	// let metrics = ctx.measureText(oldTxt);
-	// let w = metrics.width;
-	// ctx.clearRect(50, 110, w, -50);
-	
-	// if( txt == '' ) {
-	// 	txt = 'Please give me a message.';
-	// }
+	const name = imgData.name;
+	const description = imgData.description;
+	const walletaddress = "0x7eF199087327207034feACd05832E61035FCA929"
 
-	// ctx.strokeText(txt, 50, 100);
-	// oldTxt = txt;
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
 	
-	// ctx.fillStyle = '#999';
-	// ctx.font = 'italic 20px Arial';
-	// let m = `Message is ${w}px wide`;
-	// ctx.clearRect(50, 310, 500, -30);
-	// ctx.fillText(m, 50, 300);
+	const date = today = dd + '/' + mm + '/' + yyyy;
+
+	let fontFamily = "Oxygen";
+	let fontSize = changeratio(90);
+	let positionFromLeft = changeratio(350);
+	let positionFromTop = changeratio(1690);
+
+	ctx.textAlign = "center";
+	ctx.font = `bold ${fontSize}px ${fontFamily}, Arial`;
+	ctx.fillStyle = "white";
+	ctx.fillText(
+		`${name}`,
+		`${positionFromLeft}`,
+		`${positionFromTop}`
+	);
+
+	var maxWidth = 1680;
+	var lineHeight = 290;
+	var x = 2000;
+	var y = 1680;
+
+	ctx.textAlign = "start";
+	fontSize = changeratio(70);
+	ctx.font = `bold ${fontSize}px ${fontFamily}, Arial`;
+	ctx.fillStyle = "black";
+
+	wrapText(ctx, description, x, y, maxWidth, lineHeight);
+
+	positionFromLeft = changeratio(1400);
+	positionFromTop = changeratio(440);
+
+	fontSize = changeratio(70);
+	ctx.font = `bold ${fontSize}px ${fontFamily}, Arial`;
+	ctx.fillStyle = "black";
+	ctx.fillText(
+		`${date}`,
+		`${positionFromLeft}`,
+		`${positionFromTop}`
+	);
+
+	positionFromLeft = changeratio(300);
+	positionFromTop = changeratio(1795);
+
+	fontSize = changeratio(45);
+	ctx.font = `bold ${fontSize}px ${fontFamily}, Arial`;
+	ctx.fillStyle = "white";
+	ctx.fillText(
+		`(` + getShortAccountHash(`${walletaddress}` + `)`),
+		`${positionFromLeft}`,
+		`${positionFromTop}`
+	);
 };
 
-	// const nooftrades = imgData.noOfTrades;
-	// const gas = abbreviateNumber(imgData.gasUSD);
-	// const valueoftrades = abbreviateNumber(imgData.value); // 2DP
-	// const favpair = imgData.favPair;
-	// const favpairamt = abbreviateNumber(imgData.favPairValue); // 2DP
-	// const avgtradesize = "$" + abbreviateNumber(imgData.avgTrade); // 2DP
-	// const biggesttradevalue = "$" + abbreviateNumber(imgData.maxTrade); // 2DP
-	// const biggesttradedate = timeConverter(imgData.maxDate); // DATE FORMATTER
-	// const smallesttradevalue = "$" + abbreviateNumber(imgData.minTrade); // 2DP
-	// const smallesttradedate = timeConverter(imgData.minDate); // DATE FORMATTER
-	// let rank;
-	// let avgtradesizepctcomp;
-	// const usertradevolume = imgData.value;
 
-	//from 3 mil wallets for eth
-	// const defi1 = 10.99; // 1 percentile
-	// const defi10 = 66.08; // 10 percentile
-	// const defi20 = 184.3; // 20 percentile
-	// const defi25 = 252.31; // 25 percentile
-	// const defi30 = 379.28; // 30 percentile
-	// const defi40 = 704.01; // 40 percentile
-	// const defi50 = 1248.97; // 50 percentile
-	// const defi60 = 2337.12; // 60 percentile
-	// const defi70 = 4683.66; // 70 percentile
-	// const defi75 = 6817.66; // 75 percentile
-	// const defi80 = 11033.52; // 80 percentile
-	// const defi90 = 38841.95; // 90 percentile
-	// const defi99 = 3661023.91; // 99 percentile
-
-	// for polygon
-	// const defi1 = 0.1; // 1 percentile
-	// const defi10 = 0.2; // 10 percentile
-	// const defi20 = 5.6; // 20 percentile
-	// const defi25 = 8.9; // 25 percentile
-	// const defi30 = 12; // 30 percentile
-	// const defi40 = 31; // 40 percentile
-	// const defi50 = 113; // 50 percentile
-	// const defi60 = 298; // 60 percentile
-	// const defi70 = 769; // 70 percentile
-	// const defi75 = 1424; // 75 percentile
-	// const defi80 = 2079; // 80 percentile
-	// const defi90 = 85765; // 90 percentile
-	// const defi99 = 34072; // 99 percentile
-	// let highlightcolour = "#fb923c";
-
-	// const ranking = [
-	// 	defi99,
-	// 	defi90,
-	// 	defi80,
-	// 	defi70,
-	// 	defi60,
-	// 	defi50,
-	// 	defi40,
-	// 	defi30,
-	// 	defi20,
-	// 	defi10,
-	// 	defi1,
-	// ];
-
-	// let percentile = 99;
-	// for (let i = 0; i < ranking.length; i++) {
-	// 	if (usertradevolume >= parseInt(ranking[i])) {
-	// 		avgtradesizepctcomp = percentile;
-	// 		break;
-	// 	}
-
-	// 	if (i == 0 || i == 9) {
-	// 		percentile -= 9;
-	// 	} else {
-	// 		percentile -= 10;
-	// 	}
-	// }
-
-	// if (usertradevolume >= 2000000) {
-	// 	rank = "DEFI GOD";
-	// } else if (usertradevolume >= defi75) {
-	// 	rank = "DEFI GOAT";
-	// } else if (usertradevolume >= defi50) {
-	// 	rank = "DEFI PUNK";
-	// } else if (usertradevolume >= defi25) {
-	// 	rank = "DEFI DOGE";
-	// } else if (usertradevolume >= defi1) {
-	// 	rank = "DEFI BABY";
-	// } else if (usertradevolume < defi1) {
-	// 	rank = "DEFI NOOB";
-	// 	avgtradesizepctcomp = 0;
-	// }
-
-	// let fontFamily = "Inter";
-
-	// let fontSize = changeratio(90);
-	// let positionFromLeft = changeratio(85);
-	// let positionFromTop = changeratio(477.5);
-
-	// ctx.font = `bold ${fontSize}px ${fontFamily}, Arial`;
-	// ctx.fillStyle = "white";
-	// ctx.fillText(
-	// 	`YOUR DEX JOURNEY `,
-	// 	`${positionFromLeft}`,
-	// 	`${positionFromTop}`
-	// );
 
 	// positionFromTop = changeratio(590);
 

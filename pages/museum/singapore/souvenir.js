@@ -114,7 +114,7 @@ export default function Souvenir() {
             <Canvas
               id="postcard"
               className="flex mx-auto w-[80vw] rounded-lg"
-              imgData={imgData}
+              imgdata={imgData}
             />
             <Button colorScheme="blue" w="50%">
               Download
