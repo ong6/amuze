@@ -106,7 +106,7 @@ export default function RentNFT() {
             <FormLabel htmlFor="Museum" className={styles.headers}>
               Museum
             </FormLabel>
-            <Select
+            {/* <Select
               id="Museum"
               placeholder="Select Museum"
               variant="filled"
@@ -116,7 +116,7 @@ export default function RentNFT() {
               <option value="National Museum of singapore">
                 National Museum of singapore
               </option>
-            </Select>
+            </Select> */}
           </div>
           <div className="div">
             <FormLabel htmlFor="Tour" className={styles.headers}>
