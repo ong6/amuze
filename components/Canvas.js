@@ -35,7 +35,6 @@ const Canvas = (props) => {
           context.drawImage(imgObj, 0, 0, w, h);
 
           drawText(context, imgData);
-          // document.getElementById('msg').addEventListener('input', drawText(context));
         };
         imgObj.src = src;
       });
