@@ -8,6 +8,10 @@ const Canvas = (props) => {
   const imgData = props.imgdata;
 
   // img data contains .name and .description.
+  // {
+  //   name: "temp",
+  //   description: "temp",
+  // }
 
   useEffect(() => {
     const canvas = canvasRef.current;
