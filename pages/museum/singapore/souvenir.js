@@ -59,9 +59,9 @@ export default function Souvenir() {
       {address ? (
         <>
           <Section delay={0.2}>
-            <div className="items-center text-center justify-center space-y-8 pb-40">
+            <div className="items-center text-center justify-center space-y-8 pb-72">
               <Heading color="white">View your Souvenir!</Heading>
-              <Container className="bg-white rounded-xl">
+              <Container className="bg-white rounded-xl pb-4">
                 <div className="flex flex-col space-y-4 p-4">
                   <div className="div">
                     <div className={styles.heading}>Generate Postcard</div>
@@ -121,7 +121,7 @@ export default function Souvenir() {
           <Modal isOpen={isPostcardOpen} onClose={onPostcardClose}>
             <ModalOverlay />
             <ModalContent
-              minW={"90%"}
+              minW={"70%"}
               justifyItems="center"
               className="text-center"
               p={6}
@@ -130,7 +130,7 @@ export default function Souvenir() {
               <Box className="space-y-4">
                 <Canvas
                   id="postcard"
-                  className="flex mx-auto w-[80vw] rounded-lg"
+                  className="flex mx-auto h-[70vh] rounded-lg"
                   imgdata={imgData}
                 />
                 <Button colorScheme="blue" w="50%" onClick={download}>

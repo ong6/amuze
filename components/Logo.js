@@ -9,7 +9,7 @@ const Logo = ({ title = null }) => {
   return (
     <Link href={"/"}>
       <a>
-        <Text color={"#FFFFFF"} fontWeight="bold" ml={3} wrapText>
+        <Text color={"#FFFFFF"} fontWeight="bold" ml={3}>
           {title ? title : "A - MUZE"}
         </Text>
       </a>
