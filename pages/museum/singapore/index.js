@@ -41,7 +41,7 @@ export default function Museum() {
   }, [setCollectItems]);
 
   return (
-    <Layout>
+    <Layout title="Chinese Artefacts of the Qing Dynasty Tour">
       {address ? (
         <Section delay={0.2} mb={0}>
           <div
@@ -49,7 +49,7 @@ export default function Museum() {
               backgroundImage: "url(/bg.png) ",
               backgroundSize: "cover",
             }}
-            className="bg-cover bg-center  bg-clip-border bg-fixed"
+            className="bg-fixed bg-center bg-cover bg-clip-border"
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
               <h1 className="w-1/3 py-10">VIEW PIECES FROM AROUND THE WORLD</h1>
@@ -70,7 +70,7 @@ export default function Museum() {
                   collectItems.map((item, index) => (
                     <CollectItem
                       key={index}
-                      origins={getAttributeValue(
+                      origin={getAttributeValue(
                         item.attributes,
                         "countryOfOrigin"
                       )}

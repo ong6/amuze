@@ -22,7 +22,12 @@ const Layout = ({ children, title, router }) => (
     <>
       {title && (
         <Head>
-          <title>{title} - AMUZE</title>
+          <title>{title} | Amuze</title>
+          <meta
+            name="description"
+            content="Amuze-Museum at your fingertips"
+          />
+          <link rel="icon" href="/favicon.ico" />
         </Head>
       )}
       <Section delay={0.1}>

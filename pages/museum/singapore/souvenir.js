@@ -55,17 +55,17 @@ export default function Souvenir() {
   };
 
   return (
-    <Layout>
+    <Layout title="Souvenir">
       {address ? (
         <>
           <Section delay={0.2}>
-            <div className="items-center text-center justify-center space-y-8 pb-72">
+            <div className="items-center justify-center space-y-8 text-center pb-72">
               <Heading color="white">View your Souvenir!</Heading>
-              <Container className="bg-white rounded-xl pb-4">
-                <div className="flex flex-col space-y-4 p-4">
+              <Container className="pb-4 bg-white rounded-xl">
+                <div className="flex flex-col p-4 space-y-4">
                   <div className="div">
                     <div className={styles.heading}>Generate Postcard</div>
-                    <div className="text-left font-base text-gray-500 text-sm">
+                    <div className="text-sm text-left text-gray-500 font-base">
                       Please fill in the following to get a postcard that you
                       can keep!
                     </div>
