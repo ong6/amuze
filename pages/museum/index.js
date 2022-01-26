@@ -33,13 +33,12 @@ export default function Museum() {
               <SimpleGrid columns={[1, 1, 3]} gap={6}>
                 {tours.map((tour, index) => {
                   return (
-                    <div key={index}>
-                      <Card
-                        imgUrl={tour.image}
-                        title={tour.name}
-                        description={tour.description}
-                      />
-                    </div>
+                    <Card
+                      imgUrl={tour.image}
+                      title={tour.name}
+                      description={tour.description}
+                      key={index}
+                    />
                   );
                 })}
               </SimpleGrid>

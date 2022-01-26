@@ -15,7 +15,7 @@ import { GiTicket } from "react-icons/gi";
 import { MetaContext } from "../../context/MetaContext";
 import { addMuze, handlePayment, swapEthToMuze } from "../../pages/api/wallet";
 
-export default function Entry() {
+export default function Entry({ title }) {
   const { address, network } = useContext(MetaContext);
   const router = useRouter();
 
@@ -144,7 +144,7 @@ export default function Entry() {
             <div className="flex flex-row items-center justify-center">
               You have selected:
               <div className="items-center pl-2 text-purple-500">
-                National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
+                {title} <Icon as={GiTicket} w={4} h={4} />
               </div>
             </div>
             <Button
