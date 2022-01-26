@@ -27,6 +27,7 @@ import {
   getEstimatedRewards,
   getHashesFromTokenIds,
   getRewards,
+  getTokenIdsRented,
   getTokenIdsUser,
 } from "./api/contract";
 
@@ -42,19 +43,19 @@ export default function Renting() {
   function Rewards() {
     const [rewards, setRewards] = useState("0");
 
-    useEffect(() => {
-      getEstimatedRewards(address).then((r) => {
-        setRewards(Number(r));
-      });
-    }, [rewards]);
+    // useEffect(() => {
+    //   getEstimatedRewards(address).then((r) => {
+    //     setRewards(Number(r));
+    //   });
+    // }, [rewards]);
 
     const receiveRewards = async () => {
-      await getRewards();
+      // await getRewards();
       return false;
     };
 
     return (
-      <Container maxW="xs" className="bg-white rounded-xl">
+      <Container className="bg-white rounded-xl">
         <div className="flex flex-col space-y-4 p-4 justify-center">
           <div className="flex space-x-2 items-center text-gray-600">
             <div className="font-semibold ">Muze Reward Bounty</div>
@@ -69,7 +70,7 @@ export default function Renting() {
             </Tooltip>
           </div>
 
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between items-center">
             <div className="flex flex-col">
               <div className="text-xl font-semibold">{rewards}</div>
               <div className="div">~{rewards / 3300} eth </div>
@@ -77,8 +78,8 @@ export default function Renting() {
             <Button
               variant="solid"
               colorScheme="green"
-              rounded="full"
               onClick={receiveRewards}
+              minW="40"
             >
               Claim
             </Button>
@@ -89,6 +90,7 @@ export default function Renting() {
   }
 
   const [collectItems, setCollectItems] = useState(null);
+  const [rentedItems, setRentedItems] = useState(null);
 
   useEffect(() => {
     async function getCollectItems() {
@@ -103,49 +105,62 @@ export default function Renting() {
       }
       setCollectItems(items);
     }
+    async function getRentedItems() {
+      const hashes = await getHashesFromTokenIds(
+        await getTokenIdsRented(address)
+      );
+      let items = [];
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push({ tokenId: tokenId, ...item });
+      }
+      setRentedItems(items);
+    }
     if (address) {
       getCollectItems();
+      getRentedItems();
     }
   }, [address, setCollectItems]);
 
-  function CompleteNFT() {
-    return (
-      <Container className="bg-white rounded-xl">
-        <div className="flex flex-col space-y-4 p-4 justify-center">
-          <div className="div">
-            <div className={styles.heading}>Mint Your NFT</div>
-          </div>
-          <div className="self-center bg-gray-200 justify-center">
-            {mint &&
-              rent(
-                <>
-                  <Image
-                    src={URL.createObjectURL(selectedImage)}
-                    alt="Not found"
-                    height={"250px"}
-                  />
-                  <div className="flex flex-col justify-center text-center">
-                    <div className="div"> {mint.nft} </div>
-                    <div className="div"> Owner: {rent.owner}</div>
-                  </div>
-                </>
-              )}
-          </div>
-          <Button colorScheme="red">YOUR NFT HAS BEEN MINTED</Button>
-          <CheckboxGroup>
-            <Stack spacing={2} direction="column">
-              <Checkbox size="md" value="termsAndConditions">
-                <div className="text-xs">
-                  I agree to the <Link>terms and conditions.</Link>
-                </div>
-              </Checkbox>
-            </Stack>
-          </CheckboxGroup>
-          <Button colorScheme="blue">Rent</Button>
-        </div>
-      </Container>
-    );
-  }
+  // function CompleteNFT() {
+  //   return (
+  //     <Container className="bg-white rounded-xl">
+  //       <div className="flex flex-col space-y-4 p-4 justify-center">
+  //         <div className="div">
+  //           <div className={styles.heading}>Mint Your NFT</div>
+  //         </div>
+  //         <div className="self-center bg-gray-200 justify-center">
+  //           {mint &&
+  //             rent(
+  //               <>
+  //                 <Image
+  //                   src={URL.createObjectURL(selectedImage)}
+  //                   alt="Not found"
+  //                   height={"250px"}
+  //                 />
+  //                 <div className="flex flex-col justify-center text-center">
+  //                   <div className="div"> {mint.nft} </div>
+  //                   <div className="div"> Owner: {rent.owner}</div>
+  //                 </div>
+  //               </>
+  //             )}
+  //         </div>
+  //         <Button colorScheme="red">YOUR NFT HAS BEEN MINTED</Button>
+  //         <CheckboxGroup>
+  //           <Stack spacing={2} direction="column">
+  //             <Checkbox size="md" value="termsAndConditions">
+  //               <div className="text-xs">
+  //                 I agree to the <Link>terms and conditions.</Link>
+  //               </div>
+  //             </Checkbox>
+  //           </Stack>
+  //         </CheckboxGroup>
+  //         <Button colorScheme="blue">Rent</Button>
+  //       </div>
+  //     </Container>
+  //   );
+  // }
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -163,19 +178,9 @@ export default function Renting() {
               <div className="text-white text-4xl font-bold text-center w-full pb-4">
                 A-MUZE NFT Renting / Listing Platform
               </div>
-              <Container>
-                <SimpleGrid columns={2} gap={5}>
-                  <Rewards />
-                  <Button
-                    h={"full"}
-                    rounded={12}
-                    colorScheme="telegram"
-                    onClick={onRentOpen}
-                  >
-                    Rent your NFTs
-                  </Button>
-                </SimpleGrid>
-              </Container>
+
+              <Rewards />
+
               <Container bg={"white"} rounded="10" p={6}>
                 <div className="flex space-x-2 items-center text-gray-600 mb-4">
                   <div className="text-black text-lg font-semibold">
@@ -208,9 +213,53 @@ export default function Renting() {
                       <Skeleton height={40} />
                     </>
                   )}
-                  <Button onClick={onOpen} colorScheme="red">
-                    Mint A NFT
-                  </Button>
+                  <SimpleGrid columns={2} gap={5}>
+                    <Button onClick={onOpen} colorScheme="red">
+                      Mint A New NFT
+                    </Button>
+                    <Button
+                      h={"full"}
+                      colorScheme="telegram"
+                      onClick={onRentOpen}
+                    >
+                      Rent out your NFTs
+                    </Button>
+                  </SimpleGrid>
+                </SimpleGrid>
+              </Container>
+
+              <Container bg={"white"} rounded="10" p={6}>
+                <div className="flex space-x-2 items-center text-gray-600 mb-4">
+                  <div className="text-black text-lg font-semibold">
+                    Your Rented NFTs
+                  </div>
+                  <Tooltip
+                    hasArrow
+                    label="Rented items will not show up here"
+                    placement="top"
+                  >
+                    <div className="items-center mb-1.5">
+                      <Icon as={BsQuestionCircle} />
+                    </div>
+                  </Tooltip>
+                </div>
+
+                <SimpleGrid columns={[1, 1, 1]} gap={10}>
+                  {rentedItems ? (
+                    rentedItems.map((item, index) => (
+                      <ListItem
+                        key={index}
+                        imgUrl={item.image}
+                        title={item.name}
+                        description={item.description}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      <Skeleton height={40} />
+                      <Skeleton height={40} />
+                    </>
+                  )}
                 </SimpleGrid>
               </Container>
 

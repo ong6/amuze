@@ -47,6 +47,21 @@ export const getTokenIdsForMuseum = async () => {
   return rents.map((rent) => rent.tokenId);
 };
 
+//Get a list of token id belonging to the tour address
+export const getTokenIdsRented = async (address) => {
+  const web3 = new Web3(
+    `https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+  );
+  // console.log(abi);
+  const contract = new web3.eth.Contract(abi, custodyAddress);
+
+  const rents = await contract.methods.getRents().call();
+  // console.log(rents);
+  return rents
+    .filter((e) => e.previousOwner === address)
+    .map((rent) => rent.tokenId);
+};
+
 // Mints the NFT that the user uploaded to the contract
 export const mintUserNft = async (ipfsUrl, address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
