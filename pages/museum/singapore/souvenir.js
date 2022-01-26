@@ -39,6 +39,13 @@ export default function Souvenir() {
     onClose: onPostcardClose,
   } = useDisclosure();
 
+  const download = function () {
+    var link = document.createElement("a");
+    link.download = "ThanksForVisiting.png";
+    link.href = document.getElementById("postcard").toDataURL();
+    link.click();
+  };
+
   return (
     <Layout>
       <Section delay={0.2}>
@@ -116,7 +123,7 @@ export default function Souvenir() {
               className="flex mx-auto w-[80vw] rounded-lg"
               imgData={imgData}
             />
-            <Button colorScheme="blue" w="50%">
+            <Button colorScheme="blue" w="50%" onClick={download}>
               Download
             </Button>
           </Box>
