@@ -4,15 +4,14 @@ import {
   InputGroup,
   InputLeftElement,
   SimpleGrid,
+  Skeleton,
 } from "@chakra-ui/react";
-import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import CollectItem from "../../../components/CollectItem";
 import Layout from "../../../components/layouts/Museum";
 import Section from "../../../components/Section";
 import { MetaContext } from "../../../context/MetaContext";
-import { AiOutlineSearch } from "react-icons/ai";
-import CollectItem from "../../../components/CollectItem";
-import SingaporeCollection from "../../../public/sample_nft/singapore.json";
 import {
   getHashesFromTokenIds,
   getTokenIdsForMuseum,
@@ -24,7 +23,7 @@ function getAttributeValue(arr, key) {
 
 export default function Museum() {
   const { address } = useContext(MetaContext);
-  const [collectItems, setCollectItems] = useState([]);
+  const [collectItems, setCollectItems] = useState(null);
 
   useEffect(() => {
     async function getCollectItems() {
@@ -67,35 +66,43 @@ export default function Museum() {
             </div>
             <Container minW={"80%"} pb={12}>
               <SimpleGrid columns={[1, 1, 3]} gap={10}>
-                {collectItems.map((item, index) => (
-                  <CollectItem
-                    key={index}
-                    origins={getAttributeValue(
-                      item.attributes,
-                      "countryOfOrigin"
-                    )}
-                    imgUrl={item.image}
-                    title={item.name}
-                    audio={item.audio}
-                    description={item.description}
-                    date={getAttributeValue(item.attributes, "date")}
-                    region={getAttributeValue(item.attributes, "region")}
-                    artist={getAttributeValue(item.attributes, "artist")}
-                    route={getAttributeValue(item.attributes, "route")}
-                    hostMuseum={getAttributeValue(
-                      item.attributes,
-                      "hostMuseum"
-                    )}
-                    objectType={getAttributeValue(
-                      item.attributes,
-                      "objectType"
-                    )}
-                    specifications={getAttributeValue(
-                      item.attributes,
-                      "specifications"
-                    )}
-                  />
-                ))}
+                {collectItems ? (
+                  collectItems.map((item, index) => (
+                    <CollectItem
+                      key={index}
+                      origins={getAttributeValue(
+                        item.attributes,
+                        "countryOfOrigin"
+                      )}
+                      imgUrl={item.image}
+                      title={item.name}
+                      audio={item.audio}
+                      description={item.description}
+                      date={getAttributeValue(item.attributes, "date")}
+                      region={getAttributeValue(item.attributes, "region")}
+                      artist={getAttributeValue(item.attributes, "artist")}
+                      route={getAttributeValue(item.attributes, "route")}
+                      hostMuseum={getAttributeValue(
+                        item.attributes,
+                        "hostMuseum"
+                      )}
+                      objectType={getAttributeValue(
+                        item.attributes,
+                        "objectType"
+                      )}
+                      specifications={getAttributeValue(
+                        item.attributes,
+                        "specifications"
+                      )}
+                    />
+                  ))
+                ) : (
+                  <SimpleGrid columns={[1, 1, 3]} gap={10}>
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                  </SimpleGrid>
+                )}
               </SimpleGrid>
             </Container>
           </div>

@@ -50,7 +50,12 @@ const MuseumNavbar = (props) => {
       >
         <Flex align="center" mr={12}>
           <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-            <Logo title="Chinese Artefacts of the Qing Dynasty Tour" />
+            <Link href={"/"}>
+              <a className="text-white">
+                Chinese Artefacts of the Qing Dynasty Tour
+              </a>
+            </Link>
+            {/* <Logo title="Chinese Artefacts of the Qing Dynasty Tour" /> */}
           </Heading>
         </Flex>
 
