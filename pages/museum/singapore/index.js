@@ -98,9 +98,9 @@ export default function Museum() {
                   ))
                 ) : (
                   <SimpleGrid columns={[1, 1, 3]} gap={10}>
-                    <Skeleton height="400px" />
-                    <Skeleton height="400px" />
-                    <Skeleton height="400px" />
+                    <Skeleton height="400px" width="350px" />
+                    <Skeleton height="400px" width="350px" />
+                    <Skeleton height="400px" width="350px" />
                   </SimpleGrid>
                 )}
               </SimpleGrid>
