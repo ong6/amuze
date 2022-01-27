@@ -4,23 +4,16 @@ import {
   CheckboxGroup,
   Container,
   FormControl,
-  FormLabel,
-  Icon,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Link,
+  FormLabel, Input, Link,
   Select,
   Stack,
-  Textarea,
+  Textarea
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
-import { BiCalendar } from "react-icons/bi";
-import { BsDashLg } from "react-icons/bs";
+import { useS3Upload } from "next-s3-upload";
+import React, { useContext, useState } from "react";
 import { MetaContext } from "../../context/MetaContext";
 import { mintUserNft } from "../../pages/api/contract";
 import { uploadProposal } from "../../pages/api/ipfs";
-import { useS3Upload } from "next-s3-upload";
 
 export default function MintNFT() {
   const { address } = useContext(MetaContext);

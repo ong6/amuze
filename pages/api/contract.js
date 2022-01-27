@@ -37,7 +37,7 @@ export const getTokenIdsUser = async (address) => {
 //Get a list of token id belonging to the tour address
 export const getTokenIdsForMuseum = async () => {
   const web3 = new Web3(
-    `https://rinkeby.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+    `https://rinkeby.infura.io/v3/91497597cc9a407f8cca5e815275dcbd`
   );
   // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
@@ -50,7 +50,7 @@ export const getTokenIdsForMuseum = async () => {
 //Get a list of token id belonging to the tour address
 export const getTokenIdsRented = async (address) => {
   const web3 = new Web3(
-    `https://rinkeby.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+    `https://rinkeby.infura.io/v3/91497597cc9a407f8cca5e815275dcbd`
   );
   // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
@@ -64,6 +64,7 @@ export const getTokenIdsRented = async (address) => {
 
 // Mints the NFT that the user uploaded to the contract
 export const mintUserNft = async (ipfsUrl, address) => {
+  console.log('run')
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function totalSupply() external view returns (uint256)",
@@ -71,8 +72,12 @@ export const mintUserNft = async (ipfsUrl, address) => {
   ];
   const signer = provider.getSigner();
   const muzeTour = new ethers.Contract(tourAddress, abi, signer);
+  console.log('run2')
 
-  const newTokenId = (await muzeTour.totalSupply()) + 1;
+  const newTokenId = (Number(await muzeTour.totalSupply()) + 1 );
+
+  console.log(newTokenId)
+
 
   // eg: https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn
   await muzeTour.mint(address, newTokenId, ipfsUrl);
@@ -129,7 +134,7 @@ export const getRewards = async () => {
   const signer = provider.getSigner();
   const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
 
-  return await custodyReward.redeemRewards(tourAddress);
+return await custodyReward.redeemRewards(tourAddress);
 };
 
 // Get the estimated rewards from the contract
