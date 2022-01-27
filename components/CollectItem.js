@@ -27,7 +27,7 @@ export default function CollectItem({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const color_list = ["gray.300"];
+  const color_list = ["gray.200"];
 
   return (
     <div className="flex flex-wrap shadow-lg">

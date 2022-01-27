@@ -1,16 +1,14 @@
-import Coin from "../../public/logo.svg";
 import { ethers } from "ethers";
-import { useRouter } from "next/router";
 
-const tourAddress = "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87";
-const custodyAddress = "0x3f70fAeA8C66F6E4F4ACdEd35D8292aCe3d499Aa";
-const muzeAddress = "0x99C1b88CC20F6192d22B7dF0AAe123301262d978";
+const tourAddress = "0xbF3a365396E3e58E359F17Aa1fe79cC3b9E2F409";
+const custodyAddress = "0x87576ee1d14e8F8A4dBAD4F73208cc807ba15c47";
+const muzeAddress = "0x4274772d79e94cAD912DED4781E70343F6EB758B";
 
 // Adds the muze coin to your wallet
 export const addMuze = async () => {
   const tokenSymbol = "MUZE";
   const tokenDecimals = 18;
-  const tokenImage = window.location.href + Coin.src;
+  const tokenImage = "https://amuze.vercel.app/logo.png";
 
   try {
     const wasAdded = await ethereum.request({

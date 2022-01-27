@@ -1,10 +1,10 @@
 const ethers = require("ethers");
 const Web3 = require("web3");
-import abi from "../tours/singapore/abi.json";
+import abi from "../../public/abi.json";
 
-const tourAddress = "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87";
-const custodyAddress = "0x3f70fAeA8C66F6E4F4ACdEd35D8292aCe3d499Aa";
-const muzeAddress = "0x99C1b88CC20F6192d22B7dF0AAe123301262d978";
+const tourAddress = "0xbF3a365396E3e58E359F17Aa1fe79cC3b9E2F409";
+const custodyAddress = "0x87576ee1d14e8F8A4dBAD4F73208cc807ba15c47";
+const muzeAddress = "0x4274772d79e94cAD912DED4781E70343F6EB758B";
 
 //Gets a list of token id belonging to the user address
 export const getTokenIdsUser = async (address) => {
@@ -37,7 +37,7 @@ export const getTokenIdsUser = async (address) => {
 //Get a list of token id belonging to the tour address
 export const getTokenIdsForMuseum = async () => {
   const web3 = new Web3(
-    `https://rinkeby.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+    `https://rinkeby.infura.io/v3/91497597cc9a407f8cca5e815275dcbd`
   );
   // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
@@ -50,7 +50,7 @@ export const getTokenIdsForMuseum = async () => {
 //Get a list of token id belonging to the tour address
 export const getTokenIdsRented = async (address) => {
   const web3 = new Web3(
-    `https://rinkeby.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+    `https://rinkeby.infura.io/v3/91497597cc9a407f8cca5e815275dcbd`
   );
   // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
@@ -71,8 +71,7 @@ export const mintUserNft = async (ipfsUrl, address) => {
   ];
   const signer = provider.getSigner();
   const muzeTour = new ethers.Contract(tourAddress, abi, signer);
-
-  const newTokenId = (await muzeTour.totalSupply()) + 1;
+  const newTokenId = (Number(await muzeTour.totalSupply()) + 1 );
 
   // eg: https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn
   await muzeTour.mint(address, newTokenId, ipfsUrl);
@@ -129,7 +128,7 @@ export const getRewards = async () => {
   const signer = provider.getSigner();
   const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
 
-  return await custodyReward.redeemRewards(tourAddress);
+return await custodyReward.redeemRewards(tourAddress);
 };
 
 // Get the estimated rewards from the contract
@@ -142,3 +141,11 @@ export const getEstimatedRewards = async (address) => {
   const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
   return custodyReward.getEstimatedRewards(address);
 };
+
+// export const getWhitelistedPeople = aync (address) => {
+
+// }
+
+// export const addWhiteListedPeople = aync (address) => {
+
+// }

@@ -1,19 +1,15 @@
 import {
   Button,
-  Checkbox,
-  CheckboxGroup,
   Container,
   Icon,
-  Image,
-  Link,
   Modal,
   ModalContent,
   ModalOverlay,
   SimpleGrid,
   Skeleton,
-  Stack,
   Tooltip,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useContext, useEffect, useState } from "react";
@@ -27,10 +23,10 @@ import { MetaContext } from "../context/MetaContext";
 import {
   getEstimatedRewards,
   getHashesFromTokenIds,
-  getRewards,
   getTokenIdsRented,
   getTokenIdsUser,
 } from "./api/contract";
+import { round } from "./api/util";
 
 export default function Renting() {
   const { address, network } = useContext(MetaContext);
@@ -41,17 +37,28 @@ export default function Renting() {
     select: "bg-gray-100",
   };
 
+  const toast = useToast();
+
   function Rewards() {
     const [rewards, setRewards] = useState("0");
 
     useEffect(() => {
       getEstimatedRewards(address).then((r) => {
-        setRewards(Number(r));
+        setRewards(Number(r) / 10 ** 18);
       });
     }, [rewards]);
 
     const receiveRewards = async () => {
-      await getRewards();
+      toast({
+        title: "Tour has not ended yet!",
+        description:
+          "Please wait for host to end tour before receiving rewards",
+        status: "error",
+        duration: 6000,
+        isClosable: true,
+        position: "top",
+      });
+      // await getRewards();
       return false;
     };
 
@@ -70,11 +77,10 @@ export default function Renting() {
               </div>
             </Tooltip>
           </div>
-
           <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col">
               <div className="text-xl font-semibold">{rewards}</div>
-              <div className="div">~{rewards / 3300} eth </div>
+              <div className="div">{round(rewards / 3300)} eth </div>
             </div>
             <Button
               variant="solid"
@@ -171,7 +177,14 @@ export default function Renting() {
   } = useDisclosure();
 
   const redeemNft = async () => {
-    console.log("a");
+    toast({
+      title: "Tour has not ended yet!",
+      description: "Please wait for host to end tour before reclaiming NFTs",
+      status: "error",
+      duration: 6000,
+      isClosable: true,
+      position: "top",
+    });
   };
 
   return (
