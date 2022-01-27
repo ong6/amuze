@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Link } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
@@ -48,8 +48,8 @@ const Main = ({ children }) => {
             <Footer />
           </>
         ) : (
-          <div className="text-5xl font-bold text-white self-center items-center justify-center flex h-screen">
-            Please install metamask to continue...
+          <div className="text-5xl font-bold text-white self-center items-center justify-center flex h-screen whitespace-pre">
+            Please install <Link href="https://metamask.io/download/">metamask</Link> to continue...
           </div>
         )}
       </Box>
