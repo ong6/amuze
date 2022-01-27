@@ -2,6 +2,7 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC777/IERC777.sol";
 import "@openzeppelin/contracts/token/ERC777/IERC777Sender.sol";
 import "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol";
@@ -13,7 +14,8 @@ contract MuzeCustody is
   IERC777Sender,
   IERC777Recipient,
   IERC721Receiver,
-  Ownable
+  Ownable,
+  AccessControl
 {
   struct RentedNFT {
     address previousOwner;
@@ -25,6 +27,8 @@ contract MuzeCustody is
     address previousOwner;
     uint256 numberOfTokens;
   }
+  // Create a new role identifier for the minter role
+  bytes32 public constant WHITELISTED_ROLE = keccak256("WHITELISTED_ROLE");
 
   // Registering with ERC1820 Registry that we can recieve ERC777
   IERC1820Registry private _erc1820 =
@@ -39,6 +43,8 @@ contract MuzeCustody is
   IERC777 public token;
   IERC721 public nft;
 
+  bool hasTourClosed;
+
   // tour => account => t/f
   mapping(address => mapping(address => bool)) hasEntered;
   mapping(address => uint256) feesCollected;
@@ -48,11 +54,16 @@ contract MuzeCustody is
   // mapping(address => TourStake[]) stakes;
 
   RentedNFT[] public rents;
-  address[] private lookupTable;
+  address[] public lookupTable;
   uint256 public totalStaked;
-  mapping(address => TourStake) stake;
+  mapping(address => TourStake) public stake;
 
   event EnteredTour(address indexed person, address indexed tour);
+
+  modifier onlyWhitelisted() {
+    require(hasRole(WHITELISTED_ROLE, msg.sender), "Caller is not whitelisted");
+    _;
+  }
 
   constructor() {
     _erc1820.setInterfaceImplementer(
@@ -60,19 +71,28 @@ contract MuzeCustody is
       TOKENS_RECIPIENT_INTERFACE_HASH,
       address(this)
     );
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
   }
 
-  function hasEnteredTour(address _tour) external view returns (bool) {
-    return hasEntered[_tour][msg.sender];
+  function addWhitelistedUser(address _address) external onlyOwner {
+    _grantRole(WHITELISTED_ROLE, _address);
+  }
+
+  function hasEnteredTour(address _address) external view returns (bool) {
+    return hasEntered[address(nft)][_address];
   }
 
   function getRents() external view returns (RentedNFT[] memory) {
     return rents;
   }
 
-  function getEstimatedRewards() external view returns (uint256) {
+  function getEstimatedRewards(address _address)
+    external
+    view
+    returns (uint256)
+  {
     uint256 total = feesCollected[address(nft)];
-    uint256 numOfTokens = stake[msg.sender].numberOfTokens;
+    uint256 numOfTokens = stake[_address].numberOfTokens;
 
     return total * (numOfTokens / totalStaked);
   }
@@ -87,6 +107,7 @@ contract MuzeCustody is
 
   function enterTour(address _tour) external {
     require(!hasEntered[_tour][msg.sender], "Already entered tour");
+    require(!hasTourClosed);
     hasEntered[_tour][msg.sender] = true;
     feesCollected[_tour] = feesCollected[_tour] + TOUR_ENTRY_FEE;
     token.operatorSend(msg.sender, address(this), TOUR_ENTRY_FEE, "", "");
@@ -99,6 +120,7 @@ contract MuzeCustody is
     uint256 _tokenId,
     bytes calldata //_data
   ) external override(IERC721Receiver) returns (bytes4) {
+    require(hasRole(WHITELISTED_ROLE, _from));
     RentedNFT memory newRent = RentedNFT({
       previousOwner: _from,
       tokenId: _tokenId,
@@ -118,24 +140,48 @@ contract MuzeCustody is
     return ERC721_SELECTOR;
   }
 
-  function redeemRewards(address _tour) external {
+  function redeemRewards(address _tour) external onlyWhitelisted {
+    require(hasTourClosed);
     uint256 total = feesCollected[_tour];
 
-    for (uint256 i = 0; i < lookupTable.length; i++) {
-      uint256 s = stake[lookupTable[i]].numberOfTokens;
-      token.send(lookupTable[i], total * (s / totalStaked), "");
+    uint256 s = stake[msg.sender].numberOfTokens;
+    token.send(msg.sender, total * (s / totalStaked), "");
 
-      delete stake[lookupTable[i]];
-    }
+    feesCollected[_tour] -= (total * (s / totalStaked));
   }
 
-  function redeemNFT() external {
+  function redeemNFT() external onlyWhitelisted {
+    require(hasTourClosed);
     for (uint256 i = 0; i < rents.length; i++) {
       if (rents[i].previousOwner == msg.sender) {
         require(rents[i].timeLockExpiry < block.timestamp);
         nft.safeTransferFrom(address(this), msg.sender, rents[i].tokenId);
       }
     }
+  }
+
+  function forceCloseTour() external onlyWhitelisted {
+    uint256 total = feesCollected[address(nft)];
+
+    for (uint256 i = 0; i < lookupTable.length; i++) {
+      uint256 s = stake[lookupTable[i]].numberOfTokens;
+      token.send(lookupTable[i], total * (s / totalStaked), "");
+      delete stake[lookupTable[i]];
+    }
+
+    feesCollected[address(nft)] = 0;
+
+    delete lookupTable;
+
+    for (uint256 i = 0; i < rents.length; i++) {
+      nft.safeTransferFrom(
+        address(this),
+        rents[i].previousOwner,
+        rents[i].tokenId
+      );
+    }
+
+    delete rents;
   }
 
   // code to conform to ERC777TokensRecipient
