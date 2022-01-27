@@ -1,6 +1,4 @@
-import Coin from "../../public/logo.png";
 import { ethers } from "ethers";
-import { useRouter } from "next/router";
 
 const tourAddress = "0xbF3a365396E3e58E359F17Aa1fe79cC3b9E2F409";
 const custodyAddress = "0x87576ee1d14e8F8A4dBAD4F73208cc807ba15c47";
