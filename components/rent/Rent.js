@@ -43,6 +43,7 @@ export default function RentNFT() {
   const handleOwnerChange = (e) => setOwner(e.target.value);
 
   const [mintedNft, setMintedNft] = useState(null);
+  const [whitelisted, setWhitelisted] = useState(true);
 
   useEffect(() => {
     async function getCollectItems() {
@@ -61,9 +62,12 @@ export default function RentNFT() {
   }, [address]);
 
   const handleRent = async () => {
-    // const tempData = await getTokenIdsUser(address);
-    // console.log(tempData[0]);
-    await rentToMuseum(nft, address);
+    try {
+      await rentToMuseum(nft, address);
+    } catch (e) {
+      setWhitelisted(false);
+      console.log(e);
+    }
     return false;
   };
 
@@ -96,8 +100,7 @@ export default function RentNFT() {
                 ))
               ) : (
                 <>
-                  <option value="temp">Select Option</option>
-                  <option value="temp">Select Option</option>
+                  <option value="temp">Loading...</option>
                 </>
               )}
             </Select>
@@ -212,6 +215,12 @@ export default function RentNFT() {
         <Button colorScheme="blue" onClick={handleRent}>
           Rent
         </Button>
+        {whitelisted ? null : (
+          <div className="text-red-500 whitespace-pre">
+            You are not Whitelisted! Contact <Link>this number</Link> to find
+            out more!
+          </div>
+        )}
       </div>
     </Container>
   );

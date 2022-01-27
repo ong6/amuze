@@ -17,7 +17,7 @@ const ConnectWallet = ({ address, setAddress }) => {
     <div className="fixed top-0 right-0 z-50 p-8">
       <button
         onClick={login}
-        className="items-center px-2 py-1 text-center transition-all duration-200 bg-gray-200 border border-white rounded-full md:px-6 md:py-3 hover:bg-purple-500 hover:text-white"
+        className="items-center px-2 py-1 text-center transition-all duration-200 bg-gray-200 border border-white rounded-full md:px-6 md:py-3 hover:bg-orange-100 hover:text-white"
       >
         <div
           className={
