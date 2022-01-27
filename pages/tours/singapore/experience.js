@@ -9,7 +9,7 @@ export default function Museum() {
     return (
         <Layout title="Experience">
             <Head>
-                <title>Amuze</title>
+                <title>Experience | Amuze</title>
                 <meta name="description" content="Amuze-Museum at your fingertips" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
