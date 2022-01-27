@@ -1,20 +1,23 @@
 [
   {
+    "id": "qing-dynasty-tour",
     "name": "Chinese Artefacts of the Qing Dynasty Tour",
     "address": "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87",
     "description": "The brilliant reigns of the Kangxi (r. 1662–1722) and Qianlong (r. 1736–95) emperors display a period when the Manchus embraced Chinese cultural traditions and the court became a leading patron in the arts as China enjoyed an extended period of political stability and economic prosperity.",
-    "image": "/tours/qing dynasty tour.jpg"
+    "image": "/tours/qing-dynasty-tour.jpg"
   },
   {
+    "id": "kamehameha-tour",
     "name": "Hawaiian Ancient Ruins, the story of King Kamehameha Tour",
     "address": "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87",
     "description": "Kamehameha (known as Paiea at birth[2][3]), was born to Kekuʻiapoiwa II, the niece of Alapainui, the usurping ruler of Hawaii Island who had killed the two legitimate heirs of Keaweʻīkekahialiʻiokamoku during civil war. By most accounts he was born in Ainakea, Kohala, Hawaii.",
-    "image": "/tours/babylonian tour.jpg"
+    "image": "/tours/babylonian-tour.jpg"
   },
   {
+    "id": "babylonian-tour",
     "name": "Babylonian Kings and their luxurious lives Tour",
     "address": "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87",
     "description": "Babylonia was a state in ancient Mesopotamia. The city of Babylon, whose ruins are located in present-day Iraq, was founded more than 4,000 years ago as a small port town on the Euphrates River. It grew into one of the largest cities of the ancient world under the rule of Hammurabi.",
-    "image": "/tours/kamakameha tour.jpg"
+    "image": "/tours/kamakameha-tour.jpg"
   }
 ]
