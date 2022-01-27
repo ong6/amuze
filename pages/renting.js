@@ -44,14 +44,14 @@ export default function Renting() {
   function Rewards() {
     const [rewards, setRewards] = useState("0");
 
-    // useEffect(() => {
-    //   getEstimatedRewards(address).then((r) => {
-    //     setRewards(Number(r));
-    //   });
-    // }, [rewards]);
+    useEffect(() => {
+      getEstimatedRewards(address).then((r) => {
+        setRewards(Number(r));
+      });
+    }, [rewards]);
 
     const receiveRewards = async () => {
-      // await getRewards();
+      await getRewards();
       return false;
     };
 
@@ -255,7 +255,7 @@ export default function Renting() {
                 </div>
 
                 <SimpleGrid columns={[1, 1, 1]} gap={10}>
-                  {rentedItems ? (
+                {rentedItems ? (
                     rentedItems.map((item, index) => (
                       <ListItem
                         key={index}

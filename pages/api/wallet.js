@@ -2,9 +2,9 @@ import Coin from "../../public/logo.svg";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 
-const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
-const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
-const muzeAddress = "0xDABAb1D8E95A491374CEe8280Be480A901a7C807";
+const tourAddress = "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87";
+const custodyAddress = "0x3f70fAeA8C66F6E4F4ACdEd35D8292aCe3d499Aa";
+const muzeAddress = "0x99C1b88CC20F6192d22B7dF0AAe123301262d978";
 
 // Adds the muze coin to your wallet
 export const addMuze = async () => {

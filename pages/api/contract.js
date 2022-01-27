@@ -2,9 +2,9 @@ const ethers = require("ethers");
 const Web3 = require("web3");
 import abi from "../museum/singapore/abi.json";
 
-const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
-const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
-const muzeAddress = "0xDABAb1D8E95A491374CEe8280Be480A901a7C807";
+const tourAddress = "0x964F854F19716B2633c3b7E663Bbb18bE5fD3d87";
+const custodyAddress = "0x3f70fAeA8C66F6E4F4ACdEd35D8292aCe3d499Aa";
+const muzeAddress = "0x99C1b88CC20F6192d22B7dF0AAe123301262d978";
 
 //Gets a list of token id belonging to the user address
 export const getTokenIdsUser = async (address) => {
@@ -37,7 +37,7 @@ export const getTokenIdsUser = async (address) => {
 //Get a list of token id belonging to the tour address
 export const getTokenIdsForMuseum = async () => {
   const web3 = new Web3(
-    `https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+    `https://rinkeby.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
   );
   // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
@@ -50,7 +50,7 @@ export const getTokenIdsForMuseum = async () => {
 //Get a list of token id belonging to the tour address
 export const getTokenIdsRented = async (address) => {
   const web3 = new Web3(
-    `https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
+    `https://rinkeby.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`
   );
   // console.log(abi);
   const contract = new web3.eth.Contract(abi, custodyAddress);
@@ -136,11 +136,9 @@ export const getRewards = async () => {
 export const getEstimatedRewards = async (address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
-    "function getEstimatedRewards() external view returns (uint256)",
+    "function getEstimatedRewards(address _address) external view returns (uint256)",
   ];
   const signer = provider.getSigner();
   const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
-  return custodyReward.getEstimatedRewards({
-    from: address.toString(),
-  });
+  return custodyReward.getEstimatedRewards(address);
 };

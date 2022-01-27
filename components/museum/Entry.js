@@ -163,7 +163,7 @@ export default function Entry({ title }) {
         <div className="[height:50vh] flex text-4xl text-black items-center justify-center">
           {network
             ? "Please connect your wallet before entering the museum"
-            : "Please connect to the ropsten test network!"}
+            : "Please connect to the Rinkeby test network!"}
         </div>
       )}
     </Container>
