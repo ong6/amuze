@@ -49,7 +49,9 @@ const Main = ({ children }) => {
           </>
         ) : (
           <div className="text-5xl font-bold text-white self-center items-center justify-center flex h-screen whitespace-pre">
-            Please install <Link href="https://metamask.io/download/">metamask</Link> to continue...
+            Please install{" "}
+            <Link href="https://metamask.io/download/">metamask</Link> to
+            continue...
           </div>
         )}
       </Box>

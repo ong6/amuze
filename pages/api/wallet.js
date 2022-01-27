@@ -1,4 +1,4 @@
-import Coin from "../../public/logo.svg";
+import Coin from "../../public/logo.png";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 
@@ -10,7 +10,7 @@ const muzeAddress = "0x4274772d79e94cAD912DED4781E70343F6EB758B";
 export const addMuze = async () => {
   const tokenSymbol = "MUZE";
   const tokenDecimals = 18;
-  const tokenImage = window.location.href + Coin.src;
+  const tokenImage = "https://amuze.vercel.app/logo.png";
 
   try {
     const wasAdded = await ethereum.request({

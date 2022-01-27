@@ -1,6 +1,7 @@
 import {
   Button,
   Container,
+  Flex,
   Input,
   InputGroup,
   InputLeftElement,
@@ -50,14 +51,14 @@ export default function Museum() {
               backgroundImage: "url(/bg.png) ",
               backgroundSize: "cover",
             }}
-            className="bg-fixed bg-center bg-cover bg-clip-border"
+            className="bg-fixed bg-center bg-cover bg-clip-border pb-32"
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
               <h1 className="w-1/3 py-10 text-3xl">
                 VIEW PIECES FROM AROUND THE WORLD
               </h1>
-              <div className="py-10 w-96">
-                <InputGroup>
+              <div className="py-10 w-96 flex flex-col space-y-4">
+                <InputGroup className="flex-1">
                   <InputLeftElement
                     pointerEvents="none"
                     // eslint-disable-next-line react/no-children-prop
@@ -65,10 +66,16 @@ export default function Museum() {
                   />
                   <Input placeholder="Search" variant="filled" />
                 </InputGroup>
+                <Button
+                  colorScheme="telegram"
+                  className="w-full flex-1 flex p-3"
+                >
+                  Force end tour (demo only)
+                </Button>
               </div>
             </div>
             <Container minW={"70%"} pb={12}>
-              <SimpleGrid columns={[2, 2, 4]} gap={10}>
+              {/* <SimpleGrid columns={[2, 2, 4]} gap={10}>
                 {collectItems ? (
                   collectItems.map((item, index) => (
                     <CollectItem
@@ -107,11 +114,49 @@ export default function Museum() {
                     <Skeleton height="400px" />
                   </>
                 )}
-              </SimpleGrid>
+              </SimpleGrid> */}
+
+              <Flex>
+                {collectItems ? (
+                  collectItems.map((item, index) => (
+                    <CollectItem
+                      key={index}
+                      origin={getAttributeValue(
+                        item.attributes,
+                        "countryOfOrigin"
+                      )}
+                      imgUrl={item.image}
+                      title={item.name}
+                      audio={item.audio}
+                      description={item.description}
+                      date={getAttributeValue(item.attributes, "date")}
+                      region={getAttributeValue(item.attributes, "region")}
+                      artist={getAttributeValue(item.attributes, "artist")}
+                      route={getAttributeValue(item.attributes, "route")}
+                      hostMuseum={getAttributeValue(
+                        item.attributes,
+                        "hostMuseum"
+                      )}
+                      objectType={getAttributeValue(
+                        item.attributes,
+                        "objectType"
+                      )}
+                      specifications={getAttributeValue(
+                        item.attributes,
+                        "specifications"
+                      )}
+                    />
+                  ))
+                ) : (
+                  <>
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                  </>
+                )}
+              </Flex>
             </Container>
-            <Button colorScheme="telegram" className="w-full">
-              Force end tour (demo only)
-            </Button>
           </div>
         </Section>
       ) : (
