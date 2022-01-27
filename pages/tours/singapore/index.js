@@ -17,6 +17,7 @@ import { MetaContext } from "../../../context/MetaContext";
 import {
   getHashesFromTokenIds,
   getTokenIdsForMuseum,
+  isWhitelisted,
 } from "../../api/contract";
 
 function getAttributeValue(arr, key) {

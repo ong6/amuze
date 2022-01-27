@@ -31,13 +31,59 @@ import { round } from "./api/util";
 export default function Renting() {
   const { address, network } = useContext(MetaContext);
 
-  const styles = {
-    heading: "text-left text-2xl font-semibold text-gray-600",
-    headers: "text-left text-sm text-gray-600 uppercase",
-    select: "bg-gray-100",
-  };
-
   const toast = useToast();
+
+  const [collectItems, setCollectItems] = useState(null);
+  const [rentedItems, setRentedItems] = useState(null);
+
+  useEffect(() => {
+    async function getCollectItems() {
+      const hashes = await getHashesFromTokenIds(
+        await getTokenIdsUser(address)
+      );
+      let items = [];
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push({ tokenId: tokenId, ...item });
+      }
+      setCollectItems(items);
+    }
+    async function getRentedItems() {
+      const hashes = await getHashesFromTokenIds(
+        await getTokenIdsRented(address)
+      );
+      let items = [];
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push({ tokenId: tokenId, ...item });
+      }
+      setRentedItems(items);
+    }
+    if (address) {
+      getCollectItems();
+      getRentedItems();
+    }
+  }, [address, setCollectItems]);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isRentOpen,
+    onOpen: onRentOpen,
+    onClose: onRentClose,
+  } = useDisclosure();
+
+  const redeemNft = async () => {
+    toast({
+      title: "Tour has not ended yet!",
+      description: "Please wait for host to end tour before reclaiming NFTs",
+      status: "error",
+      duration: 6000,
+      isClosable: true,
+      position: "top",
+    });
+  };
 
   function Rewards() {
     const [rewards, setRewards] = useState("0");
@@ -95,97 +141,6 @@ export default function Renting() {
       </Container>
     );
   }
-
-  const [collectItems, setCollectItems] = useState(null);
-  const [rentedItems, setRentedItems] = useState(null);
-
-  useEffect(() => {
-    async function getCollectItems() {
-      const hashes = await getHashesFromTokenIds(
-        await getTokenIdsUser(address)
-      );
-      let items = [];
-      for (const tokenId in hashes) {
-        let response = fetch(hashes[tokenId]);
-        let item = await response.then((res) => res.json());
-        items.push({ tokenId: tokenId, ...item });
-      }
-      setCollectItems(items);
-    }
-    async function getRentedItems() {
-      const hashes = await getHashesFromTokenIds(
-        await getTokenIdsRented(address)
-      );
-      let items = [];
-      for (const tokenId in hashes) {
-        let response = fetch(hashes[tokenId]);
-        let item = await response.then((res) => res.json());
-        items.push({ tokenId: tokenId, ...item });
-      }
-      setRentedItems(items);
-    }
-    if (address) {
-      getCollectItems();
-      getRentedItems();
-    }
-  }, [address, setCollectItems]);
-
-  // function CompleteNFT() {
-  //   return (
-  //     <Container className="bg-white rounded-xl">
-  //       <div className="flex flex-col justify-center p-4 space-y-4">
-  //         <div className="div">
-  //           <div className={styles.heading}>Mint Your NFT</div>
-  //         </div>
-  //         <div className="self-center justify-center bg-gray-200">
-  //           {mint &&
-  //             rent(
-  //               <>
-  //                 <Image
-  //                   src={URL.createObjectURL(selectedImage)}
-  //                   alt="Not found"
-  //                   height={"250px"}
-  //                 />
-  //                 <div className="flex flex-col justify-center text-center">
-  //                   <div className="div"> {mint.nft} </div>
-  //                   <div className="div"> Owner: {rent.owner}</div>
-  //                 </div>
-  //               </>
-  //             )}
-  //         </div>
-  //         <Button colorScheme="red">YOUR NFT HAS BEEN MINTED</Button>
-  //         <CheckboxGroup>
-  //           <Stack spacing={2} direction="column">
-  //             <Checkbox size="md" value="termsAndConditions">
-  //               <div className="text-xs">
-  //                 I agree to the <Link>terms and conditions.</Link>
-  //               </div>
-  //             </Checkbox>
-  //           </Stack>
-  //         </CheckboxGroup>
-  //         <Button colorScheme="blue">Rent</Button>
-  //       </div>
-  //     </Container>
-  //   );
-  // }
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isRentOpen,
-    onOpen: onRentOpen,
-    onClose: onRentClose,
-  } = useDisclosure();
-
-  const redeemNft = async () => {
-    toast({
-      title: "Tour has not ended yet!",
-      description: "Please wait for host to end tour before reclaiming NFTs",
-      status: "error",
-      duration: 6000,
-      isClosable: true,
-      position: "top",
-    });
-  };
 
   return (
     <>
@@ -320,3 +275,42 @@ export default function Renting() {
     </>
   );
 }
+
+// function CompleteNFT() {
+//   return (
+//     <Container className="bg-white rounded-xl">
+//       <div className="flex flex-col justify-center p-4 space-y-4">
+//         <div className="div">
+//           <div className={styles.heading}>Mint Your NFT</div>
+//         </div>
+//         <div className="self-center justify-center bg-gray-200">
+//           {mint &&
+//             rent(
+//               <>
+//                 <Image
+//                   src={URL.createObjectURL(selectedImage)}
+//                   alt="Not found"
+//                   height={"250px"}
+//                 />
+//                 <div className="flex flex-col justify-center text-center">
+//                   <div className="div"> {mint.nft} </div>
+//                   <div className="div"> Owner: {rent.owner}</div>
+//                 </div>
+//               </>
+//             )}
+//         </div>
+//         <Button colorScheme="red">YOUR NFT HAS BEEN MINTED</Button>
+//         <CheckboxGroup>
+//           <Stack spacing={2} direction="column">
+//             <Checkbox size="md" value="termsAndConditions">
+//               <div className="text-xs">
+//                 I agree to the <Link>terms and conditions.</Link>
+//               </div>
+//             </Checkbox>
+//           </Stack>
+//         </CheckboxGroup>
+//         <Button colorScheme="blue">Rent</Button>
+//       </div>
+//     </Container>
+//   );
+// }

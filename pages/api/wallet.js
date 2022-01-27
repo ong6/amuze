@@ -35,16 +35,16 @@ export const addMuze = async () => {
 };
 
 // Pays the museum 30 muze
-export const handlePayment = async () => {
+export const handlePayment = async (address) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function enterTour(address _tour) external",
-    "function hasEnteredTour(address _tour) external view returns (bool)",
+    "function hasEnteredTour(address _address) external view returns (bool)",
   ];
   const signer = provider.getSigner();
   const muzeCustody = new ethers.Contract(custodyAddress, abi, signer);
 
-  if (!(await muzeCustody.hasEnteredTour(tourAddress))) {
+  if (!(await muzeCustody.hasEnteredTour(address))) {
     try {
       await muzeCustody.enterTour(tourAddress);
     } catch (error) {
