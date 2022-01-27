@@ -64,13 +64,13 @@ const MuseumNavbar = (props) => {
           flexGrow={1}
           mt={{ md: 0 }}
         >
-          <LinkItem href="/museum/singapore" path={path}>
+          <LinkItem href="/tours/singapore" path={path}>
             Full Collection
           </LinkItem>
-          <LinkItem href="/museum/singapore/experience" path={path}>
+          <LinkItem href="/tours/singapore/experience" path={path}>
             Experience
           </LinkItem>
-          <LinkItem href="/museum/singapore/souvenir" path={path}>
+          <LinkItem href="/tours/singapore/souvenir" path={path}>
             Souvenir
           </LinkItem>
         </Stack>

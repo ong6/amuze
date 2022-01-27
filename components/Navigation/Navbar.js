@@ -56,7 +56,7 @@ const Navbar = (props) => {
 					alignItems="center"
 					flexGrow={1}
 					mt={{ md: 0 }}>
-					<LinkItem href="/museum" path={path}>
+					<LinkItem href="/tours" path={path}>
 						Museum Tours
 					</LinkItem>
 					<LinkItem href="/#how-it-works" path={path}>

@@ -1,6 +1,6 @@
 const ethers = require("ethers");
 const Web3 = require("web3");
-import abi from "../museum/singapore/abi.json";
+import abi from "../tours/singapore/abi.json";
 
 const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
 const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
