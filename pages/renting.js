@@ -255,7 +255,7 @@ export default function Renting() {
                 </div>
 
                 <SimpleGrid columns={[1, 1, 1]} gap={10}>
-                {rentedItems ? (
+                  {rentedItems ? (
                     rentedItems.map((item, index) => (
                       <ListItem
                         key={index}
@@ -288,7 +288,7 @@ export default function Renting() {
           <div className="[height:50vh] flex text-4xl text-white items-center justify-center">
             {network
               ? "Please connect your wallet to view Renting and Listing."
-              : "Please connect to the Ropsten Test Network before proceeding."}
+              : "Please connect to the Rinkeby Test Network before proceeding."}
           </div>
         )}
       </Layout>
