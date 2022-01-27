@@ -5,31 +5,33 @@ import { getShortAccountHash, login } from "../../pages/api/util";
 import { ethers } from "ethers";
 
 const ConnectWallet = ({ address, setAddress }) => {
-	const login = async () => {
-		const provider = new ethers.providers.Web3Provider(window.ethereum);
-		await provider.send("eth_requestAccounts", []);
-		const signer = provider.getSigner();
-		const walletAddress = await signer.getAddress();
-		setAddress(walletAddress);
-	};
+  const login = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const walletAddress = await signer.getAddress();
+    setAddress(walletAddress);
+  };
 
-	return (
-		<div className="absolute top-0 right-0 p-8 z-50">
-			<button
-				onClick={login}
-				className="border border-white text-center rounded-full px-2 py-1 md:px-6 md:py-3 items-center">
-				<div
-					className={
-						address
-							? `text-lg md:text-2xl font-bold p-2 text-orange-500 inline-flex items-center gap-2`
-							: `text-lg md:text-2xl font-bold p-2 text-white inline-flex items-center gap-2`
-					}>
-					<IoWallet className="mt-1" />
-					{address ? getShortAccountHash(address) : "Connect wallet"}
-				</div>
-			</button>
-		</div>
-	);
+  return (
+    <div className="fixed top-0 right-0 z-50 p-8">
+      <button
+        onClick={login}
+        className="items-center px-2 py-1 text-center transition-all duration-200 bg-gray-200 border border-white rounded-full md:px-6 md:py-3 hover:bg-purple-500 hover:text-white"
+      >
+        <div
+          className={
+            address
+              ? `text-lg xl:text-2xl font-bold xl:p-2 text-orange-500 inline-flex items-center gap-2`
+              : `text-lg xl:text-2xl font-bold xl:p-2 inline-flex items-center gap-2`
+          }
+        >
+          <IoWallet className="" />
+          {address ? getShortAccountHash(address) : "Connect wallet"}
+        </div>
+      </button>
+    </div>
+  );
 };
 
 export default ConnectWallet;

@@ -37,9 +37,7 @@ export const addMuze = async () => {
 };
 
 // Pays the museum 30 muze
-export const HandlePayment = async () => {
-  const router = useRouter();
-
+export const handlePayment = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const abi = [
     "function enterTour(address _tour) external",
@@ -53,11 +51,11 @@ export const HandlePayment = async () => {
       await muzeCustody.enterTour(tourAddress);
     } catch (error) {
       console.log(error);
-      return;
+      return false;
     }
   }
   console.log("you already bought the tour");
-  router.push("/museum/singapore");
+  return true;
 };
 
 export const swapEthToMuze = async (ether) => {

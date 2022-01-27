@@ -1,22 +1,22 @@
 import {
+  Button,
   Container,
   Input,
   InputGroup,
   InputLeftElement,
   SimpleGrid,
+  Skeleton,
 } from "@chakra-ui/react";
-import Head from "next/head";
-import Card from "../../../components/Card";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import CollectItem from "../../../components/CollectItem";
 import Layout from "../../../components/layouts/Museum";
 import Section from "../../../components/Section";
 import { MetaContext } from "../../../context/MetaContext";
-import { AiOutlineSearch } from "react-icons/ai";
-import CollectItem from "../../../components/CollectItem";
-import SingaporeCollection from "../../../public/sample_nft/singapore.json";
-import { ethers } from "ethers";
-import abi from "./abi.json";
-const Web3 = require("web3");
+import {
+  getHashesFromTokenIds,
+  getTokenIdsForMuseum,
+} from "../../api/contract";
 
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
@@ -24,44 +24,36 @@ function getAttributeValue(arr, key) {
 
 export default function Museum() {
   const { address } = useContext(MetaContext);
-  const [collectItems, setCollectItems] = useState(SingaporeCollection);
+  const [collectItems, setCollectItems] = useState(null);
 
-  const tourAddress = "0xB9dE71AdFa99FDB0313f381B12335D890C41D34f";
-  const custodyAddress = "0x70c326a3B6B7eF767d2eCE68D9C5b91A38FE92B7";
-  const muzeAddress = "0xDABAb1D8E95A491374CEe8280Be480A901a7C807";
-
-  const getTokenIdsForMuseum = async () => {
-    const web3 = new Web3(`https://ropsten.infura.io/v3/b583160797e24b88a643ad9a38b0f5aa`);
-    console.log(abi);
-    const contract = new web3.eth.Contract(abi, custodyAddress);
-
-    const rents = await contract.methods.getRents().call();
-    console.log(rents);
-    return rents.map((rent) => rent.tokenId);
-  };
-
-  const test = async () => {
-    getTokenIdsForMuseum().then(console.log);
-  };
+  useEffect(() => {
+    async function getCollectItems() {
+      const hashes = await getHashesFromTokenIds(await getTokenIdsForMuseum());
+      // fetch json data from api
+      let items = [];
+      for (const tokenId in hashes) {
+        let response = fetch(hashes[tokenId]);
+        let item = await response.then((res) => res.json());
+        items.push(item);
+      }
+      setCollectItems(items);
+    }
+    getCollectItems();
+  }, [setCollectItems]);
 
   return (
-    <Layout>
-      <Head>
-        <title>Amuze</title>
-        <meta name="description" content="Amuze-Museum at your fingertips" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout title="Chinese Artefacts of the Qing Dynasty Tour">
       {address ? (
-        <Section delay={0.2}>
+        <Section delay={0.2} mb={0}>
           <div
-            className="h-screen"
             style={{
               backgroundImage: "url(/bg.png) ",
               backgroundSize: "cover",
             }}
+            className="bg-fixed bg-center bg-cover bg-clip-border"
           >
             <div className="flex items-center justify-center gap-4 mb-4 text-xl font-bold text-gray-100">
-              <h1 className="w-1/3 py-10" onClick={test}>
+              <h1 className="w-1/3 py-10 text-3xl">
                 VIEW PIECES FROM AROUND THE WORLD
               </h1>
               <div className="py-10 w-96">
@@ -75,28 +67,56 @@ export default function Museum() {
                 </InputGroup>
               </div>
             </div>
-            <Container minW={"80%"}>
-              <SimpleGrid columns={[1, 1, 4]} gap={10}>
-                {collectItems.map((item, index) => (
-                  <CollectItem
-                    key={index}
-                    origins={getAttributeValue(
-                      item.attributes,
-                      "countryOfOrigin"
-                    )}
-                    imgUrl={item.image}
-                    title={item.name}
-                    audio={item.audio}
-                    description={item.description}
-                  />
-                ))}
+            <Container minW={"70%"} pb={12}>
+              <SimpleGrid columns={[2, 2, 4]} gap={10}>
+                {collectItems ? (
+                  collectItems.map((item, index) => (
+                    <CollectItem
+                      key={index}
+                      origin={getAttributeValue(
+                        item.attributes,
+                        "countryOfOrigin"
+                      )}
+                      imgUrl={item.image}
+                      title={item.name}
+                      audio={item.audio}
+                      description={item.description}
+                      date={getAttributeValue(item.attributes, "date")}
+                      region={getAttributeValue(item.attributes, "region")}
+                      artist={getAttributeValue(item.attributes, "artist")}
+                      route={getAttributeValue(item.attributes, "route")}
+                      hostMuseum={getAttributeValue(
+                        item.attributes,
+                        "hostMuseum"
+                      )}
+                      objectType={getAttributeValue(
+                        item.attributes,
+                        "objectType"
+                      )}
+                      specifications={getAttributeValue(
+                        item.attributes,
+                        "specifications"
+                      )}
+                    />
+                  ))
+                ) : (
+                  <>
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                    <Skeleton height="400px" />
+                  </>
+                )}
               </SimpleGrid>
             </Container>
+            <Button colorScheme="telegram" className="w-full">
+              Force end tour (demo only)
+            </Button>
           </div>
         </Section>
       ) : (
         <div className="[height:50vh] flex text-4xl text-white items-center justify-center">
-          Please Connect Your wallet to view Renting and Listing.
+          Please Connect Your wallet to view the museum.
         </div>
       )}
     </Layout>

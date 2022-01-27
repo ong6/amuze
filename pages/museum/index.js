@@ -12,7 +12,6 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import Entry from "../../components/museum/Entry";
 import tours from "../../public/tours/tours.json";
 
 export default function Museum() {
@@ -20,7 +19,7 @@ export default function Museum() {
     <Layout>
       <div>
         <Head>
-          <title>Amuze</title>
+          <title>Museum Tours | Amuze</title>
           <meta name="description" content="Amuze-Museum at your fingertips" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
@@ -33,13 +32,12 @@ export default function Museum() {
               <SimpleGrid columns={[1, 1, 3]} gap={6}>
                 {tours.map((tour, index) => {
                   return (
-                    <div key={index}>
-                      <Card
-                        imgUrl={tour.image}
-                        title={tour.name}
-                        description={tour.description}
-                      />
-                    </div>
+                    <Card
+                      imgUrl={tour.image}
+                      title={tour.name}
+                      description={tour.description}
+                      key={index}
+                    />
                   );
                 })}
               </SimpleGrid>

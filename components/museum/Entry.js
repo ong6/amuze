@@ -7,20 +7,25 @@ import {
   Image,
   Input,
 } from "@chakra-ui/react";
-import React, { useState, useContext } from "react";
-import { Go } from "../../public/museum_pic/go.svg";
-import { FaEthereum } from "react-icons/fa";
-import { BsArrowDownCircle } from "react-icons/bs";
-import { GiTicket } from "react-icons/gi";
-import Link from "next/link";
-import { ethers } from "ethers";
-import { MetaContext } from "../../context/MetaContext";
 import { useRouter } from "next/router";
-import { addMuze, HandlePayment, swapEthToMuze } from "../../pages/api/wallet";
+import React, { useContext, useState } from "react";
+import { BsArrowDownCircle } from "react-icons/bs";
+import { FaEthereum } from "react-icons/fa";
+import { GiTicket } from "react-icons/gi";
+import { MetaContext } from "../../context/MetaContext";
+import { addMuze, handlePayment, swapEthToMuze } from "../../pages/api/wallet";
 
-export default function Entry() {
-  const { address } = useContext(MetaContext);
+export default function Entry({ title }) {
+  const { address, network } = useContext(MetaContext);
   const router = useRouter();
+
+  const enterMuseum = async () => {
+    if (await handlePayment()) {
+      router.push("museum/singapore");
+    } else {
+      console.log("You didn't pay");
+    }
+  };
 
   function TopSection() {
     const [ether, setEther] = useState("0");
@@ -118,7 +123,7 @@ export default function Entry() {
 
   return (
     <Container className="self-center p-8 bg-white rounded-xl" maxW="lg">
-      {address ? (
+      {address && network ? (
         <div className="flex flex-col space-y-4">
           {/* 1 */}
           <div className="flex flex-row justify-between">
@@ -139,7 +144,7 @@ export default function Entry() {
             <div className="flex flex-row items-center justify-center">
               You have selected:
               <div className="items-center pl-2 text-purple-500">
-                National Museum of Singapore <Icon as={GiTicket} w={4} h={4} />
+                {title} <Icon as={GiTicket} w={4} h={4} />
               </div>
             </div>
             <Button
@@ -148,7 +153,7 @@ export default function Entry() {
               size="lg"
               bg={"purple.500"}
               rounded={15}
-              onClick={() => HandlePayment(router)}
+              onClick={enterMuseum}
             >
               Enter Museum
             </Button>
@@ -156,7 +161,9 @@ export default function Entry() {
         </div>
       ) : (
         <div className="[height:50vh] flex text-4xl text-black items-center justify-center">
-          Please connect your wallet before entering the museum
+          {network
+            ? "Please connect your wallet before entering the museum"
+            : "Please connect to the ropsten test network!"}
         </div>
       )}
     </Container>

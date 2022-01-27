@@ -59,7 +59,7 @@ const Navbar = (props) => {
 					<LinkItem href="/museum" path={path}>
 						Museum Tours
 					</LinkItem>
-					<LinkItem href="#how-it-works" path={path}>
+					<LinkItem href="/#how-it-works" path={path}>
 						How it works
 					</LinkItem>
 					<LinkItem href="/renting" path={path}>

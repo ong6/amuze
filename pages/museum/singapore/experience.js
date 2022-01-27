@@ -7,7 +7,7 @@ import { MetaContext } from "../../../context/MetaContext";
 export default function Museum() {
     const { address } = useContext(MetaContext);
     return (
-        <Layout>
+        <Layout title="Experience">
             <Head>
                 <title>Amuze</title>
                 <meta name="description" content="Amuze-Museum at your fingertips" />
@@ -16,8 +16,8 @@ export default function Museum() {
             {address ? (
                 <Section delay={0.2}>
                     <div className="flex flex-col h-screen p-8 text-center">
-                        <div className="flex items-center justify-center gap-4 mb-4 text-4xl font-bold text-gray-100">
-                            <h1 className="w-1/3 py-10">Coming Soon</h1>
+                        <div className="flex items-center justify-center gap-4 mb-4 text-4xl font-bold text-gray-100 uppercase">
+                            <h1 className="w-1/3 py-10">Coming Soon!</h1>
                         </div>
                         <div className="flex items-center justify-center gap-6 text-white">
                             <div className="flex items-center justify-center w-1/3 text-6xl text-center border h-72">2D</div>
