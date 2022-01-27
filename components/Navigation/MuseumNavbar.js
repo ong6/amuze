@@ -1,7 +1,6 @@
 import { Box, Container, Flex, Heading, Link, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import Logo from "../Logo";
 
 const LinkItem = ({ href, path, _target, children, ...props }) => {
   const active = path.asPath === href;
@@ -52,7 +51,6 @@ const MuseumNavbar = (props) => {
           <LinkItem href={"/"} path={path}>
             <Heading as="h1" size="lg" letterSpacing={"tighter"}>
               Chinese Artefacts of the Qing Dynasty Tour
-              {/* <Logo title="Chinese Artefacts of the Qing Dynasty Tour" /> */}
             </Heading>
           </LinkItem>
         </Flex>
