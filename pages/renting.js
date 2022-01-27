@@ -263,13 +263,13 @@ export default function Renting() {
       <Modal isOpen={isRentOpen} onClose={onRentClose}>
         <ModalOverlay />
         <ModalContent minW="2xl" p={6}>
-          <RentNFT />
+          <RentNFT onClose={onRentClose} />
         </ModalContent>
       </Modal>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent minW="2xl" py={6}>
-          <MintNFT />
+          <MintNFT onClose={onClose} />
         </ModalContent>
       </Modal>
     </>

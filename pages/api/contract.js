@@ -155,6 +155,11 @@ export const isWhitelisted = async (address) => {
   return custodyReward.hasRole(whiteListedHash, address);
 };
 
-// export const addWhiteListedPeople = aync (address) => {
+export const closeTour = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const abi = ["function forceCloseTour() external"];
+  const signer = provider.getSigner();
+  const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
 
-// }
+  return custodyReward.forceCloseTour();
+};

@@ -4,10 +4,12 @@ import {
   CheckboxGroup,
   Container,
   FormControl,
-  FormLabel, Input, Link,
+  FormLabel,
+  Input,
+  Link,
   Select,
   Stack,
-  Textarea
+  Textarea,
 } from "@chakra-ui/react";
 import { useS3Upload } from "next-s3-upload";
 import React, { useContext, useState } from "react";
@@ -15,7 +17,7 @@ import { MetaContext } from "../../context/MetaContext";
 import { mintUserNft } from "../../pages/api/contract";
 import { uploadProposal } from "../../pages/api/ipfs";
 
-export default function MintNFT() {
+export default function MintNFT({ onClose }) {
   const { address } = useContext(MetaContext);
 
   const styles = {
@@ -63,6 +65,9 @@ export default function MintNFT() {
     const hash = await uploadIpfs();
     const hashUri = "https://ipfs.infura.io/ipfs/" + hash;
     await mintUserNft(hashUri, address);
+    setTimeout(() => {
+      onClose();
+    }, 1000);
 
     // mintUserNft(
     //   "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",

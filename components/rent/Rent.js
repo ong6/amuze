@@ -24,7 +24,7 @@ import {
   isWhitelisted,
 } from "../../pages/api/contract";
 
-export default function RentNFT() {
+export default function RentNFT({ onClose }) {
   const { address } = useContext(MetaContext);
 
   const styles = {
@@ -70,6 +70,9 @@ export default function RentNFT() {
   const handleRent = async () => {
     try {
       await rentToMuseum(nft, address);
+      setTimeout(() => {
+        onClose();
+      }, 1000);
     } catch (e) {
       setWhitelisted(false);
       console.log(e);

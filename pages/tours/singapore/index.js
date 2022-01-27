@@ -5,9 +5,10 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  SimpleGrid,
   Skeleton,
+  useToast,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import CollectItem from "../../../components/CollectItem";
@@ -15,9 +16,9 @@ import Layout from "../../../components/layouts/Museum";
 import Section from "../../../components/Section";
 import { MetaContext } from "../../../context/MetaContext";
 import {
+  closeTour,
   getHashesFromTokenIds,
   getTokenIdsForMuseum,
-  isWhitelisted,
 } from "../../api/contract";
 
 function getAttributeValue(arr, key) {
@@ -27,6 +28,9 @@ function getAttributeValue(arr, key) {
 export default function Museum() {
   const { address } = useContext(MetaContext);
   const [collectItems, setCollectItems] = useState(null);
+
+  const router = useRouter();
+  const toast = useToast();
 
   useEffect(() => {
     async function getCollectItems() {
@@ -42,6 +46,21 @@ export default function Museum() {
     }
     getCollectItems();
   }, [setCollectItems]);
+
+  const onClickClose = async () => {
+    await closeTour();
+    toast({
+      title: "Tour has been force close!",
+      description: `You will be redirected to the homepage in ${10} seconds`,
+      status: "success",
+      duration: 6000,
+      isClosable: true,
+      position: "top",
+    });
+    setTimeout(() => {
+      router.push("/");
+    }, 10000);
+  };
 
   return (
     <Layout title="Chinese Artefacts of the Qing Dynasty Tour">
@@ -70,6 +89,7 @@ export default function Museum() {
                 <Button
                   colorScheme="telegram"
                   className="w-full flex-1 flex p-3"
+                  onClick={onClickClose}
                 >
                   Force end tour (demo only)
                 </Button>
@@ -117,7 +137,7 @@ export default function Museum() {
                 )}
               </SimpleGrid> */}
 
-              <Flex>
+              <Flex className="" gap={10}>
                 {collectItems ? (
                   collectItems.map((item, index) => (
                     <CollectItem
