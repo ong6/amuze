@@ -76,7 +76,7 @@ export default function Renting() {
 
   const redeemNft = async () => {
     toast({
-      title: "Tour has not ended yet!",
+      title: "Tour in progress!",
       description: "Please wait for host to end tour before reclaiming NFTs",
       status: "error",
       duration: 6000,
@@ -96,7 +96,7 @@ export default function Renting() {
 
     const receiveRewards = async () => {
       toast({
-        title: "Tour has not ended yet!",
+        title: "Tour in progress!",
         description:
           "Please wait for host to end tour before receiving rewards",
         status: "error",
