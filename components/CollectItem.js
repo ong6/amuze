@@ -52,9 +52,6 @@ export default function CollectItem({
               <p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
                 Origin: {origin}
               </p>
-              <p className="inline-flex items-center text-sm text-gray-400 md:mb-2 lg:mb-0">
-                Owner: {owner}
-              </p>
             </div>
             <Button
               className="flex"
