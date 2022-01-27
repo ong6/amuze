@@ -36,7 +36,7 @@ export default function Home() {
                 your own home.
               </p>
               <div className="flex py-2">
-                <Link href="/museum" passHref>
+                <Link href="/tours" passHref>
                   <Button
                     className="flex px-6 py-2 text-black border-0 rounded focus:outline-none brightness-110"
                     rounded={"3xl"}
@@ -98,7 +98,7 @@ export default function Home() {
                 );
               })}
             </div>
-            <Link href="/museum" passHref>
+            <Link href="/tours" passHref>
               <button className="flex px-8 mx-auto mt-8 text-lg text-indigo-500 border-0 rounded focus:outline-none hover:underline">
                 View All
               </button>
