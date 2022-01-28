@@ -21,6 +21,7 @@ import {
   getTokenIdsForMuseum,
 } from "../api/contract";
 import tours from "../../public/tours/tours.json";
+import CollectNewItem from "../../components/CollectNewItem";
 
 function getAttributeValue(arr, key) {
   return arr.filter((item) => item.trait_type === key)[0].value;
@@ -97,10 +98,10 @@ export default function Museum({ tour }) {
               </div>
             </div>
             <Container minW={"70%"} pb={12}>
-              <Flex className="" gap={10}>
+              <div className="flex flex-row flex-wrap">
                 {collectItems ? (
                   collectItems.map((item, index) => (
-                    <CollectItem
+                    <CollectNewItem
                       key={index}
                       origin={getAttributeValue(
                         item.attributes,
@@ -136,7 +137,7 @@ export default function Museum({ tour }) {
                     <Skeleton height="400px" />
                   </>
                 )}
-              </Flex>
+              </div>
             </Container>
           </div>
         </Section>
