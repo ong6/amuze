@@ -1,13 +1,11 @@
-[
-  {
+[{
     "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
     "anonymous": false,
-    "inputs": [
-      {
+    "inputs": [{
         "indexed": true,
         "internalType": "address",
         "name": "person",
@@ -25,8 +23,7 @@
   },
   {
     "anonymous": false,
-    "inputs": [
-      {
+    "inputs": [{
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -44,8 +41,7 @@
   },
   {
     "anonymous": false,
-    "inputs": [
-      {
+    "inputs": [{
         "indexed": true,
         "internalType": "bytes32",
         "name": "role",
@@ -69,8 +65,7 @@
   },
   {
     "anonymous": false,
-    "inputs": [
-      {
+    "inputs": [{
         "indexed": true,
         "internalType": "bytes32",
         "name": "role",
@@ -94,8 +89,7 @@
   },
   {
     "anonymous": false,
-    "inputs": [
-      {
+    "inputs": [{
         "indexed": true,
         "internalType": "bytes32",
         "name": "role",
@@ -120,64 +114,53 @@
   {
     "inputs": [],
     "name": "DEFAULT_ADMIN_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bytes32",
+      "name": "",
+      "type": "bytes32"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "TOUR_ENTRY_FEE",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "WHITELISTED_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bytes32",
+      "name": "",
+      "type": "bytes32"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "role",
-        "type": "bytes32"
-      }
-    ],
+    "inputs": [{
+      "internalType": "bytes32",
+      "name": "role",
+      "type": "bytes32"
+    }],
     "name": "getRoleAdmin",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bytes32",
+      "name": "",
+      "type": "bytes32"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -194,8 +177,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -207,58 +189,48 @@
       }
     ],
     "name": "hasRole",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }],
     "name": "lookupTable",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "nft",
-    "outputs": [
-      {
-        "internalType": "contract IERC721",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{
+      "internalType": "contract IERC721",
+      "name": "",
+      "type": "address"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "owner",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -270,8 +242,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -288,16 +259,13 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "inputs": [{
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }],
     "name": "rents",
-    "outputs": [
-      {
+    "outputs": [{
         "internalType": "address",
         "name": "previousOwner",
         "type": "address"
@@ -317,8 +285,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -335,16 +302,13 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "",
+      "type": "address"
+    }],
     "name": "stake",
-    "outputs": [
-      {
+    "outputs": [{
         "internalType": "address",
         "name": "previousOwner",
         "type": "address"
@@ -359,186 +323,156 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes4",
-        "name": "interfaceId",
-        "type": "bytes4"
-      }
-    ],
+    "inputs": [{
+      "internalType": "bytes4",
+      "name": "interfaceId",
+      "type": "bytes4"
+    }],
     "name": "supportsInterface",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "token",
-    "outputs": [
-      {
-        "internalType": "contract IERC777",
-        "name": "",
-        "type": "address"
-      }
-    ],
+    "outputs": [{
+      "internalType": "contract IERC777",
+      "name": "",
+      "type": "address"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "totalStaked",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "newOwner",
+      "type": "address"
+    }],
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_address",
+      "type": "address"
+    }],
     "name": "addWhitelistedUser",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_address",
+      "type": "address"
+    }],
     "name": "hasEnteredTour",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "getRents",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "previousOwner",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tokenId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "timeLockExpiry",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct MuzeCustody.RentedNFT[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
+    "outputs": [{
+      "components": [{
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timeLockExpiry",
+          "type": "uint256"
+        }
+      ],
+      "internalType": "struct MuzeCustody.RentedNFT[]",
+      "name": "",
+      "type": "tuple[]"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_address",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_address",
+      "type": "address"
+    }],
     "name": "getEstimatedRewards",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
+    "outputs": [{
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_token",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_token",
+      "type": "address"
+    }],
     "name": "setTokenAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_token",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_token",
+      "type": "address"
+    }],
     "name": "setNFTAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_tour",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_tour",
+      "type": "address"
+    }],
     "name": "enterTour",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -560,24 +494,20 @@
       }
     ],
     "name": "onERC721Received",
-    "outputs": [
-      {
-        "internalType": "bytes4",
-        "name": "",
-        "type": "bytes4"
-      }
-    ],
+    "outputs": [{
+      "internalType": "bytes4",
+      "name": "",
+      "type": "bytes4"
+    }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_tour",
-        "type": "address"
-      }
-    ],
+    "inputs": [{
+      "internalType": "address",
+      "name": "_tour",
+      "type": "address"
+    }],
     "name": "redeemRewards",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -598,8 +528,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "address",
         "name": "operator",
         "type": "address"
@@ -636,8 +565,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
+    "inputs": [{
         "internalType": "address",
         "name": "operator",
         "type": "address"
