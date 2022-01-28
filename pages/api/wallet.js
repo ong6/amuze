@@ -1,8 +1,10 @@
 import { ethers } from "ethers";
 
-const tourAddress = "0xbF3a365396E3e58E359F17Aa1fe79cC3b9E2F409";
-const custodyAddress = "0x87576ee1d14e8F8A4dBAD4F73208cc807ba15c47";
-const muzeAddress = "0x4274772d79e94cAD912DED4781E70343F6EB758B";
+const tourAddress = "0x57B6A575aa2574A561C26A1297659803e6328aEa";
+const custodyAddress = "0x673aD415952a04BfF71708196D0972B58f1d1181";
+const muzeAddress = "0x2D453dD1c6795f7Af687ddFD228df83153146483";
+const whiteListedHash =
+  "0x8429d542926e6695b59ac6fbdcd9b37e8b1aeb757afab06ab60b1bb5878c3b49";
 
 // Adds the muze coin to your wallet
 export const addMuze = async () => {
