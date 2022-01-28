@@ -50,7 +50,7 @@ const MuseumNavbar = (props) => {
         <Flex align="center" mr={12}>
           <LinkItem href={"/"} path={path}>
             <Heading as="h1" size="lg" letterSpacing={"tighter"}>
-              Chinese Artefacts of the Qing Dynasty Tour
+              {props.title}
             </Heading>
           </LinkItem>
         </Flex>
@@ -62,13 +62,13 @@ const MuseumNavbar = (props) => {
           flexGrow={1}
           mt={{ md: 0 }}
         >
-          <LinkItem href="/tours/singapore" path={path}>
+          <LinkItem href={`/tours/${props.id}`} path={path}>
             Full Collection
           </LinkItem>
-          <LinkItem href="/tours/singapore/experience" path={path}>
+          <LinkItem href="/tours/experience" path={path}>
             Experience
           </LinkItem>
-          <LinkItem href="/tours/singapore/souvenir" path={path}>
+          <LinkItem href="/tours/souvenir" path={path}>
             Souvenir
           </LinkItem>
         </Stack>

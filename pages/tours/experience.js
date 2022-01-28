@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { useContext } from "react";
-import Layout from "../../../components/layouts/Museum";
-import Section from "../../../components/Section";
-import { MetaContext } from "../../../context/MetaContext";
+import Layout from "../../components/layouts/Museum";
+import Section from "../../components/Section";
+import { MetaContext } from "../../context/MetaContext";
 
 export default function Museum() {
     const { address } = useContext(MetaContext);
     return (
-        <Layout title="Experience">
+        <Layout title="Experience" id="">
             <Head>
                 <title>Experience | Amuze</title>
                 <meta name="description" content="Amuze-Museum at your fingertips" />
