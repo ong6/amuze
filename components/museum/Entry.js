@@ -20,7 +20,7 @@ export default function Entry({ title }) {
   const router = useRouter();
 
   const enterMuseum = async () => {
-    if (await handlePayment()) {
+    if (await handlePayment(address)) {
       router.push("tours/singapore");
     } else {
       console.log("You didn't pay");

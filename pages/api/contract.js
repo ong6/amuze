@@ -5,6 +5,8 @@ import abi from "../../public/abi.json";
 const tourAddress = "0xbF3a365396E3e58E359F17Aa1fe79cC3b9E2F409";
 const custodyAddress = "0x87576ee1d14e8F8A4dBAD4F73208cc807ba15c47";
 const muzeAddress = "0x4274772d79e94cAD912DED4781E70343F6EB758B";
+const whiteListedHash =
+  "0x8429d542926e6695b59ac6fbdcd9b37e8b1aeb757afab06ab60b1bb5878c3b49";
 
 //Gets a list of token id belonging to the user address
 export const getTokenIdsUser = async (address) => {
@@ -71,7 +73,7 @@ export const mintUserNft = async (ipfsUrl, address) => {
   ];
   const signer = provider.getSigner();
   const muzeTour = new ethers.Contract(tourAddress, abi, signer);
-  const newTokenId = (Number(await muzeTour.totalSupply()) + 1 );
+  const newTokenId = Number(await muzeTour.totalSupply()) + 1;
 
   // eg: https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn
   await muzeTour.mint(address, newTokenId, ipfsUrl);
@@ -128,7 +130,7 @@ export const getRewards = async () => {
   const signer = provider.getSigner();
   const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
 
-return await custodyReward.redeemRewards(tourAddress);
+  return await custodyReward.redeemRewards(tourAddress);
 };
 
 // Get the estimated rewards from the contract
@@ -142,10 +144,22 @@ export const getEstimatedRewards = async (address) => {
   return custodyReward.getEstimatedRewards(address);
 };
 
-// export const getWhitelistedPeople = aync (address) => {
+export const isWhitelisted = async (address) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const abi = [
+    "function hasRole(bytes32 _role, address _address) external view returns (bool)",
+  ];
+  const signer = provider.getSigner();
+  const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
 
-// }
+  return custodyReward.hasRole(whiteListedHash, address);
+};
 
-// export const addWhiteListedPeople = aync (address) => {
+export const closeTour = async () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const abi = ["function forceCloseTour() external"];
+  const signer = provider.getSigner();
+  const custodyReward = new ethers.Contract(custodyAddress, abi, signer);
 
-// }
+  return custodyReward.forceCloseTour();
+};
