@@ -6,6 +6,7 @@ import {
   Icon,
   Image,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
@@ -19,14 +20,31 @@ export default function Entry({ title, id }) {
   const { address, network, viewMode } = useContext(MetaContext);
   const router = useRouter();
 
+  const toast = useToast();
+
   const enterMuseum = async () => {
     if (viewMode) {
       router.push(`tours/${id}`);
     } else {
       if (await handlePayment(address)) {
-        router.push(`tours/${id}`);
+        toast({
+          title: "Success!",
+          description: "Redirecting to the museum...",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+        setTimeout(() => router.push(`tours/${id}`), 2000);
       } else {
-        console.log("You didn't pay");
+        toast({
+          title: "You do not have enough $MUZE!",
+          description: "Please swap for more $MUZE before entering.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
       }
     }
   };

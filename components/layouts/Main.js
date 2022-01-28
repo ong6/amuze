@@ -33,7 +33,6 @@ const Main = ({ children }) => {
       }
     }
     if (!viewMode) {
-      console.log("ran");
       getNetwork();
     }
   }, [metamask, address, network, viewMode]);

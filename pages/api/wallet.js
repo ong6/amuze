@@ -52,7 +52,6 @@ export const handlePayment = async (address) => {
       return false;
     }
   }
-  console.log("you already bought the tour");
   return true;
 };
 
