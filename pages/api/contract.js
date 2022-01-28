@@ -2,10 +2,10 @@ const ethers = require("ethers");
 const Web3 = require("web3");
 import abi from "../../public/abi.json";
 
-const tourAddress = "0xF5E46b16c95204200d7021b52127d4789e6b0aD4";
-const custodyAddress = "0xE22DC21266c845E2B0C8cC7B87C81CA99f6F4ed6";
-const muzeAddress = "0x934c0515EF56d7df00FDeAAbA00cdf3E4DCd0Cbd";
-const whiteListedHash =
+export const tourAddress = "0x1DCFEa7a836f38573696B1B431C2472EA80bDDB7";
+export const custodyAddress = "0x6F5E99B816b611eb4D46125A75885651Cdab2280";
+export const muzeAddress = "0x186540Dd1D14e6E9eC529C08436e10f301Ee372E";
+export const whiteListedHash =
   "0x8429d542926e6695b59ac6fbdcd9b37e8b1aeb757afab06ab60b1bb5878c3b49";
 
 //Gets a list of token id belonging to the user address

@@ -1,14 +1,13 @@
 import {
-  Button,
-  useDisclosure,
   Drawer,
   DrawerBody,
+  DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  Image,
   Icon,
+  Image,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { BsPlay } from "react-icons/bs";
 import CollectItemDetail from "./CollectItemDetail";
@@ -85,7 +84,6 @@ export default function CollectNewItem({
               route={route}
               onClick={onClose}
             />
-            ,
           </DrawerBody>
         </DrawerContent>
       </Drawer>
