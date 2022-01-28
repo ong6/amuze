@@ -1,10 +1,7 @@
 import { Button, Image } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { AiFillCaretRight } from "react-icons/ai";
-
-function play(url) {
-  var audio = new Audio(url);
-  audio.play();
-}
+import useSound from 'use-sound';
 
 export default function CollectItemDetail({
   title = "Qing Dynasty Stone Statue",
@@ -21,6 +18,15 @@ export default function CollectItemDetail({
   specifications = "",
   onClick
 }) {
+  const [play, { stop }] = useSound(audio);
+  const [runAudio, setRunAudio] = useState(false);
+  useEffect(() => {
+    if (runAudio) {
+      play()
+    } else {
+      stop()
+    }
+  }, [runAudio, play, stop])
   return (
     <section className="bg-gray-100 rounded-3xl">
       <div className="container flex items-center justify-center px-5 py-24 mx-auto">
@@ -60,7 +66,7 @@ export default function CollectItemDetail({
                 </h2>
                 <p className="text-base leading-relaxed">{description}</p>
                 <Button
-                  onClick={() => play(audio)}
+                  onClick={() => setRunAudio(prev => !prev)}
                   variant="ghost"
                   colorScheme={"red"}
                   pt={2}
