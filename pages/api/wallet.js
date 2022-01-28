@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-const tourAddress = "0x57B6A575aa2574A561C26A1297659803e6328aEa";
+const tourAddress = "0xE9aF23542c76119344113e3c78ed18E4fdBF0A68";
 const custodyAddress = "0x0Ee09710D1ca4E6AE555aEafc3D12A76F0fCD66B";
 const muzeAddress = "0xfc4931C661963A3ABF4f9BE6c5902b3E12f9bBb9";
 const whiteListedHash =
