@@ -123,7 +123,7 @@ export default function Renting() {
               <div className="font-semibold ">Whitelist Status</div>
               <Tooltip
                 hasArrow
-                label="Museum Rent collection fees paid to you"
+                label="Your current whitelist status"
                 placement="top"
               >
                 <div className="items-center mb-1">
