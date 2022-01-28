@@ -18,6 +18,7 @@ import Layout from "../components/layouts/Default";
 import ListItem from "../components/rent/ListItem";
 import MintNFT from "../components/rent/Mint";
 import RentNFT from "../components/rent/Rent";
+import Whitelist from "../components/rent/Whitelist";
 import Section from "../components/Section";
 import { MetaContext } from "../context/MetaContext";
 import {
@@ -243,6 +244,8 @@ export default function Renting() {
                   </Button>
                 </SimpleGrid>
               </Container>
+
+              <Whitelist />
 
               {/* <CompleteNFT /> */}
             </div>
