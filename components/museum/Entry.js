@@ -29,7 +29,7 @@ export default function Entry({ title, id }) {
       if (await handlePayment(address)) {
         toast({
           title: "Success!",
-          description: "Redirecting to the museum...",
+          description: "Redirecting to the museum tour...",
           status: "success",
           duration: 2000,
           isClosable: true,

@@ -20,6 +20,7 @@ import {
     getHashesFromTokenIds,
     getTokenIdsForMuseum,
 } from "../api/contract";
+import tours from '../../public/tours/tours.json'
 
 function getAttributeValue(arr, key) {
     return arr.filter((item) => item.trait_type === key)[0].value;
@@ -150,11 +151,6 @@ export default function Museum({ tour }) {
 
 // This function gets called at build time
 export async function getStaticPaths() {
-    // Call an external API endpoint to get tourss
-    const res = await fetch(`${process.env.URL}/api/tours`)
-    const tours = await res.json()
-
-    // Get the paths we want to pre-render based on tours
     const paths = tours.map((tour) => ({
         params: { id: tour.id },
     }))
@@ -166,10 +162,7 @@ export async function getStaticPaths() {
 
 // This function gets called at build time
 export async function getStaticProps({ params }) {
-    // Call an external API endpoint to get tour
-    const res = await fetch(`${process.env.URL}/api/tours/${params.id}`)
-    const tour = await res.json()
-
+    const tour = tours.find(tour => tour.id === params.id)
     // By returning { props: { tour } }, the Museum component
     // will receive `tour` as a prop at build time
     return {

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Card from "../../components/Card";
 import Layout from "../../components/layouts/Default";
 import Section from "../../components/Section";
+import tours from '../../public/tours/tours.json'
 import {
   SimpleGrid,
   Container,
@@ -43,10 +44,7 @@ export default function Museum({ tours }) {
   );
 }
 
-// This function gets called at build time
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.URL}/api/tours`)
-  const tours = await res.json()
   return {
     props: {
       tours,
