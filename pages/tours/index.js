@@ -2,11 +2,8 @@ import Head from "next/head";
 import Card from "../../components/Card";
 import Layout from "../../components/layouts/Default";
 import Section from "../../components/Section";
-import tours from '../../public/tours/tours.json'
-import {
-  SimpleGrid,
-  Container,
-} from "@chakra-ui/react";
+import tours from "../../public/tours/tours.json";
+import { SimpleGrid, Container } from "@chakra-ui/react";
 
 export default function Museum({ tours }) {
   return (
@@ -49,5 +46,5 @@ export async function getStaticProps() {
     props: {
       tours,
     },
-  }
+  };
 }
