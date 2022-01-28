@@ -1,9 +1,6 @@
-import Head from "next/head";
-import Image from "next/image";
-import Canvas from "../../../components/Canvas";
-import { useRouter } from "next/router";
-import Layout from "../../../components/layouts/Museum";
-import Section from "../../../components/Section";
+import Canvas from "../../components/Canvas";
+import Layout from "../../components/layouts/Museum";
+import Section from "../../components/Section";
 import {
   Text,
   FormLabel,
@@ -20,7 +17,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { MetaContext } from "../../../context/MetaContext";
+import { MetaContext } from "../../context/MetaContext";
 
 export default function Souvenir() {
   const { address } = useContext(MetaContext);
@@ -55,7 +52,7 @@ export default function Souvenir() {
   };
 
   return (
-    <Layout title="Souvenir">
+    <Layout title="Souvenir" id="">
       {address ? (
         <>
           <Section delay={0.2}>

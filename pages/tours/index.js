@@ -1,20 +1,13 @@
 import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import Card from "../../components/Card";
 import Layout from "../../components/layouts/Default";
 import Section from "../../components/Section";
 import {
   SimpleGrid,
-  GridItem,
   Container,
-  localStorageManager,
-  Button,
-  useDisclosure,
 } from "@chakra-ui/react";
-import tours from "../../public/tours/tours.json";
 
-export default function Museum() {
+export default function Museum({ tours }) {
   return (
     <Layout>
       <div>
@@ -33,6 +26,7 @@ export default function Museum() {
                 {tours.map((tour, index) => {
                   return (
                     <Card
+                      id={tour.id}
                       imgUrl={tour.image}
                       title={tour.name}
                       description={tour.description}
@@ -47,4 +41,15 @@ export default function Museum() {
       </div>
     </Layout>
   );
+}
+
+// This function gets called at build time
+export async function getStaticProps() {
+  const res = await fetch(`${process.env.URL}/api/tours`)
+  const tours = await res.json()
+  return {
+    props: {
+      tours,
+    },
+  }
 }

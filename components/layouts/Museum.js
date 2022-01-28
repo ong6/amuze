@@ -10,7 +10,7 @@ const variants = {
   exit: { opacity: 0, x: -0, y: 20 },
 };
 
-const Layout = ({ children, title, router }) => (
+const Layout = ({ children, title, router, id }) => (
   <motion.div
     initial="hidden"
     animate="enter"
@@ -31,7 +31,7 @@ const Layout = ({ children, title, router }) => (
         </Head>
       )}
       <Section delay={0.1}>
-        <MuseumNavbar path={router} />
+        <MuseumNavbar path={router} title={title} id={id} />
       </Section>
 
       <Box>{children}</Box>
