@@ -1,9 +1,7 @@
 import {
   Box,
   Button,
-  Container,
   Heading,
-  Link,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,11 +10,11 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-  VStack,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Entry from "./museum/Entry";
 export default function Card({
+  id = "",
   title = "Topkapi Palace Museum",
   description = "In the 15th and 16th centuries it served as the main administrative ...",
   label = "Entrance Fee",
@@ -41,7 +39,6 @@ export default function Card({
           <div className="">
             <Text className="text-sm text-ellipsis">
               {description}
-              {/* <Link> Read More</Link> */}
             </Text>
           </div>
         </div>
@@ -68,7 +65,7 @@ export default function Card({
           <ModalHeader>Buy Ticket</ModalHeader>
           <ModalCloseButton />
           <ModalBody borderRadius="xl">
-            <Entry title={title} />
+            <Entry title={title} id={id} />
           </ModalBody>
         </ModalContent>
       </Modal>

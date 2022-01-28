@@ -16,7 +16,7 @@ import { GiTicket } from "react-icons/gi";
 import { MetaContext } from "../../context/MetaContext";
 import { addMuze, handlePayment, swapEthToMuze } from "../../pages/api/wallet";
 
-export default function Entry({ title }) {
+export default function Entry({ title, id }) {
   const { address, network, viewMode } = useContext(MetaContext);
   const router = useRouter();
 
@@ -24,18 +24,18 @@ export default function Entry({ title }) {
 
   const enterMuseum = async () => {
     if (viewMode) {
-      router.push("tours/singapore");
+      router.push(`tours/${id}`);
     } else {
       if (await handlePayment(address)) {
         toast({
           title: "Success!",
-          description: "Redirecting to the museum...",
+          description: "Redirecting to the museum tour...",
           status: "success",
           duration: 2000,
           isClosable: true,
           position: "top-right",
         });
-        setTimeout(() => router.push("tours/singapore"), 2000);
+        setTimeout(() => router.push(`tours/${id}`), 2000);
       } else {
         toast({
           title: "You do not have enough $MUZE!",
