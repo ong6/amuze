@@ -37,9 +37,7 @@ export default function Card({
             {title}
           </Heading>
           <div className="">
-            <Text className="text-sm text-ellipsis">
-              {description}
-            </Text>
+            <Text className="text-sm text-ellipsis">{description}</Text>
           </div>
         </div>
       </div>
