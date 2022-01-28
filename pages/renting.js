@@ -26,6 +26,7 @@ import {
   getHashesFromTokenIds,
   getTokenIdsRented,
   getTokenIdsUser,
+  isWhitelisted,
 } from "./api/contract";
 import { round } from "./api/util";
 
@@ -88,11 +89,16 @@ export default function Renting() {
 
   function Rewards() {
     const [rewards, setRewards] = useState("0");
+    const [whitelisted, setWhitelisted] = useState(false);
 
     useEffect(() => {
       getEstimatedRewards(address).then((r) => {
         setRewards(Number(r) / 10 ** 18);
       });
+      async function whiteListStatus() {
+        setWhitelisted(await isWhitelisted(address));
+      }
+      whiteListStatus();
     }, [rewards]);
 
     const receiveRewards = async () => {
@@ -111,7 +117,30 @@ export default function Renting() {
 
     return (
       <Container className="bg-white rounded-xl">
-        <div className="flex flex-col justify-center p-4 space-y-4">
+        <div className="flex flex-col justify-center p-4 space-y-3">
+          <div className="flex flex-col space-y-1">
+            <div className="flex items-center space-x-2 text-gray-600">
+              <div className="font-semibold ">Whitelist Status</div>
+              <Tooltip
+                hasArrow
+                label="Museum Rent collection fees paid to you"
+                placement="top"
+              >
+                <div className="items-center mb-1">
+                  <Icon as={BsQuestionCircle} />
+                </div>
+              </Tooltip>
+            </div>
+            {whitelisted ? (
+              <div className="text-base font-bold text-green-500">
+                You are whitelisted
+              </div>
+            ) : (
+              <div className="text-base font-bold text-red-500">
+                You are not whitelisted
+              </div>
+            )}
+          </div>
           <div className="flex items-center space-x-2 text-gray-600">
             <div className="font-semibold ">Muze Reward Bounty</div>
             <Tooltip
@@ -245,7 +274,7 @@ export default function Renting() {
                 </SimpleGrid>
               </Container>
 
-              <Whitelist />
+              {/* <Whitelist /> */}
 
               {/* <CompleteNFT /> */}
             </div>
