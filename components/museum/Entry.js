@@ -16,14 +16,18 @@ import { MetaContext } from "../../context/MetaContext";
 import { addMuze, handlePayment, swapEthToMuze } from "../../pages/api/wallet";
 
 export default function Entry({ title }) {
-  const { address, network } = useContext(MetaContext);
+  const { address, network, viewMode } = useContext(MetaContext);
   const router = useRouter();
 
   const enterMuseum = async () => {
-    if (await handlePayment(address)) {
+    if (viewMode) {
       router.push("tours/singapore");
     } else {
-      console.log("You didn't pay");
+      if (await handlePayment(address)) {
+        router.push("tours/singapore");
+      } else {
+        console.log("You didn't pay");
+      }
     }
   };
 

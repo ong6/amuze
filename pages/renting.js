@@ -144,12 +144,7 @@ export default function Renting() {
 
   return (
     <>
-      <Layout>
-        <Head>
-          <title>Rent/Listing | Amuze</title>
-          <meta name="description" content="Amuze-Museum at your fingertips" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+      <Layout title={"Rent & Listing"}>
         {address && network ? (
           <Section delay={0.2}>
             <div className="flex flex-col pt-6 space-y-6 pb-60">
