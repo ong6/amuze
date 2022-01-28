@@ -2,9 +2,9 @@ const ethers = require("ethers");
 const Web3 = require("web3");
 import abi from "../../public/abi.json";
 
-const tourAddress = "0x57B6A575aa2574A561C26A1297659803e6328aEa";
-const custodyAddress = "0x673aD415952a04BfF71708196D0972B58f1d1181";
-const muzeAddress = "0x2D453dD1c6795f7Af687ddFD228df83153146483";
+const tourAddress = "0xE9aF23542c76119344113e3c78ed18E4fdBF0A68";
+const custodyAddress = "0x0Ee09710D1ca4E6AE555aEafc3D12A76F0fCD66B";
+const muzeAddress = "0xfc4931C661963A3ABF4f9BE6c5902b3E12f9bBb9";
 const whiteListedHash =
   "0x8429d542926e6695b59ac6fbdcd9b37e8b1aeb757afab06ab60b1bb5878c3b49";
 
