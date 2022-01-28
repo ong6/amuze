@@ -10,6 +10,7 @@ import {
   Select,
   Stack,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useS3Upload } from "next-s3-upload";
 import React, { useContext, useState } from "react";
@@ -19,6 +20,7 @@ import { uploadProposal } from "../../pages/api/ipfs";
 
 export default function MintNFT({ onClose }) {
   const { address } = useContext(MetaContext);
+  const toast = useToast();
 
   const styles = {
     heading: "text-left text-2xl font-semibold text-gray-600",
@@ -69,10 +71,15 @@ export default function MintNFT({ onClose }) {
       onClose();
     }, 1000);
 
-    // mintUserNft(
-    //   "https://ipfs.infura.io/ipfs/QmdhZvbz1nXMSUZUL8BdSW8THWefYZNNp4G4pHJtAWe2wn",
-    //   address
-    // );
+    toast({
+      title: "Your NFT is being minted!",
+      description: "Please give us a few seconds",
+      status: "info",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+    });
+
   };
 
   const [attributes, setAttributes] = useState({

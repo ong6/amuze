@@ -12,6 +12,7 @@ import {
   Link,
   Select,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
@@ -32,6 +33,8 @@ export default function RentNFT({ onClose }) {
     headers: "text-left text-sm text-gray-600 uppercase",
     select: "bg-gray-100",
   };
+
+  const toast = useToast();
 
   const [nft, setNft] = useState(null);
   const [museum, setMuseum] = useState(null);
@@ -73,6 +76,14 @@ export default function RentNFT({ onClose }) {
       setTimeout(() => {
         onClose();
       }, 1000);
+      toast({
+        title: "Your NFT is being rented!",
+        description: "Please give us a few seconds",
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
     } catch (e) {
       setWhitelisted(false);
       console.log(e);
