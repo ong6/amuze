@@ -131,7 +131,18 @@ export default function Entry({ title, id }) {
             size="lg"
             bg={"orange.400"}
             rounded={15}
-            onClick={() => swapEthToMuze(ether)}
+            onClick={() => {
+              swapEthToMuze(ether);
+              toast({
+                title: "Success!",
+                description:
+                  "Give us a few seconds to transfer the tokens to your account",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+                position: "top-right",
+              });
+            }}
           >
             Confirm Order
           </Button>

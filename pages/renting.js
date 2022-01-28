@@ -92,13 +92,13 @@ export default function Renting() {
     const [whitelisted, setWhitelisted] = useState(false);
 
     useEffect(() => {
-      getEstimatedRewards(address).then((r) => {
-        setRewards(Number(r) / 10 ** 18);
-      });
       async function whiteListStatus() {
         setWhitelisted(await isWhitelisted(address));
       }
       whiteListStatus();
+      getEstimatedRewards(address).then((r) => {
+        setRewards(Number(r) / 10 ** 18);
+      });
     }, [rewards]);
 
     const receiveRewards = async () => {
