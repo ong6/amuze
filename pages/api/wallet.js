@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 
-const tourAddress = "0x02d831937BcCFa7D7989E4B753448FA732b0301E";
-const custodyAddress = "0x1E3A5962136dd46B9f6B626f7DD4D5EAf5E60Ca7";
-const muzeAddress = "0xbbbEEc78904EcBF0871a0E75CAA07b8A3Dd2Ab35";
+const tourAddress = "0xF5E46b16c95204200d7021b52127d4789e6b0aD4";
+const custodyAddress = "0xE22DC21266c845E2B0C8cC7B87C81CA99f6F4ed6";
+const muzeAddress = "0x934c0515EF56d7df00FDeAAbA00cdf3E4DCd0Cbd";
 const whiteListedHash =
   "0x8429d542926e6695b59ac6fbdcd9b37e8b1aeb757afab06ab60b1bb5878c3b49";
 
