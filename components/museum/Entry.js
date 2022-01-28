@@ -33,7 +33,7 @@ export default function Entry({ title, id }) {
           status: "success",
           duration: 2000,
           isClosable: true,
-          position: "top-right",
+          position: "top-left",
         });
         setTimeout(() => router.push(`tours/${id}`), 2000);
       } else {
@@ -43,7 +43,7 @@ export default function Entry({ title, id }) {
           status: "error",
           duration: 5000,
           isClosable: true,
-          position: "top-right",
+          position: "top-left",
         });
       }
     }
@@ -140,7 +140,7 @@ export default function Entry({ title, id }) {
                 status: "success",
                 duration: 3000,
                 isClosable: true,
-                position: "top-right",
+                position: "top-left",
               });
             }}
           >

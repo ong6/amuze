@@ -82,7 +82,7 @@ export default function RentNFT({ onClose }) {
         status: "info",
         duration: 5000,
         isClosable: true,
-        position: "top-right",
+        position: "top-left",
       });
     } catch (e) {
       setWhitelisted(false);

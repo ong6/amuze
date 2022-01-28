@@ -77,9 +77,8 @@ export default function MintNFT({ onClose }) {
       status: "info",
       duration: 5000,
       isClosable: true,
-      position: "top-right",
+      position: "top-left",
     });
-
   };
 
   const [attributes, setAttributes] = useState({

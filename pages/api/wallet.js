@@ -29,12 +29,12 @@ export const addMuze = async () => {
     if (wasAdded) {
       console.log("Thanks for adding!");
       toast({
-        title: "Success!",
+        title: "$MUZE added!",
         description: "You have added $MUZE to your account!",
         status: "success",
         duration: 3000,
         isClosable: true,
-        position: "top-right",
+        position: "top-left",
       });
     } else {
       console.log("Your loss!");
