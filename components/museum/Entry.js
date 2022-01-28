@@ -155,14 +155,14 @@ export default function Entry({ title }) {
               rounded={15}
               onClick={enterMuseum}
             >
-              Enter Museum
+              Enter Museum Tour
             </Button>
           </div>
         </div>
       ) : (
         <div className="[height:50vh] flex text-4xl text-black items-center justify-center">
           {network
-            ? "Please connect your wallet before entering the museum"
+            ? "Please connect your wallet before entering the museum tour"
             : "Please connect to the Rinkeby test network!"}
         </div>
       )}
