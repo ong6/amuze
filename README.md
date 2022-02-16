@@ -1,6 +1,6 @@
 # AMUZE
 
-Built for Fintech Hackerthon 2022!
+Won 1st Runner up for Fintech Hackerthon 2022!
 
 ## TECH USED
 Frontend:
